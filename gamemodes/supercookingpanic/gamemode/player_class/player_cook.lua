@@ -34,9 +34,9 @@ function PLAYER:Spawn()
 
 	local color = team.GetColor(self.Player:Team())
 
-	self.Player:SetPlayerColor(color)
+	self.Player:SetPlayerColor(color:ToVector())
 
-	self.Player:SetWeaponColor(color)
+	self.Player:SetWeaponColor(color:ToVector())
 
 end
 
