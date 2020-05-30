@@ -32,7 +32,7 @@ function PLAYER:Spawn()
 
 	BaseClass.Spawn(self)
 
-	local color = team.GetColor(self.player:Team())
+	local color = team.GetColor(self.Player:Team())
 
 	self.Player:SetPlayerColor(color)
 
