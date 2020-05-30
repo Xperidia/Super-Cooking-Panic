@@ -38,3 +38,31 @@ function GM:PlayerSpawn(ply, transiton)
 	ply:SetupHands()
 
 end
+
+--[[---------------------------------------------------------
+	Name: gamemode:DoPlayerDeath( )
+	Desc: Carries out actions when the player dies
+-----------------------------------------------------------]]
+function GM:DoPlayerDeath(ply, attacker, dmginfo)
+
+	ply:CreateRagdoll() --TODO: make serverside ragdoll to use as ingredient
+
+	ply:AddDeaths(1)
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:CanPlayerSuicide( ply )
+	Desc: Player typed KILL in the console. Can they kill themselves?
+-----------------------------------------------------------]]
+function GM:CanPlayerSuicide(ply)
+	return false
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:GetFallDamage()
+	Desc: return amount of damage to do due to fall
+-----------------------------------------------------------]]
+function GM:GetFallDamage(ply, flFallSpeed)
+	return 0
+end
