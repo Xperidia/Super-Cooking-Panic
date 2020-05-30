@@ -1,0 +1,7 @@
+"cookingpanic"
+{
+	"base"		"base"
+	"title"		"Super Cooking Panic"
+	"maps"		"^scookp_"
+	"menusystem"	"1"
+}
