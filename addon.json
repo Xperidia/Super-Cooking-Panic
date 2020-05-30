@@ -1,0 +1,26 @@
+{
+	"title"		:	"Super Cooking Panic",
+	"type"		:	"gamemode",
+	"tags"		:	[ "fun", "cartoon" ],
+	"ignore"	:
+	[
+		"*.svn*",
+		"*.git*",
+		"*.psd",
+		"*.psb",
+		"*.xcf",
+		"*.vcproj",
+		"*.md",
+		"*.bat",
+		"*.cmd",
+		"*.sh",
+		"*.py*",
+		"*.vmf",
+		"*.gma",
+		"desktop.ini",
+		"Thumbs.db",
+		"CODEOWNERS",
+		"LICENSE",
+		"glualint.json"
+	]
+}
