@@ -21,12 +21,8 @@ local team_list = {
 		color = Color(0, 0, 255),
 	},
 	{
-		name = "Blue Team",
+		name = "Orange Team",
 		color = Color(255, 150, 0),
-	},
-	{
-		name = "Sexy Team",
-		color = Color(255, 150, 150),
 	},
 }
 
@@ -37,7 +33,5 @@ function GM:CreateTeams()
 		team.SetSpawnPoint(k, "info_player_start")
 		team.SetClass(k, {"player_cook"})
 	end
-
-	--team.SetSpawnPoint(TEAM_SPECTATOR, "worldspawn")
 
 end
