@@ -23,7 +23,7 @@ function PLAYER:Loadout()
 
 	self.Player:RemoveAllAmmo()
 
-	--self.Player:Give("weapon_physgun")
+	self.Player:Give("weapon_fists")
 
 end
 
