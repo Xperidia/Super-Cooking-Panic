@@ -1,4 +1,4 @@
-"cookingpanic"
+"supercookingpanic"
 {
 	"base"		"base"
 	"title"		"Super Cooking Panic"
