@@ -27,8 +27,6 @@ function GM:PlayerSpawn(ply, transiton)
 	local classes = team.GetClass(ply:Team())
 	player_manager.SetPlayerClass(ply, classes[math.random(1, #classes)])
 
-	ply:SetupHands()
-
 	player_manager.OnPlayerSpawn(ply, transiton)
 	player_manager.RunClass(ply, "Spawn")
 
@@ -36,5 +34,7 @@ function GM:PlayerSpawn(ply, transiton)
 
 	-- Set player model
 	hook.Call("PlayerSetModel", GAMEMODE, ply)
+
+	ply:SetupHands()
 
 end
