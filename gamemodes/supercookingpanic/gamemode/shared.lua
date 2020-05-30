@@ -32,12 +32,6 @@ local team_list = {
 
 function GM:CreateTeams()
 
-	-- Don't do this if not teambased. But if it is teambased we
-	-- create a few teams here as an example. If you're making a teambased
-	-- gamemode you should override this function in your gamemode
-
-	if not GAMEMODE.TeamBased then return end
-
 	for k, v in pairs(team_list) do
 		team.SetUp(k, v.name, v.color)
 		team.SetSpawnPoint(k, "info_player_start")
