@@ -9,3 +9,10 @@ AddCSLuaFile("cl_hud.lua")
 
 include("shared.lua")
 include("player.lua")
+
+
+function GM:Initialize()
+
+	self:SharedInitialize()
+
+end

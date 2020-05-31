@@ -36,3 +36,9 @@ function GM:CreateTeams()
 	end
 
 end
+
+function GM:SharedInitialize()
+
+	self.BaseClass.Initialize(self)
+
+end

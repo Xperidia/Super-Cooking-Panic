@@ -5,3 +5,9 @@
 
 include("shared.lua")
 include("cl_hud.lua")
+
+function GM:Initialize()
+
+	self:SharedInitialize()
+
+end
