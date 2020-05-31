@@ -31,21 +31,6 @@ function GM:LogToFile(str)
 	file.Append("supercookingpanic/log.txt", SysTime() .. str .. "\n")
 end
 
-
-function GM:GetHost()
-	if GAMEMODE.Vars.Host and IsValid(GAMEMODE.Vars.Host) then
-		return GAMEMODE.Vars.Host
-	end
-	for _, v in pairs(player.GetAll()) do
-		local host = v:GetNWBool("IsListenServerHost", false)
-		if host then
-			GAMEMODE.Vars.Host = v
-			return v
-		end
-	end
-	return nil
-end
-
 function GM:FormatTime(t)
 	t = string.FormattedTime(t)
 	if t.h >= 999 then
