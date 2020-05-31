@@ -19,11 +19,11 @@ GM.PlayerMeta = GM.PlayerMeta or FindMetaTable("Player")
 GM.team_list = {
 	{
 		name = "Blue Team",
-		color = Color(0, 0, 255),
+		color = Color(52, 152, 219),
 	},
 	{
 		name = "Orange Team",
-		color = Color(255, 150, 0),
+		color = Color(230, 126, 34),
 	},
 }
 
