@@ -16,7 +16,7 @@ GM.TeamBased 	= true
 GM.BaseClass = baseclass.Get("gamemode_base")
 GM.PlayerMeta = GM.PlayerMeta or FindMetaTable("Player")
 
-local team_list = {
+GM.team_list = {
 	{
 		name = "Blue Team",
 		color = Color(0, 0, 255),
@@ -29,7 +29,7 @@ local team_list = {
 
 function GM:CreateTeams()
 
-	for k, v in pairs(team_list) do
+	for k, v in pairs(self.team_list) do
 		team.SetUp(k, v.name, v.color)
 		team.SetSpawnPoint(k, "info_player_start")
 		team.SetClass(k, {"player_cook"})
