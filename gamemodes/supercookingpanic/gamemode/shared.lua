@@ -14,6 +14,7 @@ GM.VersionDate 	= 200530
 GM.TeamBased 	= true
 
 GM.BaseClass = baseclass.Get("gamemode_base")
+GM.PlayerMeta = GM.PlayerMeta or FindMetaTable("Player")
 
 local team_list = {
 	{
