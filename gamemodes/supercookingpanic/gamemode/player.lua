@@ -5,6 +5,24 @@
 
 
 --[[---------------------------------------------------------
+	Called once on the player's first spawn
+-----------------------------------------------------------]]
+function GM:PlayerInitialSpawn(ply, transiton)
+
+	if not ply:IsBot() then
+		ply:SetTeam(TEAM_UNASSIGNED)
+		ply:ConCommand("gm_showteam")
+	else
+		ply:SetTeam(math.random(1, #self.team_list))
+	end
+
+	if not game.IsDedicated() and ply:IsListenServerHost() then
+		ply:SetNWBool("IsListenServerHost", true)
+	end
+
+end
+
+--[[---------------------------------------------------------
 	Name: gamemode:PlayerSpawn()
 	Desc: Called when a player spawns
 -----------------------------------------------------------]]
