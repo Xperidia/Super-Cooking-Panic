@@ -52,6 +52,14 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 end
 
 --[[---------------------------------------------------------
+	Name: gamemode:PlayerDeathSound()
+	Desc: Return true to not play the default sounds
+-----------------------------------------------------------]]
+function GM:PlayerDeathSound()
+	return true
+end
+
+--[[---------------------------------------------------------
 	Name: gamemode:CanPlayerSuicide( ply )
 	Desc: Player typed KILL in the console. Can they kill themselves?
 -----------------------------------------------------------]]
