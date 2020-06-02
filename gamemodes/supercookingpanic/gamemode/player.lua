@@ -92,3 +92,18 @@ end
 function GM:GetFallDamage(ply, flFallSpeed)
 	return 0
 end
+
+--[[---------------------------------------------------------
+	Name: gamemode:PlayerShouldTakeDamage
+	Return true if this player should take damage from this attacker
+-----------------------------------------------------------]]
+function GM:PlayerShouldTakeDamage(ply, attacker)
+	return true --TODO
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:PlayerHurt( )
+	Desc: Called when a player is hurt.
+-----------------------------------------------------------]]
+function GM:PlayerHurt(player, attacker, healthleft, healthtaken)
+end
