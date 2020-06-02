@@ -15,6 +15,7 @@ GM.TeamBased 	= true
 
 GM.BaseClass = baseclass.Get("gamemode_base")
 GM.PlayerMeta = GM.PlayerMeta or FindMetaTable("Player")
+GM.EntityMeta = GM.EntityMeta or FindMetaTable("Entity")
 
 GM.team_list = {
 	{
