@@ -10,6 +10,7 @@ AddCSLuaFile("cl_player.lua")
 
 include("shared.lua")
 include("player.lua")
+include("rounds.lua")
 
 
 --[[---------------------------------------------------------
@@ -34,6 +35,9 @@ end
 	Desc: Called every frame
 -----------------------------------------------------------]]
 function GM:Think()
+
+	self:RoundThink()
+
 end
 
 --[[---------------------------------------------------------
