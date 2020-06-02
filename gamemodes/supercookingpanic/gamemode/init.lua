@@ -6,6 +6,7 @@
 AddCSLuaFile("shared.lua")
 AddCSLuaFile("sh_utils.lua")
 AddCSLuaFile("cl_hud.lua")
+AddCSLuaFile("cl_player.lua")
 
 include("shared.lua")
 include("player.lua")

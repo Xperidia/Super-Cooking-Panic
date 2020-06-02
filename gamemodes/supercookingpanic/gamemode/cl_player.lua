@@ -3,12 +3,12 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
-include("shared.lua")
-include("cl_hud.lua")
-include("cl_player.lua")
+if not GM.PlayerMeta.IsListenServerHost then
 
-function GM:Initialize()
+	function GM.PlayerMeta:IsListenServerHost()
 
-	self:SharedInitialize()
+		return self:GetNWBool("IsListenServerHost", false)
+
+	end
 
 end
