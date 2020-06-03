@@ -45,10 +45,8 @@ function GM:HUDDrawTargetID()
 	y = y + 30
 
 	-- The fonts internal drop shadow looks lousy with AA on
-	draw.SimpleText(text, font, x + 1, y + 1, Color(0, 0, 0, 120))
-	draw.SimpleText(text, font, x + 2, y + 2, Color(0, 0, 0, 50))
+	draw.SimpleText(text, font, x + w * .02, y + h * .02, Color(0, 0, 0, 120))
+	draw.SimpleText(text, font, x + w * .04, y + h * .04, Color(0, 0, 0, 50))
 	draw.SimpleText(text, font, x, y, self:GetTeamColor(trace.Entity))
-
-	y = y + h + 5
 
 end
