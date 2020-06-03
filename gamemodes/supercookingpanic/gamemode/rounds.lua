@@ -8,21 +8,23 @@ util.AddNetworkString("UpdateRoundStatus")
 local round_status = 0 -- Active = 1
 
 --[[---------------------------------------------------------
-	Name: CheckToStartRound()
+	Name: gamemode.CheckToStartRound()
 	Desc: Checks necessary conditions to start a round
 -----------------------------------------------------------]]
-function CheckToStartRound()
+function GM:CheckToStartRound()
 	-- TODO:	Checks on the number of players
 	-- 			Are the teams balanced?
+
+	-- self:StartRound()
 end
 
 --[[---------------------------------------------------------
-	Name: StartRound()
+	Name: gamemode.StartRound()
 	Desc: Starts a game round
 -----------------------------------------------------------]]
-function StartRound()
+function GM:StartRound()
 	round_status = 1
-	UpdateClientRoundStatus()
+	self:UpdateClientRoundStatus()
 
 	-- TODO:	Set the timer
 	--			Spawn the players
@@ -30,41 +32,41 @@ function StartRound()
 end
 
 --[[---------------------------------------------------------
-	Name: CheckToEndRound()
+	Name: gamemode.CheckToEndRound()
 	Desc: Checks necessary conditions to end a round
 -----------------------------------------------------------]]
-function CheckToEndRound()
+function GM:CheckToEndRound()
 	-- TODO:	Checks if a team got the goal score
 	--			Timer out?
 	-- 			Are all the players still on the game?
 
-	-- EndRound()
+	-- self:EndRound()
 end
 
 --[[---------------------------------------------------------
-	Name: EndRound()
+	Name: gamemode.EndRound()
 	Desc: Ends a game round
 -----------------------------------------------------------]]
-function EndRound()
+function GM:EndRound()
 	round_status = 0
-	UpdateClientRoundStatus()
+	self:UpdateClientRoundStatus()
 
 	-- TODO:	Update the scoreboard
 end
 
 --[[---------------------------------------------------------
-	Name: GetRoundStatus()
+	Name: gamemode:GetRoundStatus()
 	Desc: Called to know the current game round status
 -----------------------------------------------------------]]
-function GetRoundStatus()
+function GM:GetRoundStatus()
 	return round_status
 end
 
 --[[---------------------------------------------------------
-	Name: UpdateClientRoundStatus()
+	Name: gamemode:UpdateClientRoundStatus()
 	Desc: Updates the client game status via a network message
 -----------------------------------------------------------]]
-function UpdateClientRoundStatus()
+function GM:UpdateClientRoundStatus()
 	net.Start("UpdateRoundStatus")
 	net.WriteBool(round_status)
 	net.Broadcast()
@@ -76,12 +78,12 @@ end
 -----------------------------------------------------------]]
 function GM:RoundThink()
 	-- If no round is live, constantly try to start one
-	if !round_status then
-		CheckToStartRound()
+	if not round_status then
+		self:CheckToStartRound()
 	end
 
 	-- If a round is live, constantly try to end it
 	if round_status then
-		CheckToEndRound()
+		self:CheckToEndRound()
 	end
 end

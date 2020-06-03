@@ -6,18 +6,18 @@
 local round_status = 0 -- Active = 1
 
 --[[---------------------------------------------------------
-	Name: GetRoundStatus()
+	Name: gamemode.GetRoundStatus()
 	Desc: Called to know the current game round status
 -----------------------------------------------------------]]
-function GetRoundStatus()
+function GM:GetRoundStatus()
 	return round_status
 end
 
 --[[---------------------------------------------------------
-	Name: UpdateRoundStatus()
+	Name: gamemode.UpdateRoundStatus()
 	Desc: Receives the updated game status value from the server
 -----------------------------------------------------------]]
-function UpdateRoundStatus(len)
+function GM:UpdateRoundStatus(len)
 	round_status = net.ReadBool()
 end
 net.Receive("UpdateRoundStatus", UpdateRoundStatus)
