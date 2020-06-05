@@ -32,7 +32,7 @@ end
 function GM:AreTeamsPopulated()
 	local all_teams = team.GetAllTeams()
 
-	for i, v in pairs(all_teams) do
+	for i, _ in pairs(all_teams) do
 		if i > 0 and i < 1001 then
 			local players_on_team = team.GetPlayers(i)
 
