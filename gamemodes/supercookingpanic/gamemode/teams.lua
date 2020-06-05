@@ -30,17 +30,23 @@ end
 			to start a round
 -----------------------------------------------------------]]
 function GM:AreTeamsPopulated()
+
 	local all_teams = team.GetAllTeams()
 
 	for i, _ in pairs(all_teams) do
+
 		if i > 0 and i < 1001 then
+
 			local players_on_team = team.GetPlayers(i)
 
 			if #players_on_team < min_number_of_players then
 				return false
 			end
+
 		end
+
 	end
 
 	return true
+
 end
