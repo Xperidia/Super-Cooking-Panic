@@ -12,6 +12,7 @@ AddCSLuaFile("cl_targetid.lua")
 
 include("shared.lua")
 include("player.lua")
+include("teams.lua")
 include("rounds.lua")
 
 

@@ -5,17 +5,21 @@
 
 util.AddNetworkString("UpdateRoundStatus")
 
-local round_status = 0 -- Active = 1
+local round_status = false -- Active = true
 
 --[[---------------------------------------------------------
 	Name: gamemode.CheckToStartRound()
 	Desc: Checks necessary conditions to start a round
 -----------------------------------------------------------]]
 function GM:CheckToStartRound()
-	-- TODO:	Checks on the number of players
-	-- 			Are the teams balanced?
+	-- TODO:	Are the teams balanced?
 
-	-- self:StartRound()
+	-- Checks if there are enough of players on each team
+	if player.GetCount() < 2 or not self:AreTeamsPopulated() then
+		return
+	end
+
+	self:StartRound()
 end
 
 --[[---------------------------------------------------------

@@ -3,7 +3,7 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
-local round_status = 0 -- Active = 1
+local round_status = false -- Active = true
 
 --[[---------------------------------------------------------
 	Name: gamemode.GetRoundStatus()
