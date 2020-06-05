@@ -35,6 +35,7 @@ function GM:AreTeamsPopulated()
 
 	for i, _ in pairs(all_teams) do
 
+		-- This is the range of all the custom teams
 		if i > 0 and i < 1001 then
 
 			local players_on_team = team.GetPlayers(i)
