@@ -36,7 +36,7 @@ function GM:AreTeamsPopulated()
 		if i > 0 and i < 1001 then
 			local players_on_team = team.GetPlayers(i)
 
-			if table.getn(players_on_team) < min_number_of_players then
+			if #players_on_team < min_number_of_players then
 				return false
 			end
 		end
