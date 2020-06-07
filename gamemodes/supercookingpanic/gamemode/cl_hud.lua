@@ -45,6 +45,8 @@ end
 function GM:HUDPaint()
 
 	-- Draw all of the default stuff
+	draw.SimpleText("Round Status : " .. tostring(self:GetRoundStatus()),
+		"DermaDefault", 50, 50)
 	self.BaseClass.HUDPaint(self)
 
 end

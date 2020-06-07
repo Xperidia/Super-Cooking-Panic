@@ -20,4 +20,4 @@ end
 function GM:UpdateRoundStatus(len)
 	round_status = net.ReadBool()
 end
-net.Receive("UpdateRoundStatus", UpdateRoundStatus)
+net.Receive("UpdateRoundStatus", GM.UpdateRoundStatus)

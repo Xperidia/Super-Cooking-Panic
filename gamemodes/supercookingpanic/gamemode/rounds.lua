@@ -27,7 +27,7 @@ end
 	Desc: Starts a game round
 -----------------------------------------------------------]]
 function GM:StartRound()
-	round_status = 1
+	round_status = true
 	self:UpdateClientRoundStatus()
 
 	-- TODO:	Set the timer
@@ -52,7 +52,7 @@ end
 	Desc: Ends a game round
 -----------------------------------------------------------]]
 function GM:EndRound()
-	round_status = 0
+	round_status = false
 	self:UpdateClientRoundStatus()
 
 	-- TODO:	Update the scoreboard
