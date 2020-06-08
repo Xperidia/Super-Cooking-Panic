@@ -3,11 +3,12 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
--- Minimum number of players required of each team
-local min_number_of_players = 1
+-- Constants
+local min_number_of_players = 1 -- Required on each team
+--
 
 --[[---------------------------------------------------------
-	Name: gamemode.SetMinNumberOfPlayersPerTeam()
+	Name: gamemode.SetMinNumberOfPlayersPerTeam( number )
 	Desc: Sets the minimum value of players on a team to start a round
 -----------------------------------------------------------]]
 function GM:SetMinNumberOfPlayersPerTeam(val)
