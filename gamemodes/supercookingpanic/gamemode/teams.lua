@@ -9,7 +9,7 @@ local score_to_win = 10
 --
 
 --[[---------------------------------------------------------
-	Name: gamemode.SetMinNumberOfPlayersPerTeam()
+	Name: gamemode.SetMinNumberOfPlayersPerTeam( number )
 	Desc: Sets the minimum value of players on a team to start a round
 -----------------------------------------------------------]]
 function GM:SetMinNumberOfPlayersPerTeam(val)

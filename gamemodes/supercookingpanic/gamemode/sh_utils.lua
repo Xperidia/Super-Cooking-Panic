@@ -32,6 +32,9 @@ function GM:LogToFile(str)
 end
 
 function GM:FormatTime(t)
+	if t < 0 then
+		return "00:00"
+	end
 	t = string.FormattedTime(t)
 	if t.h >= 999 then
 		return "∞"

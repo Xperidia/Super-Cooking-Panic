@@ -45,6 +45,13 @@ end
 function GM:HUDPaint()
 
 	-- Draw all of the default stuff
+
+	-- Development / Debug values
+	draw.SimpleText("Round Status : " .. tostring(self:GetRoundStatus()),
+		"DermaDefault", 50, 50)
+	draw.SimpleText("Round Timer : " .. self:FormatTime(self:GetRoundTimer() - CurTime()),
+		"DermaDefault", 50, 60)
+
 	self.BaseClass.HUDPaint(self)
 
 end

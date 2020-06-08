@@ -4,8 +4,14 @@
 -----------------------------------------------------------]]
 
 util.AddNetworkString("UpdateRoundStatus")
+util.AddNetworkString("UpdateRoundTimer")
+
+-- Constants
+local round_time_length = 10 -- Seconds
+--
 
 local round_status = false -- Active = true
+local round_timer = 0 -- Endtime float value (since the server uptime)
 
 --[[---------------------------------------------------------
 	Name: gamemode.CheckToStartRound()
@@ -27,7 +33,10 @@ end
 	Desc: Starts a game round
 -----------------------------------------------------------]]
 function GM:StartRound()
-	round_status = 1
+	self:StartRoundTimer()
+	self:UpdateClientRoundTimer()
+
+	round_status = true
 	self:UpdateClientRoundStatus()
 
 	-- TODO:	Set the timer
@@ -41,10 +50,13 @@ end
 -----------------------------------------------------------]]
 function GM:CheckToEndRound()
 	-- TODO:	Checks if a team got the goal score
-	--			Timer out?
 	-- 			Are all the players still on the game?
 
-	-- self:EndRound()
+	if not self:IsRoundTimerOver() then
+		return
+	end
+
+	self:EndRound()
 end
 
 --[[---------------------------------------------------------
@@ -52,7 +64,7 @@ end
 	Desc: Ends a game round
 -----------------------------------------------------------]]
 function GM:EndRound()
-	round_status = 0
+	round_status = false
 	self:UpdateClientRoundStatus()
 
 	-- TODO:	Update the scoreboard
@@ -68,12 +80,68 @@ end
 
 --[[---------------------------------------------------------
 	Name: gamemode:UpdateClientRoundStatus()
-	Desc: Updates the client game status via a network message
+	Desc: Updates the client game status value
 -----------------------------------------------------------]]
 function GM:UpdateClientRoundStatus()
 	net.Start("UpdateRoundStatus")
 	net.WriteBool(round_status)
 	net.Broadcast()
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:StartRoundTimer()
+	Desc: Creates a new round timer / Stores the value of its endtime
+-----------------------------------------------------------]]
+function GM:StartRoundTimer()
+	round_timer = CurTime() + round_time_length
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:GetRoundTimer()
+	Desc: Called to know the endtime value of the round timer
+-----------------------------------------------------------]]
+function GM:GetRoundTimer()
+	return round_timer
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:UpdateClientRoundTimer()
+	Desc: Updates the client endtime value of the round timer
+-----------------------------------------------------------]]
+function GM:UpdateClientRoundTimer()
+	net.Start("UpdateRoundTimer")
+	net.WriteFloat(round_timer)
+	net.Broadcast()
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:IsRoundTimerOver()
+	Desc: Checks if the round time is over
+-----------------------------------------------------------]]
+function GM:IsRoundTimerOver()
+	if self:GetRoundTimer() < CurTime() then
+		return true
+	end
+
+	return false
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:SetRoundTimeLength( number )
+	Desc: Sets the rounds time length in seconds
+-----------------------------------------------------------]]
+function GM:SetRoundTimeLength(val)
+	if val > 0 then
+		round_time_length = val
+	end
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:GetRoundTimeLength()
+	Desc: Called to know the rounds time length in seconds
+-----------------------------------------------------------]]
+function GM:GetRoundTimeLength()
+	return round_time_length
 end
 
 --[[---------------------------------------------------------
