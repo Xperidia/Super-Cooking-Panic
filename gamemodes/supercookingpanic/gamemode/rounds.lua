@@ -3,7 +3,7 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
-util.AddNetworkString("RoundUpdate")
+util.AddNetworkString("scookp_roundupdate")
 
 -- Constants
 local round_time_length = 10 -- Seconds
@@ -128,7 +128,7 @@ end
 	Desc: Updates multiple client values about the round
 -----------------------------------------------------------]]
 function GM:UpdateClientRoundValues()
-	net.Start("RoundUpdate")
+	net.Start("scookp_roundupdate")
 	net.WriteBool(round_status)
 	net.WriteFloat(round_timer)
 	net.Broadcast()

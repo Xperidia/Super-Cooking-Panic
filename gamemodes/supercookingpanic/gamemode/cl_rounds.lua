@@ -30,4 +30,4 @@ function GM.UpdateRoundValues(len)
 	round_status = net.ReadBool()
 	round_timer = net.ReadFloat()
 end
-net.Receive("RoundUpdate", GM.UpdateRoundValues)
+net.Receive("scookp_roundupdate", GM.UpdateRoundValues)
