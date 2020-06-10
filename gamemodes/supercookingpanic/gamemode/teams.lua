@@ -68,7 +68,7 @@ end
 	Name: gamemode.GetScoreToWin()
 	Desc: Checks the win condition score
 -----------------------------------------------------------]]
-function GM:GetScoreToWin(val)
+function GM:GetScoreToWin()
 	return score_to_win
 end
 

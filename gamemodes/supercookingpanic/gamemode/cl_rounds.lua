@@ -15,15 +15,6 @@ function GM:GetRoundStatus()
 end
 
 --[[---------------------------------------------------------
-	Name: gamemode.UpdateRoundStatus( number )
-	Desc: Receives the updated game status value from the server
------------------------------------------------------------]]
-function GM:UpdateRoundStatus(len)
-	round_status = net.ReadBool()
-end
-net.Receive("UpdateRoundStatus", GM.UpdateRoundStatus)
-
---[[---------------------------------------------------------
 	Name: gamemode.GetRoundTimer()
 	Desc: Called to know the endtime value of the round timer
 -----------------------------------------------------------]]
@@ -32,10 +23,11 @@ function GM:GetRoundTimer()
 end
 
 --[[---------------------------------------------------------
-	Name: gamemode.UpdateRoundTimer( number )
-	Desc: Receives the updated endtime value of the round time from the server
+	Name: gamemode.UpdateRoundValues( number )
+	Desc: Receives multiple updated values from the server
 -----------------------------------------------------------]]
-function GM:UpdateRoundTimer(len)
+function GM.UpdateRoundValues(len)
+	round_status = net.ReadBool()
 	round_timer = net.ReadFloat()
 end
-net.Receive("UpdateRoundTimer", GM.UpdateRoundTimer)
+net.Receive("RoundUpdate", GM.UpdateRoundValues)

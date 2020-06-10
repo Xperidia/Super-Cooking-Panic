@@ -3,8 +3,7 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
-util.AddNetworkString("UpdateRoundStatus")
-util.AddNetworkString("UpdateRoundTimer")
+util.AddNetworkString("RoundUpdate")
 
 -- Constants
 local round_time_length = 10 -- Seconds
@@ -34,13 +33,11 @@ end
 -----------------------------------------------------------]]
 function GM:StartRound()
 	self:StartRoundTimer()
-	self:UpdateClientRoundTimer()
-
 	round_status = true
-	self:UpdateClientRoundStatus()
 
-	-- TODO:	Set the timer
-	--			Spawn the players
+	self:UpdateClientRoundValues()
+
+	-- TODO:	Spawn the players
 	--			Set the game parameters
 end
 
@@ -65,7 +62,9 @@ end
 -----------------------------------------------------------]]
 function GM:EndRound()
 	round_status = false
-	self:UpdateClientRoundStatus()
+	round_timer = 0
+
+	self:UpdateClientRoundValues()
 
 	-- TODO:	Update the scoreboard
 end
@@ -76,16 +75,6 @@ end
 -----------------------------------------------------------]]
 function GM:GetRoundStatus()
 	return round_status
-end
-
---[[---------------------------------------------------------
-	Name: gamemode:UpdateClientRoundStatus()
-	Desc: Updates the client game status value
------------------------------------------------------------]]
-function GM:UpdateClientRoundStatus()
-	net.Start("UpdateRoundStatus")
-	net.WriteBool(round_status)
-	net.Broadcast()
 end
 
 --[[---------------------------------------------------------
@@ -102,16 +91,6 @@ end
 -----------------------------------------------------------]]
 function GM:GetRoundTimer()
 	return round_timer
-end
-
---[[---------------------------------------------------------
-	Name: gamemode:UpdateClientRoundTimer()
-	Desc: Updates the client endtime value of the round timer
------------------------------------------------------------]]
-function GM:UpdateClientRoundTimer()
-	net.Start("UpdateRoundTimer")
-	net.WriteFloat(round_timer)
-	net.Broadcast()
 end
 
 --[[---------------------------------------------------------
@@ -142,6 +121,17 @@ end
 -----------------------------------------------------------]]
 function GM:GetRoundTimeLength()
 	return round_time_length
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:UpdateClientRoundValues()
+	Desc: Updates multiple client values about the round
+-----------------------------------------------------------]]
+function GM:UpdateClientRoundValues()
+	net.Start("RoundUpdate")
+	net.WriteBool(round_status)
+	net.WriteFloat(round_timer)
+	net.Broadcast()
 end
 
 --[[---------------------------------------------------------
