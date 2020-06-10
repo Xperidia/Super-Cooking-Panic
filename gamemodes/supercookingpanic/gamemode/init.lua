@@ -5,6 +5,7 @@
 
 AddCSLuaFile("shared.lua")
 AddCSLuaFile("sh_utils.lua")
+AddCSLuaFile("sh_teams.lua")
 AddCSLuaFile("cl_hud.lua")
 AddCSLuaFile("cl_player.lua")
 AddCSLuaFile("cl_rounds.lua")
