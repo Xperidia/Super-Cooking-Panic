@@ -9,6 +9,7 @@ include("sh_convars.lua")
 include("player_class/player_cook.lua")
 
 GM.Name 		= "Super Cooking Panic"
+GM.Prefix		= "scookp"
 GM.Author 		= "Xperidia"
 GM.Website 		= "github.com/Xperidia/Super-Cooking-Panic"
 GM.Version 		= "0.1.0"
