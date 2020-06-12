@@ -8,13 +8,14 @@ include("sh_teams.lua")
 include("sh_convars.lua")
 include("player_class/player_cook.lua")
 
-GM.Name 		= "Super Cooking Panic"
-GM.Prefix		= "scookp"
-GM.Author 		= "Xperidia"
-GM.Website 		= "github.com/Xperidia/Super-Cooking-Panic"
-GM.Version 		= "0.1.0"
-GM.VersionDate 	= 200530
-GM.TeamBased 	= true
+GM.Name 			= "Super Cooking Panic"
+GM.Prefix			= "scookp"
+GM.Author 			= "Xperidia"
+GM.Website 			= "github.com/Xperidia/Super-Cooking-Panic"
+GM.Version 			= "0.1.0"
+GM.VersionDate 		= 200612
+GM.TeamBased 		= true
+GM.AllowAutoTeam	= true
 
 GM.BaseClass = baseclass.Get("gamemode_base")
 GM.PlayerMeta = GM.PlayerMeta or FindMetaTable("Player")
