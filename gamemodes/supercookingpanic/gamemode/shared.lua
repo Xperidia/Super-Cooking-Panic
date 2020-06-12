@@ -29,4 +29,6 @@ function GM:SharedInitialize()
 		file.CreateDir(GAMEMODE_NAME)
 	end
 
+	self:CreateConVars()
+
 end
