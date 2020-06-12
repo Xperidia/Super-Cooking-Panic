@@ -5,6 +5,7 @@
 
 include("sh_utils.lua")
 include("sh_teams.lua")
+include("sh_convars.lua")
 include("player_class/player_cook.lua")
 
 GM.Name 		= "Super Cooking Panic"
