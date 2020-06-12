@@ -17,6 +17,8 @@ GM.VersionDate 		= 200612
 GM.TeamBased 		= true
 GM.AllowAutoTeam	= true
 
+GM.IsSuperCookingPanicDerived = true
+
 GM.BaseClass = baseclass.Get("gamemode_base")
 GM.PlayerMeta = GM.PlayerMeta or FindMetaTable("Player")
 GM.EntityMeta = GM.EntityMeta or FindMetaTable("Entity")
