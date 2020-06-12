@@ -5,30 +5,30 @@
 
 -- Function to log important stuff
 function GM:Log(str)
-	Msg("[Super Cooking Panic] " .. (str or "This was a log message, but something went wrong") .. "\n")
-	if dev_mode then
-		self:LogToFile(" [LOG] " .. str)
-	end
+	Msg("[" .. self.Name .. "] " .. (str or "This was a log message, but something went wrong") .. "\n")
+	self:LogFile("\t[LOG]\t" .. str)
 end
 
 -- Function to log errors
 function GM:ErrorLog(str)
-	ErrorNoHalt("[Super Cooking Panic] " .. (str or "This was an error message, but something went wrong") .. "\n")
-	if dev_mode then
-		self:LogToFile(" [ERROR] " .. str)
-	end
+	ErrorNoHalt("[" .. self.Name .. "] " .. (str or "This was an error message, but something went wrong") .. "\n")
+	self:LogFile("\t[ERROR]\t" .. str)
 end
 
 -- Debug log that would be only show in dev mode
 function GM:DebugLog(str)
-	if dev_mode then
-		Msg("[Super Cooking Panic] " .. (str or "This was a debug message, but something went wrong") .. "\n")
-		self:LogToFile("\t[DEBUG]\t" .. str)
+	if not self:ConVarGetBool("dev_mode") then
+		return
 	end
+	Msg("[" .. self.Name .. "] " .. (str or "This was a debug message, but something went wrong") .. "\n")
+	self:LogFile("\t[DEBUG]\t" .. str)
 end
 
-function GM:LogToFile(str)
-	file.Append("supercookingpanic/log.txt", SysTime() .. str .. "\n")
+function GM:LogFile(str)
+	if not self:ConVarGetBool("log_file") then
+		return
+	end
+	file.Append(GAMEMODE_NAME .. "/" .. Either(SERVER, "sv_", "cl_") .. "log.txt", SysTime() .. str .. "\n")
 end
 
 function GM:FormatTime(t)
