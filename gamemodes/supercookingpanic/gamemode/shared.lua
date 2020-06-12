@@ -25,4 +25,8 @@ function GM:SharedInitialize()
 
 	self.BaseClass.Initialize(self)
 
+	if not file.IsDir(GAMEMODE_NAME, "DATA") then
+		file.CreateDir(GAMEMODE_NAME)
+	end
+
 end
