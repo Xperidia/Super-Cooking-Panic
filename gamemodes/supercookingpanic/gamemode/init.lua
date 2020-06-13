@@ -9,13 +9,14 @@ AddCSLuaFile("sh_teams.lua")
 AddCSLuaFile("cl_hud.lua")
 AddCSLuaFile("cl_player.lua")
 AddCSLuaFile("cl_rounds.lua")
+AddCSLuaFile("cl_render.lua")
 AddCSLuaFile("cl_targetid.lua")
 
 include("shared.lua")
 include("player.lua")
 include("teams.lua")
 include("rounds.lua")
-
+include("entities.lua")
 
 --[[---------------------------------------------------------
 	Name: gamemode:Initialize()
