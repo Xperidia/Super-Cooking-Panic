@@ -7,26 +7,31 @@ AddCSLuaFile()
 
 ENT.Type = "anim"
 ENT.Base = "base_anim"
-
 ENT.PrintName = "Cooking Pot"
 
-ENT.Spawnable = true
+local MODEL = Model("models/props_c17/metalPot001a.mdl")
 
 --[[---------------------------------------------------------
 	Name: entity:Initialize()
 	Desc: Called immediately after spawning the entity
 -----------------------------------------------------------]]
 function ENT:Initialize()
-	self:SetModel("models/props_c17/metalPot001a.mdl")
+
+	if not SERVER then
+		return
+	end
+
+	self:SetModel(MODEL)
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
 
 	local phys = self:GetPhysicsObject()
 
-	if phys:IsValid() then
+	if IsValid(phys) then
 		phys:Wake()
 	end
+
 end
 
 --[[---------------------------------------------------------
