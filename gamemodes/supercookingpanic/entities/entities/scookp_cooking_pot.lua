@@ -30,19 +30,11 @@ function ENT:Initialize()
 end
 
 --[[---------------------------------------------------------
-	Name: entity:SetTeamIndex( number team_index )
-	Desc: Sets the entity's team by the value of the team index
+	Name: entity:SetupDataTables()
+	Desc: Declares network variables for the entity
 -----------------------------------------------------------]]
-function ENT:SetTeamIndex(team_index)
-	self:SetNWInt("team_index", team_index)
-end
-
---[[---------------------------------------------------------
-	Name: entity:GetTeamIndex()
-	Desc: Gets the index of the entity's team
------------------------------------------------------------]]
-function ENT:GetTeamIndex()
-	return self:GetNWInt("team_index")
+function ENT:SetupDataTables()
+	self:NetworkVar("Int", 1, "TeamIndex")
 end
 
 --[[---------------------------------------------------------
