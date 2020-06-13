@@ -8,6 +8,7 @@ AddCSLuaFile()
 ENT.Type = "anim"
 ENT.Base = "base_anim"
 ENT.PrintName = "Cooking Pot"
+ENT.Author = "Xperidia"
 
 local MODEL = Model("models/props_c17/metalPot001a.mdl")
 
