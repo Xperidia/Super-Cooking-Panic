@@ -32,6 +32,8 @@ end
 	Desc: Starts a game round
 -----------------------------------------------------------]]
 function GM:StartRound()
+	self:SpawnCookingPots()
+
 	self:StartRoundTimer()
 	round_status = true
 
@@ -61,6 +63,8 @@ end
 	Desc: Ends a game round
 -----------------------------------------------------------]]
 function GM:EndRound()
+	self.RemoveCookingPots()
+
 	round_status = false
 	round_timer = 0
 
