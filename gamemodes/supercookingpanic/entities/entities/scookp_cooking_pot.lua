@@ -26,6 +26,7 @@ function ENT:Initialize()
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
+	self:SetModelScale(4)
 
 	local phys = self:GetPhysicsObject()
 
@@ -33,22 +34,14 @@ function ENT:Initialize()
 		phys:Wake()
 	end
 
+	self:Activate()
+
 end
 
---[[---------------------------------------------------------
-	Name: entity:SetTeamIndex( number team_index )
-	Desc: Sets the entity's team by the value of the team index
------------------------------------------------------------]]
-function ENT:SetTeamIndex(team_index)
-	self:SetNWInt("team_index", team_index)
-end
+function ENT:SetupDataTables()
 
---[[---------------------------------------------------------
-	Name: entity:GetTeamIndex()
-	Desc: Gets the index of the entity's team
------------------------------------------------------------]]
-function ENT:GetTeamIndex()
-	return self:GetNWInt("team_index")
+	self:NetworkVar("Int", 0, "Team")
+
 end
 
 --[[---------------------------------------------------------
@@ -56,7 +49,7 @@ end
 	Desc: Gets the color of the entity's team
 -----------------------------------------------------------]]
 function ENT:GetTeamColor()
-	return team.GetColor(self:GetTeamIndex())
+	return team.GetColor(self:GetTeam())
 end
 
 --[[---------------------------------------------------------
