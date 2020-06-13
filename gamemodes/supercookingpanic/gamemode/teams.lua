@@ -92,3 +92,53 @@ function GM:CheckTeamsScoreToWin()
 	return false
 
 end
+
+--[[---------------------------------------------------------
+	Name: gamemode.MostAloneTeam()
+	Desc: Return the team ID with the least players
+-----------------------------------------------------------]]
+function GM:MostAloneTeam()
+
+	local select
+	local last = 256
+
+	for k, v in pairs(team.GetAllTeams()) do
+
+		if k > 0 and k < 100 and v.Joinable and team.NumPlayers(k) < last then
+
+			select = k
+			last = team.NumPlayers(k)
+
+		end
+
+	end
+
+	return select
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode.AutoTeam(Player)
+	Desc: Try to make a player join the team with the least players
+-----------------------------------------------------------]]
+function GM:AutoTeam(ply)
+
+	local select = self:MostAloneTeam()
+
+	if select then
+
+		self:PlayerRequestTeam(ply, select)
+
+		self:DebugLog(string.format("We choosed %s for %s", name, ply:GetName()))
+
+	else
+
+		self:Log(string.format("Couldn't find a team for %s", ply:GetName()))
+
+	end
+
+end
+
+concommand.Add("autoteam", function(ply)
+	GAMEMODE:AutoTeam(ply)
+end)

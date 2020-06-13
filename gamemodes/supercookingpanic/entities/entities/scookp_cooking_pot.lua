@@ -7,27 +7,40 @@ AddCSLuaFile()
 
 ENT.Type = "anim"
 ENT.Base = "base_anim"
-
 ENT.PrintName = "Cooking Pot"
+ENT.Author = "Xperidia"
 
-ENT.Spawnable = true
+local MODEL = Model("models/props_c17/metalPot001a.mdl")
 
 --[[---------------------------------------------------------
 	Name: entity:Initialize()
 	Desc: Called immediately after spawning the entity
 -----------------------------------------------------------]]
 function ENT:Initialize()
-	self:SetModel("models/props_c17/metalPot001a.mdl")
-	self:PhysicsInit(SOLID_VPHYSICS)
-	self:SetMoveType(MOVETYPE_VPHYSICS)
-	self:SetSolid(SOLID_VPHYSICS)
 
-	local phys = self:GetPhysicsObject()
+	if SERVER then
 
-	if phys:IsValid() then
-		phys:Wake()
+		self:SetModel(MODEL)
+		self:PhysicsInit(SOLID_VPHYSICS)
+		self:SetMoveType(MOVETYPE_VPHYSICS)
+		self:SetSolid(SOLID_VPHYSICS)
+		self:SetModelScale(4)
+
+		local phys = self:GetPhysicsObject()
+
+		if IsValid(phys) then
+			phys:Wake()
+		end
+
+		self:Activate()
+
 	end
-end
+
+	if CLIENT then
+
+		self:SetLOD(0)
+
+	end
 
 --[[---------------------------------------------------------
 	Name: entity:SetupDataTables()
@@ -42,7 +55,7 @@ end
 	Desc: Gets the color of the entity's team
 -----------------------------------------------------------]]
 function ENT:GetTeamColor()
-	return team.GetColor(self:GetTeamIndex())
+	return team.GetColor(self:GetTeam())
 end
 
 --[[---------------------------------------------------------

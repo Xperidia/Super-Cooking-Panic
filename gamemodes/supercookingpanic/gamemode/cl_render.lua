@@ -8,9 +8,17 @@
 	Desc: Renders an halo around every 'cooking pot' entity
 			The color matches the entity's team
 -----------------------------------------------------------]]
-function GM:SetCookingPotHalo()
-	for k, v in pairs(ents.FindByClass("scookp_cooking_pot")) do
-		halo.Add({v}, v:GetTeamColor(), 2, 2, 10)
+function GM:CookingPotHalo()
+	for _, v in pairs(ents.FindByClass("scookp_cooking_pot")) do
+		halo.Add({v}, v:GetTeamColor(), 0, 0, 1)
 	end
 end
-hook.Add("PreDrawHalos", "AddPropHalos", GM.SetCookingPotHalo)
+
+--[[---------------------------------------------------------
+	Name: gamemode:PreDrawHalos()
+	Desc:	Called before rendering the halos.
+			This is the place to call halo.Add.
+-----------------------------------------------------------]]
+function GM:PreDrawHalos()
+	self:CookingPotHalo()
+end
