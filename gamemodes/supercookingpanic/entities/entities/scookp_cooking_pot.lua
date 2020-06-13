@@ -18,23 +18,29 @@ local MODEL = Model("models/props_c17/metalPot001a.mdl")
 -----------------------------------------------------------]]
 function ENT:Initialize()
 
-	if not SERVER then
-		return
+	if SERVER then
+
+		self:SetModel(MODEL)
+		self:PhysicsInit(SOLID_VPHYSICS)
+		self:SetMoveType(MOVETYPE_VPHYSICS)
+		self:SetSolid(SOLID_VPHYSICS)
+		self:SetModelScale(4)
+
+		local phys = self:GetPhysicsObject()
+
+		if IsValid(phys) then
+			phys:Wake()
+		end
+
+		self:Activate()
+
 	end
 
-	self:SetModel(MODEL)
-	self:PhysicsInit(SOLID_VPHYSICS)
-	self:SetMoveType(MOVETYPE_VPHYSICS)
-	self:SetSolid(SOLID_VPHYSICS)
-	self:SetModelScale(4)
+	if CLIENT then
 
-	local phys = self:GetPhysicsObject()
+		self:SetLOD(0)
 
-	if IsValid(phys) then
-		phys:Wake()
 	end
-
-	self:Activate()
 
 end
 
