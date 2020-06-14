@@ -3,6 +3,12 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
+-- Constants
+local ingredient_entities = {
+	["prop_physics"] = true,
+	["prop_ragdoll"] = true,
+}
+
 --[[---------------------------------------------------------
 	Name: gamemode:RemoveCookingPots()
 	Desc: Removes all the spawned 'cooking pot' entities
@@ -36,3 +42,16 @@ function GM:SpawnCookingPot(team)
 	ent:Spawn()
 
 end
+
+--[[---------------------------------------------------------
+	Name: gamemode.TagEntityAsIngredient( entity ent )
+	Desc: Tags selected entities to be an 'ingredient'
+-----------------------------------------------------------]]
+function GM.TagEntityAsIngredient(ent)
+
+	if IsValid(ent) and ingredient_entities[ent:GetClass()] then
+		ent.ingredient = true
+	end
+
+end
+hook.Add("OnEntityCreated", "scookp_hook_TagEntityAsIngredient", GM.TagEntityAsIngredient)

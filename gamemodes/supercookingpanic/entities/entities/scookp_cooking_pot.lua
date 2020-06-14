@@ -24,6 +24,7 @@ function ENT:Initialize()
 		self:PhysicsInit(SOLID_VPHYSICS)
 		self:SetMoveType(MOVETYPE_VPHYSICS)
 		self:SetSolid(SOLID_VPHYSICS)
+		self:SetTrigger(true) -- Generates signal on touch
 		self:SetModelScale(4)
 
 		local phys = self:GetPhysicsObject()
@@ -44,6 +45,10 @@ function ENT:Initialize()
 
 end
 
+--[[---------------------------------------------------------
+	Name: entity:SetupDataTables()
+	Desc: Declares shared entity variables
+-----------------------------------------------------------]]
 function ENT:SetupDataTables()
 
 	self:NetworkVar("Int", 0, "Team")
@@ -55,7 +60,22 @@ end
 	Desc: Gets the color of the entity's team
 -----------------------------------------------------------]]
 function ENT:GetTeamColor()
+
 	return team.GetColor(self:GetTeam())
+
+end
+
+--[[---------------------------------------------------------
+	Name: entity:StartTouch( entity ent )
+	Desc: Detects when an ingredient is brought to the cooking pot
+-----------------------------------------------------------]]
+function ENT:StartTouch(ent)
+
+	if ent.ingredient then
+		-- TODO: Reward score for the linked team (grief protection?)
+		ent:Remove()
+	end
+
 end
 
 --[[---------------------------------------------------------
@@ -63,5 +83,7 @@ end
 	Desc: Draws the entity on the screen
 -----------------------------------------------------------]]
 function ENT:Draw()
+
 	self:DrawModel()
+
 end
