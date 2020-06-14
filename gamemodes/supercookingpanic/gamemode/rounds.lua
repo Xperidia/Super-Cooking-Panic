@@ -64,6 +64,7 @@ end
 -----------------------------------------------------------]]
 function GM:EndRound()
 	self.RemoveCookingPots()
+	self:ResetScores()
 
 	round_status = false
 	round_timer = 0

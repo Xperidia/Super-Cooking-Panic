@@ -73,6 +73,18 @@ function GM:GetScoreToWin()
 end
 
 --[[---------------------------------------------------------
+	Name: gamemode:ResetScores()
+	Desc: Resets teams score back to zero
+-----------------------------------------------------------]]
+function GM:ResetScores()
+
+	for k, _ in pairs(self.team_list) do
+		team.SetScore(k, 0)
+	end
+
+end
+
+--[[---------------------------------------------------------
 	Name: gamemode.CheckTeamsScoreToWin()
 	Desc: Checks if one of the teams has the required score to win
 -----------------------------------------------------------]]
