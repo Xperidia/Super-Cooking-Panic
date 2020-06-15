@@ -98,7 +98,10 @@ end
 	Return true if this player should take damage from this attacker
 -----------------------------------------------------------]]
 function GM:PlayerShouldTakeDamage(ply, attacker)
-	return true --TODO
+	if attacker:IsPlayer() and ply:Team() == attacker:Team() then
+		return false
+	end
+	return true
 end
 
 --[[---------------------------------------------------------
