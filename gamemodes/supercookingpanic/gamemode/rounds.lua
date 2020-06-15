@@ -6,7 +6,7 @@
 util.AddNetworkString("scookp_roundupdate")
 
 -- Constants
-local round_time_length = 10 -- Seconds
+local round_time_length = 120 -- Seconds
 --
 
 local round_status = round_status or false -- Active = true
