@@ -19,13 +19,15 @@ function GM:HUDDrawTargetID()
 	local font = "DermaLarge"
 
 	if trace.Entity:IsPlayer() then
-		text = trace.Entity:Nick()
+		text = string.format("%s (%d points)", trace.Entity:Nick(), trace.Entity:GetPoints())
+	elseif trace.Entity:IsIngredient() then
+		text = string.format("%d points", trace.Entity:GetPoints())
 	else
-		text = trace.Entity:GetPoints()
+		return
 	end
 
 	surface.SetFont(font)
-	local w, h = surface.GetTextSize(text)
+	local w, _ = surface.GetTextSize(text)
 
 	local MouseX, MouseY = gui.MousePos()
 
@@ -43,8 +45,8 @@ function GM:HUDDrawTargetID()
 	y = y + 30
 
 	-- The fonts internal drop shadow looks lousy with AA on
-	draw.SimpleText(text, font, x + w * .02, y + h * .02, Color(0, 0, 0, 120))
-	draw.SimpleText(text, font, x + w * .04, y + h * .04, Color(0, 0, 0, 50))
+	draw.SimpleText(text, font, x + 2, y + 2, Color(0, 0, 0, 120))
+	draw.SimpleText(text, font, x + 4, y + 4, Color(0, 0, 0, 50))
 	draw.SimpleText(text, font, x, y, self:GetTeamColor(trace.Entity))
 
 end
