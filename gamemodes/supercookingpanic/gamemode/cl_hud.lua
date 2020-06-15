@@ -49,10 +49,17 @@ function GM:HUDPaint()
 	-- Development / Debug values
 	if self:ConVarGetBool("dev_mode") then
 
-		draw.SimpleText("Round Status : " .. tostring(self:GetRoundStatus()),
+		draw.SimpleText("Round Status: " .. tostring(self:GetRoundStatus()),
 			"DermaDefault", 50, 50)
-		draw.SimpleText("Round Timer : " .. self:FormatTime(self:GetRoundTimer() - CurTime()),
+		draw.SimpleText("Round Timer: " .. self:FormatTime(self:GetRoundTimer() - CurTime()),
 			"DermaDefault", 50, 60)
+
+		local y = 80
+		for k, v in pairs(self:GetPlayingTeams()) do
+			--v.Score doesn't work
+			draw.SimpleText("Score " .. v.Name .. ": " .. team.GetScore(k), "DermaDefault", 50, y)
+			y = y + 10
+		end
 
 	end
 
