@@ -15,6 +15,13 @@ GM.team_list = {
 	},
 }
 
+function GM:IsValidPlayingTeam(id, tm)
+	return	id ~= TEAM_SPECTATOR
+		and id ~= TEAM_UNASSIGNED
+		and id ~= TEAM_CONNECTING
+		and tm.Joinable
+end
+
 --[[---------------------------------------------------------
 	Name: gamemode:RemoveTeam( number index )
 	Desc: Removes a team at the given index
@@ -48,4 +55,24 @@ function GM:CreateTeams()
 		team.SetSpawnPoint(k, "info_player_start")
 		team.SetClass(k, {"player_cook"})
 	end
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode.GetPlayingTeams()
+	Desc: Return playing teams table
+-----------------------------------------------------------]]
+function GM:GetPlayingTeams()
+
+	local p_teams = {}
+
+	for i, tm in pairs(team.GetAllTeams()) do
+
+		if self:IsValidPlayingTeam(i, tm) then
+			p_teams[i] = tm
+		end
+
+	end
+
+	return p_teams
+
 end

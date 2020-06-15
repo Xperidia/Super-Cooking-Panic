@@ -8,13 +8,6 @@ local min_number_of_players = 1 -- Required on each team
 local score_to_win = 10
 --
 
-local function valid_playing_team(id, tm)
-	return	id ~= TEAM_SPECTATOR
-		and id ~= TEAM_UNASSIGNED
-		and id ~= TEAM_CONNECTING
-		and tm.Joinable
-end
-
 --[[---------------------------------------------------------
 	Name: gamemode.SetMinNumberOfPlayersPerTeam( number )
 	Desc: Sets the minimum value of players on a team to start a round
@@ -44,7 +37,7 @@ function GM:AreTeamsPopulated()
 
 	for i, tm in pairs(all_teams) do
 
-		if valid_playing_team(i, tm) then
+		if self:IsValidPlayingTeam(i, tm) then
 
 			local players_on_team = team.GetPlayers(i)
 
@@ -100,7 +93,7 @@ function GM:CheckTeamsScoreToWin()
 
 	for i, tm in pairs(all_teams) do
 
-		if valid_playing_team(i, tm) and team.GetScore(i) >= score_to_win then
+		if self:IsValidPlayingTeam(i, tm) and team.GetScore(i) >= score_to_win then
 			return true
 		end
 
