@@ -9,8 +9,8 @@ util.AddNetworkString("scookp_roundupdate")
 local round_time_length = 10 -- Seconds
 --
 
-local round_status = false -- Active = true
-local round_timer = 0 -- Endtime float value (since the server uptime)
+local round_status = round_status or false -- Active = true
+local round_timer = round_timer or 0 -- Endtime float value (since the server uptime)
 
 --[[---------------------------------------------------------
 	Name: gamemode.CheckToStartRound()

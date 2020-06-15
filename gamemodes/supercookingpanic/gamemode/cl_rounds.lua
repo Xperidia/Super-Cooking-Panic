@@ -3,8 +3,8 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
-local round_status = false -- Active = true
-local round_timer = 0 -- Endtime value
+local round_status = round_status or false -- Active = true
+local round_timer = round_timer or 0 -- Endtime value
 
 --[[---------------------------------------------------------
 	Name: gamemode.GetRoundStatus()
