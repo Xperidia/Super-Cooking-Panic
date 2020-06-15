@@ -3,11 +3,6 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
--- Constants
-local ingredient_entities = {
-	["prop_physics"] = true,
-	["prop_ragdoll"] = true,
-}
 
 --[[---------------------------------------------------------
 	Name: gamemode:RemoveCookingPots()
@@ -45,12 +40,27 @@ function GM:SpawnCookingPot(tm)
 end
 
 --[[---------------------------------------------------------
-	Name: gamemode.OnEntityCreated( entity ent )
-	Desc: Tags selected entities to be an 'ingredient'
+	Name: Entity:SetIngredient(bool)
+	Desc: Set true, false or nil (auto) for ingredient status.
 -----------------------------------------------------------]]
-function GM:OnEntityCreated(ent)
-	if IsValid(ent) and ingredient_entities[ent:GetClass()] then
-		ent.ingredient = true
-	end
+function GM.EntityMeta:SetIngredient(bool)
+
+	if CLIENT then return end
+
+	self._ingredient = bool
+
+	self:SetNWBool("scookp_IsIngredient", bool)
+
+end
+
+--[[---------------------------------------------------------
+	Name: Entity:SetPoints(number points)
+	Desc: Sets the points the entity is worth.
+-----------------------------------------------------------]]
+function GM.EntityMeta:SetPoints(points)
+
+	self._points = points
+
+	self:SetNWInt("scookp_points", points)
 
 end
