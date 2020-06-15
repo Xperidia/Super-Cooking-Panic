@@ -71,9 +71,9 @@ end
 -----------------------------------------------------------]]
 function ENT:StartTouch(ent)
 
-	if ent.ingredient then
-		team.AddScore(self:GetTeam(), 1) -- TODO: Add a grief protection?
-		ent:Remove()
+	if ent:IsIngredient() then
+		team.AddScore(self:GetTeam(), ent:GetPoints())
+		ent:Remove() --TODO: maybe do some anim
 	end
 
 end
