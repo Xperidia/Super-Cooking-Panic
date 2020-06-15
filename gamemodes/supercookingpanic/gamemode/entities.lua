@@ -45,8 +45,6 @@ end
 -----------------------------------------------------------]]
 function GM.EntityMeta:SetIngredient(bool)
 
-	if CLIENT then return end
-
 	self._ingredient = bool
 
 	self:SetNWBool("scookp_IsIngredient", bool)
