@@ -3,12 +3,6 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
-include("sh_utils.lua")
-include("sh_teams.lua")
-include("sh_convars.lua")
-include("sh_entities.lua")
-include("player_class/player_cook.lua")
-
 GM.Name 			= "Super Cooking Panic"
 GM.Prefix			= "scookp"
 GM.Author 			= "Xperidia"
@@ -23,6 +17,12 @@ GM.IsSuperCookingPanicDerived = true
 GM.BaseClass = baseclass.Get("gamemode_base")
 GM.PlayerMeta = GM.PlayerMeta or FindMetaTable("Player")
 GM.EntityMeta = GM.EntityMeta or FindMetaTable("Entity")
+
+include("sh_utils.lua")
+include("sh_teams.lua")
+include("sh_convars.lua")
+include("sh_entities.lua")
+include("player_class/player_cook.lua")
 
 function GM:SharedInitialize()
 
