@@ -100,7 +100,8 @@ end
 function GM:PlayerShouldTakeDamage(ply, attacker)
 
 	if	not GetConVar("mp_friendlyfire"):GetBool()
-	and	attacker:IsPlayer() and ply:Team() == attacker:Team() then
+	and	attacker:IsPlayer() and ply:Team() == attacker:Team()
+	and ply ~= attacker then
 		return false
 	end
 
