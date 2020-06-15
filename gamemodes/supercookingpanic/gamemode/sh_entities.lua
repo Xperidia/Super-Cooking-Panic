@@ -7,6 +7,8 @@
 local ingredient_class = {
 	["prop_physics"] = true,
 	["prop_ragdoll"] = true,
+	["player"] = true,
+	["npc_citizen"] = true,
 }
 
 local model_list = {
