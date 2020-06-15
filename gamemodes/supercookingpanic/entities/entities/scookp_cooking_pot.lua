@@ -71,7 +71,7 @@ end
 -----------------------------------------------------------]]
 function ENT:StartTouch(ent)
 
-	if ent:IsIngredient() then
+	if ent:IsIngredient() and not ent:IsPlayer() then
 		team.AddScore(self:GetTeam(), ent:GetPoints())
 		ent:Remove() --TODO: maybe do some anim
 	end
