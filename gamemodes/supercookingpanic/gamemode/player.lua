@@ -98,10 +98,14 @@ end
 	Return true if this player should take damage from this attacker
 -----------------------------------------------------------]]
 function GM:PlayerShouldTakeDamage(ply, attacker)
-	if attacker:IsPlayer() and ply:Team() == attacker:Team() then
+
+	if	not GetConVar("mp_friendlyfire"):GetBool()
+	and	attacker:IsPlayer() and ply:Team() == attacker:Team() then
 		return false
 	end
+
 	return true
+
 end
 
 --[[---------------------------------------------------------
