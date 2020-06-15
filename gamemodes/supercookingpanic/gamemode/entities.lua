@@ -30,28 +30,27 @@ function GM:SpawnCookingPots()
 end
 
 --[[---------------------------------------------------------
-	Name: gamemode:SpawnCookingPot( number team )
+	Name: gamemode:SpawnCookingPot( number tm )
 	Desc: Prepares and spawns a 'cooking pot' entity linked to a team
 -----------------------------------------------------------]]
-function GM:SpawnCookingPot(team)
+function GM:SpawnCookingPot(tm)
 
 	local ent = ents.Create("scookp_cooking_pot")
 
-	ent:SetPos(Vector(0, 100 * (team or 0), 0))
-	ent:SetTeam(team or 0)
+	ent:SetPos(Vector(0, 100 * (tm or 0), 0))
+	ent:SetTeam(tm or 0)
+	ent:SetColor(team.GetColor(tm))
 	ent:Spawn()
 
 end
 
 --[[---------------------------------------------------------
-	Name: gamemode.TagEntityAsIngredient( entity ent )
+	Name: gamemode.OnEntityCreated( entity ent )
 	Desc: Tags selected entities to be an 'ingredient'
 -----------------------------------------------------------]]
-function GM.TagEntityAsIngredient(ent)
-
+function GM:OnEntityCreated(ent)
 	if IsValid(ent) and ingredient_entities[ent:GetClass()] then
 		ent.ingredient = true
 	end
 
 end
-hook.Add("OnEntityCreated", "scookp_hook_TagEntityAsIngredient", GM.TagEntityAsIngredient)

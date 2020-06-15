@@ -72,7 +72,7 @@ end
 function ENT:StartTouch(ent)
 
 	if ent.ingredient then
-		team.AddScore(ent:GetTeam(), 1) -- TODO: Add a grief protection?
+		team.AddScore(self:GetTeam(), 1) -- TODO: Add a grief protection?
 		ent:Remove()
 	end
 
