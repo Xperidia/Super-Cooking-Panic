@@ -21,9 +21,7 @@ function GM:HUDDrawTargetID()
 	if trace.Entity:IsPlayer() then
 		text = trace.Entity:Nick()
 	else
-		return
-		--text = trace.Entity:GetClass()
-		--TODO: ingredient points
+		text = trace.Entity:GetPoints()
 	end
 
 	surface.SetFont(font)
