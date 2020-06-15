@@ -12,6 +12,10 @@ PLAYER.DisplayName = "Player Cook Class"
 
 PLAYER.TauntCam = TauntCamera()
 
+PLAYER.WalkSpeed 			= 200
+PLAYER.RunSpeed				= 400
+PLAYER.DropWeaponOnDie		= true
+
 
 function PLAYER:SetupDataTables()
 
