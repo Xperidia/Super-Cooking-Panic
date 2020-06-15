@@ -5,17 +5,43 @@
 
 GM.cvars = GM.cvars or {}
 
-local replicated_server_cvars = {
+local shared_cvars = {
 	dev_mode = {0, FCVAR_REPLICATED + FCVAR_SERVER_CAN_EXECUTE, "Enable dev mode and debug logs"},
-	log_file = {0, FCVAR_REPLICATED + FCVAR_SERVER_CAN_EXECUTE, "Write gamemode logs to file"},
+	log_file = {0, FCVAR_NONE, "Write gamemode logs to file"},
+}
+
+local client_cvars = {
+}
+
+local server_cvars = {
 }
 
 function GM:CreateConVars()
-	for k, v in pairs(replicated_server_cvars) do
+
+	for k, v in pairs(shared_cvars) do
 		if not self.cvars[k] then
-			self.cvars[k] = CreateConVar(self.Prefix .. "_sv_" .. k, unpack(v))
+			self.cvars[k] = CreateConVar(self.Prefix .. "_" .. k, unpack(v))
 		end
 	end
+
+	if CLIENT then
+
+		for k, v in pairs(client_cvars) do
+			if not self.cvars[k] then
+				self.cvars[k] = CreateConVar(self.Prefix .. "_cl_" .. k, unpack(v))
+			end
+		end
+
+	elseif SERVER then
+
+		for k, v in pairs(server_cvars) do
+			if not self.cvars[k] then
+				self.cvars[k] = CreateConVar(self.Prefix .. "_sv_" .. k, unpack(v))
+			end
+		end
+
+	end
+
 end
 
 function GM:ConVarGetBool(cvar_name)
