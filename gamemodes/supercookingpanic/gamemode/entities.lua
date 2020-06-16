@@ -62,3 +62,13 @@ function GM.EntityMeta:SetPoints(points)
 	self:SetNWInt("scookp_points", points)
 
 end
+
+--[[---------------------------------------------------------
+	Name: Entity:AddPoints(number points)
+	Desc: Add points to the entity's worth.
+-----------------------------------------------------------]]
+function GM.EntityMeta:AddPoints(points)
+
+	self:SetPoints(self:GetPoints() + points)
+
+end
