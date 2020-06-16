@@ -72,3 +72,13 @@ function GM.EntityMeta:AddPoints(points)
 	self:SetPoints(self:GetPoints() + points)
 
 end
+
+--[[---------------------------------------------------------
+	Name: Entity:ResetPoints()
+	Desc: Resets entity's points.
+-----------------------------------------------------------]]
+function GM.EntityMeta:ResetPoints()
+
+	self:SetPoints(self:GetBasePoints())
+
+end
