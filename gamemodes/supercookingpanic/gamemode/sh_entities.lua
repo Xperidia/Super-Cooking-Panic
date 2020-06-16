@@ -52,16 +52,24 @@ function GM.EntityMeta:GetPoints()
 
 	if self:IsIngredient() then
 
-		local base_points = math.Round(self:GetModelRadius())
-
 		if CLIENT then
-			return self:GetNWInt("scookp_points", base_points)
+			return self:GetNWInt("scookp_points", self:GetBasePoints())
 		end
 
-		return base_points
+		return self:GetBasePoints()
 
 	end
 
 	return nil
+
+end
+
+--[[---------------------------------------------------------
+	Name: Entity:GetBasePoints()
+	Desc: Returns the base points the entity is worth.
+-----------------------------------------------------------]]
+function GM.EntityMeta:GetBasePoints()
+
+	return math.Round(self:GetModelRadius())
 
 end
