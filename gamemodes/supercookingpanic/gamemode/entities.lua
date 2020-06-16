@@ -57,9 +57,17 @@ end
 -----------------------------------------------------------]]
 function GM.EntityMeta:SetPoints(points)
 
-	self._points = points
+	if self:IsIngredient() then
 
-	self:SetNWInt("scookp_points", points)
+		self._points = points
+
+		self:SetNWInt("scookp_points", points)
+
+		return true
+
+	end
+
+	return nil
 
 end
 
@@ -69,7 +77,7 @@ end
 -----------------------------------------------------------]]
 function GM.EntityMeta:AddPoints(points)
 
-	self:SetPoints(self:GetPoints() + points)
+	return self:SetPoints(self:GetPoints() + points)
 
 end
 
@@ -79,6 +87,6 @@ end
 -----------------------------------------------------------]]
 function GM.EntityMeta:ResetPoints()
 
-	self:SetPoints(self:GetBasePoints())
+	return self:SetPoints(self:GetBasePoints())
 
 end
