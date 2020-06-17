@@ -15,3 +15,17 @@ function GM:Initialize()
 	self:SharedInitialize()
 
 end
+
+--[[---------------------------------------------------------
+	Name: gamemode:Think()
+	Desc: Called every frame
+-----------------------------------------------------------]]
+function GM:Think()
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:Tick()
+	Desc: Like Think except called every tick on both client and server
+-----------------------------------------------------------]]
+function GM:Tick()
+end
