@@ -44,6 +44,10 @@ end
 -----------------------------------------------------------]]
 function GM:HUDPaint()
 
+	if not self._c_loaded then
+		self._c_loaded = true
+	end
+
 	if not GetConVar("cl_drawhud"):GetBool() then
 		return
 	end

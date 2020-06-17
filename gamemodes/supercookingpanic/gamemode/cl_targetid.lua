@@ -3,38 +3,25 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
-local entity_looked_at = nil
-
---[[---------------------------------------------------------
-	Name: gamemode:EntityLookedAt( )
-	Desc: Refers the current entity looked by the player
------------------------------------------------------------]]
-function GM:EntityLookedAt()
-	return entity_looked_at
-end
-
 --[[---------------------------------------------------------
 	Name: gamemode:HUDDrawTargetID( )
 	Desc: Draw the target id (the name of the player you're currently looking at)
 -----------------------------------------------------------]]
 function GM:HUDDrawTargetID()
 
-	local tr = util.GetPlayerTrace(LocalPlayer())
-	local trace = util.TraceLine(tr)
+	local ent = self:EntityLookedAt()
 
-	entity_looked_at = trace.Entity
-
-	if not trace.Hit or not trace.HitNonWorld then
+	if not IsValid(ent) then
 		return
 	end
 
 	local text = "ERROR"
 	local font = "DermaLarge"
 
-	if trace.Entity:IsPlayer() then
-		text = string.format("%s (%d points)", trace.Entity:Nick(), trace.Entity:GetPoints())
-	elseif trace.Entity:IsIngredient() then
-		text = string.format("%d points", trace.Entity:GetPoints())
+	if ent:IsPlayer() then
+		text = string.format("%s (%d points)", ent:Nick(), ent:GetPoints())
+	elseif ent:IsIngredient() then
+		text = string.format("%d points", ent:GetPoints())
 	else
 		return
 	end
@@ -60,6 +47,6 @@ function GM:HUDDrawTargetID()
 	-- The fonts internal drop shadow looks lousy with AA on
 	draw.SimpleText(text, font, x + 2, y + 2, Color(0, 0, 0, 120))
 	draw.SimpleText(text, font, x + 4, y + 4, Color(0, 0, 0, 50))
-	draw.SimpleText(text, font, x, y, self:GetTeamColor(trace.Entity))
+	draw.SimpleText(text, font, x, y, self:GetTeamColor(ent))
 
 end
