@@ -15,11 +15,15 @@ GM.team_list = {
 	},
 }
 
-function GM:IsValidPlayingTeam(id, tm)
+--[[---------------------------------------------------------
+	Name: gamemode:IsValidPlayingTeam( number id )
+	Desc: Checks if the team is playable
+-----------------------------------------------------------]]
+function GM:IsValidPlayingTeam(id)
 	return	id ~= TEAM_SPECTATOR
 		and id ~= TEAM_UNASSIGNED
 		and id ~= TEAM_CONNECTING
-		and tm.Joinable
+		and team.Joinable(id)
 end
 
 --[[---------------------------------------------------------
@@ -67,8 +71,8 @@ function GM:GetPlayingTeams()
 
 	for i, tm in pairs(team.GetAllTeams()) do
 
-		if self:IsValidPlayingTeam(i, tm) then
-			p_teams[i] = tm
+		if self:IsValidPlayingTeam(i) then
+			table.insert(p_teams, team.GetAllTeams()[i])
 		end
 
 	end

@@ -9,6 +9,50 @@ local score_to_win = 10
 --
 
 --[[---------------------------------------------------------
+	Name: gamemode:SetScoreMultiplier( number id )
+	Desc: Sets the score multiplier of the given team id
+-----------------------------------------------------------]]
+function GM:SetScoreMultiplier(id, val)
+
+	if self:IsValidPlayingTeam(id) then
+
+		SetGlobalInt("scookp_team_" .. id .. "_score_multiplier", val)
+
+	end
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:IncrementScoreMultiplier( number id )
+	Desc: Increments the score multiplier of the given team id
+-----------------------------------------------------------]]
+function GM:IncrementScoreMultiplier(id)
+
+	self:SetScoreMultiplier(id, self:GetScoreMultiplier(id) + 1)
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:ResetScoreMultiplier( number id )
+	Desc: Resets the score multiplier of the given team id
+-----------------------------------------------------------]]
+function GM:ResetScoreMultiplier(id)
+
+	self:SetScoreMultiplier(id, 0)
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:GetScoreMultiplier( number id )
+	Desc: Gets the score multiplier of the given team id
+-----------------------------------------------------------]]
+function GM:GetScoreMultiplier(id)
+
+	return GetGlobalInt("scookp_team_" .. id .. "_score_multiplier")
+
+end
+
+--[[---------------------------------------------------------
 	Name: gamemode.SetMinNumberOfPlayersPerTeam( number )
 	Desc: Sets the minimum value of players on a team to start a round
 -----------------------------------------------------------]]
@@ -33,19 +77,15 @@ end
 -----------------------------------------------------------]]
 function GM:AreTeamsPopulated()
 
-	local all_teams = team.GetAllTeams()
+	local all_teams = self:GetPlayingTeams()
 
-	for i, tm in pairs(all_teams) do
-
-		if self:IsValidPlayingTeam(i, tm) then
+	for i, _ in pairs(all_teams) do
 
 			local players_on_team = team.GetPlayers(i)
 
 			if #players_on_team < min_number_of_players then
 				return false
 			end
-
-		end
 
 	end
 
@@ -89,11 +129,11 @@ end
 -----------------------------------------------------------]]
 function GM:CheckTeamsScoreToWin()
 
-	local all_teams = team.GetAllTeams()
+	local all_teams = self:GetPlayingTeams()
 
-	for i, tm in pairs(all_teams) do
+	for i, _ in pairs(all_teams) do
 
-		if self:IsValidPlayingTeam(i, tm) and team.GetScore(i) >= score_to_win then
+		if team.GetScore(i) >= score_to_win then
 			return true
 		end
 
