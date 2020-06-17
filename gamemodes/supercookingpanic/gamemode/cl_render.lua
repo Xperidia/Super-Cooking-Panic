@@ -10,7 +10,7 @@
 -----------------------------------------------------------]]
 function GM:CookingPotHalo()
 	for _, v in pairs(ents.FindByClass("scookp_cooking_pot")) do
-		halo.Add({v}, v:GetTeamColor(), 0, 0, 1)
+		halo.Add({v}, v:GetTeamColor(), 2, 2, 1, true, true)
 	end
 end
 
@@ -19,13 +19,15 @@ end
 	Desc: Renders an halo around the mouse over entity
 -----------------------------------------------------------]]
 function GM:MouseOverHalo()
+
 	local ent = self:EntityLookedAt()
 
-	if ent and not ent:IsPlayer() and not ent:IsIngredient() then
+	if not IsValid(ent) or not ent:IsIngredient() then
 		return
 	end
 
-	halo.Add({ent}, Color(0, 0, 0), 1, 1, 1, false, true)
+	halo.Add({ent}, self:GetTeamColor(ent), 2, 2, 1, true, true)
+
 end
 
 --[[---------------------------------------------------------
