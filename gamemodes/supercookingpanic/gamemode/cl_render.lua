@@ -15,10 +15,25 @@ function GM:CookingPotHalo()
 end
 
 --[[---------------------------------------------------------
+	Name: gamemode:SetCookingPotHalo()
+	Desc: Renders an halo around the mouse over entity
+-----------------------------------------------------------]]
+function GM:MouseOverHalo()
+	local ent = self:EntityLookedAt()
+
+	if ent and not ent:IsPlayer() and not ent:IsIngredient() then
+		return
+	end
+
+	halo.Add({ent}, Color(0, 0, 0), 1, 1, 1, false, true)
+end
+
+--[[---------------------------------------------------------
 	Name: gamemode:PreDrawHalos()
 	Desc:	Called before rendering the halos.
 			This is the place to call halo.Add.
 -----------------------------------------------------------]]
 function GM:PreDrawHalos()
 	self:CookingPotHalo()
+	self:MouseOverHalo()
 end

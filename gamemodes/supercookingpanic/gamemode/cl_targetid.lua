@@ -3,6 +3,15 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
+entity_looked_at = nil
+
+--[[---------------------------------------------------------
+	Name: gamemode:EntityLookedAt( )
+	Desc: Refers the current entity looked by the player
+-----------------------------------------------------------]]
+function GM:EntityLookedAt()
+	return entity_looked_at
+end
 
 --[[---------------------------------------------------------
 	Name: gamemode:HUDDrawTargetID( )
@@ -12,8 +21,12 @@ function GM:HUDDrawTargetID()
 
 	local tr = util.GetPlayerTrace(LocalPlayer())
 	local trace = util.TraceLine(tr)
-	if not trace.Hit then return end
-	if not trace.HitNonWorld then return end
+
+	entity_looked_at = trace.Entity
+
+	if not trace.Hit or not trace.HitNonWorld then
+		return
+	end
 
 	local text = "ERROR"
 	local font = "DermaLarge"
