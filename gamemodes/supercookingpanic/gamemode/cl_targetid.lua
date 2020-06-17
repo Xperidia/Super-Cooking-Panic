@@ -3,7 +3,7 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
-entity_looked_at = nil
+local entity_looked_at = nil
 
 --[[---------------------------------------------------------
 	Name: gamemode:EntityLookedAt( )
