@@ -44,7 +44,12 @@ end
 -----------------------------------------------------------]]
 function GM:HUDPaint()
 
+	if not GetConVar("cl_drawhud"):GetBool() then
+		return
+	end
+
 	-- Draw all of the default stuff
+	self.BaseClass.HUDPaint(self)
 
 	-- Development / Debug values
 	if self:ConVarGetBool("dev_mode") then
@@ -62,8 +67,6 @@ function GM:HUDPaint()
 		end
 
 	end
-
-	self.BaseClass.HUDPaint(self)
 
 end
 
