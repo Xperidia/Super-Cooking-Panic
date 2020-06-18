@@ -14,7 +14,7 @@ local score_to_win = 10
 -----------------------------------------------------------]]
 function GM:SetScoreMultiplier(id, val)
 
-	if self:IsValidPlayingTeam(id) then
+	if self:IsValidPlayingTeam(id) and val > 0 then
 
 		SetGlobalInt("scookp_team_" .. id .. "_score_multiplier", val)
 
@@ -38,7 +38,7 @@ end
 -----------------------------------------------------------]]
 function GM:ResetScoreMultiplier(id)
 
-	self:SetScoreMultiplier(id, 0)
+	self:SetScoreMultiplier(id, 1)
 
 end
 
@@ -48,7 +48,7 @@ end
 -----------------------------------------------------------]]
 function GM:GetScoreMultiplier(id)
 
-	return GetGlobalInt("scookp_team_" .. id .. "_score_multiplier")
+	return GetGlobalInt("scookp_team_" .. id .. "_score_multiplier", 1)
 
 end
 

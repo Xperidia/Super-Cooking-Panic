@@ -6,6 +6,7 @@
 include("shared.lua")
 include("cl_hud.lua")
 include("cl_player.lua")
+include("cl_teams.lua")
 include("cl_rounds.lua")
 include("cl_render.lua")
 include("cl_targetid.lua")
