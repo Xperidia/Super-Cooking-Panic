@@ -12,6 +12,7 @@ AddCSLuaFile("cl_hud.lua")
 AddCSLuaFile("cl_player.lua")
 AddCSLuaFile("cl_teams.lua")
 AddCSLuaFile("cl_rounds.lua")
+AddCSLuaFile("cl_entities.lua")
 AddCSLuaFile("cl_render.lua")
 AddCSLuaFile("cl_targetid.lua")
 

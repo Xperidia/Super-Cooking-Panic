@@ -41,8 +41,29 @@ local model_list = {
 	--TODO: fill models or replace with a way to get any prop model
 }
 
+local super_ingredient_score_multiplier = 2
+--
+
 function GM:GetRandomPropModel()
 	return Model(model_list[math.random(1, #model_list)]) --TODO
+end
+
+--[[---------------------------------------------------------
+	Name: Entity:IsSuperIngredient()
+	Desc: Returns true if the entity is a super ingredient.
+-----------------------------------------------------------]]
+function GM.EntityMeta:IsSuperIngredient()
+
+	if not self:IsIngredient() then -- add prop_physics requirement
+		return false
+	end
+
+	if CLIENT then
+		return self:GetNWBool("scookp_IsSuperIngredient", false)
+	end
+
+	return self._super_ingredient
+
 end
 
 --[[---------------------------------------------------------
@@ -79,7 +100,16 @@ function GM.EntityMeta:GetPoints()
 	if self:IsIngredient() then
 
 		if CLIENT then
+			if self:IsSuperIngredient() then
+				return self:GetNWInt("scookp_points",
+					self:GetBasePoints() * super_ingredient_score_multiplier)
+			end
+
 			return self:GetNWInt("scookp_points", self:GetBasePoints())
+		end
+
+		if self:IsSuperIngredient() then
+			return self:GetBasePoints() * super_ingredient_score_multiplier
 		end
 
 		return self:GetBasePoints()

@@ -3,6 +3,12 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
+-- debug to remove
+function GM:SuperIngredientsHalo()
+	halo.Add(self:GetSuperIngredients(), Color(0, 255, 0), 2, 2, 1, true, true)
+end
+--
+
 --[[---------------------------------------------------------
 	Name: gamemode:SetCookingPotHalo()
 	Desc: Renders an halo around every 'cooking pot' entity
@@ -22,7 +28,7 @@ function GM:MouseOverHalo()
 
 	local ent = self:EntityLookedAt()
 
-	if not IsValid(ent) or not ent:IsIngredient() then
+	if not IsValid(ent) or not ent:IsIngredient() or ent:IsSuperIngredient() then
 		return
 	end
 
@@ -38,4 +44,9 @@ end
 function GM:PreDrawHalos()
 	self:CookingPotHalo()
 	self:MouseOverHalo()
+
+	-- debug to remove
+	self:SuperIngredientsHalo()
+	--
+
 end

@@ -3,6 +3,7 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
+util.AddNetworkString("scookp_SuperIngredientUpdate")
 
 --[[---------------------------------------------------------
 	Name: gamemode:RemoveCookingPots()
@@ -36,6 +37,20 @@ function GM:SpawnCookingPot(tm)
 	ent:SetTeam(tm or 0)
 	ent:SetColor(team.GetColor(tm))
 	ent:Spawn()
+
+end
+
+--[[---------------------------------------------------------
+	Name: Entity:SetSuperIngredient(bool)
+	Desc: Set true, false or nil (auto) for super ingredient status.
+-----------------------------------------------------------]]
+function GM.EntityMeta:SetSuperIngredient(bool)
+
+	self._super_ingredient = bool
+	self:SetNWBool("scookp_IsSuperIngredient", bool)
+
+	net.Start("scookp_SuperIngredientUpdate")
+	net.Broadcast()
 
 end
 
@@ -88,5 +103,18 @@ end
 function GM.EntityMeta:ResetPoints()
 
 	return self:SetPoints(self:GetBasePoints())
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:ChooseSuperIngredient()
+	Desc: Transforms an ingredient into a super ingredient
+-----------------------------------------------------------]]
+function GM:ChooseSuperIngredient()
+
+	local all_props = ents.FindByClass("prop_physics")
+	local super_ingredient = all_props[math.random(#all_props)]
+
+	super_ingredient:SetSuperIngredient(true)
 
 end
