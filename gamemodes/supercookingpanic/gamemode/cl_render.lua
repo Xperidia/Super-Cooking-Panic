@@ -3,12 +3,6 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
--- debug to remove
-function GM:SuperIngredientsHalo()
-	halo.Add(self:GetSuperIngredients(), Color(0, 255, 0), 2, 2, 1, true, true)
-end
---
-
 --[[---------------------------------------------------------
 	Name: gamemode:SetCookingPotHalo()
 	Desc: Renders an halo around every 'cooking pot' entity
@@ -32,7 +26,21 @@ function GM:MouseOverHalo()
 		return
 	end
 
+	--TODO: remove debug check
+	if self:ConVarGetBool("dev_mode") and ent:IsSuperIngredient() then
+		return
+	end
+
 	halo.Add({ent}, self:GetTeamColor(ent), 2, 2, 1, true, true)
+
+end
+
+--TODO: remove debug function
+function GM:SuperIngredientsHalo()
+
+	if not self:ConVarGetBool("dev_mode") then return end
+
+	halo.Add(self:GetSuperIngredients(), Color(0, 255, 0), 2, 2, 1, true, true)
 
 end
 
@@ -42,11 +50,9 @@ end
 			This is the place to call halo.Add.
 -----------------------------------------------------------]]
 function GM:PreDrawHalos()
+
 	self:CookingPotHalo()
 	self:MouseOverHalo()
-
-	-- debug to remove
-	self:SuperIngredientsHalo()
-	--
+	self:SuperIngredientsHalo() --TODO: remove debug function
 
 end
