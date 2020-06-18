@@ -9,6 +9,7 @@ local ingredient_class = {
 	["prop_physics_multiplayer"] = true,
 	["prop_physics_respawnable"] = true,
 	["item_healthkit"] = true,
+	["item_item_crate"] = true,
 	["prop_ragdoll"] = true,
 	["player"] = true,
 	["npc_citizen"] = true,
