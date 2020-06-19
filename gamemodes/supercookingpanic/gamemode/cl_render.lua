@@ -22,7 +22,7 @@ function GM:MouseOverHalo()
 
 	local ent = self:EntityLookedAt()
 
-	if not IsValid(ent) or not ent:IsIngredient() or ent:IsSuperIngredient() then
+	if not IsValid(ent) or not ent:IsIngredient() then
 		return
 	end
 
