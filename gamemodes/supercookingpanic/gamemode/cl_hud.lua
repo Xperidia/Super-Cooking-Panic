@@ -72,13 +72,9 @@ function GM:HUDPaint()
 			y = y + 40
 		end
 
-		draw.SimpleText("Super Ingredients: " .. #self:GetSuperIngredients(), "DermaDefault", 50, y)
-		y = y + 10
+		draw.SimpleText("Bonus Ingredient: " .. self:GetBonusIngredientModel(), "DermaDefault", 50, y)
+		y = y + 40
 
-		for _, v in pairs(self:GetSuperIngredients()) do
-			draw.SimpleText(v, "DermaDefault", 50, y)
-			y = y + 10
-		end
 
 	end
 

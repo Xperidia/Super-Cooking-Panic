@@ -50,20 +50,44 @@ function GM:GetRandomPropModel()
 end
 
 --[[---------------------------------------------------------
-	Name: Entity:IsSuperIngredient()
+	Name: gamemode:GetBonusIngredientModel()
+	Desc: Return bonus ingredient model
+-----------------------------------------------------------]]
+function GM:GetBonusIngredientModel()
+
+	local model = GetGlobalString("scookp_BonusIngredientUpdate", nil)
+
+	if model ~= nil then
+
+		return Model(model)
+
+	end
+
+	return nil
+
+end
+
+--[[---------------------------------------------------------
+	Name: Entity:IsBonusIngredient()
 	Desc: Returns true if the entity is a super ingredient.
 -----------------------------------------------------------]]
-function GM.EntityMeta:IsSuperIngredient()
+function GM.EntityMeta:IsBonusIngredient()
 
-	if not self:IsIngredient() then -- add prop_physics requirement
+	if not self:IsIngredient() then
 		return false
 	end
 
-	if CLIENT then
-		return self:GetNWBool("scookp_IsSuperIngredient", false)
+	return self:GetModel() == GAMEMODE:GetBonusIngredientModel()
+
+end
+
+local function ent_is_ingredient(ent)
+
+	if ent:GetModel() == nil then
+		return false
 	end
 
-	return self._super_ingredient
+	return ingredient_class[ent:GetClass()]
 
 end
 
@@ -74,14 +98,14 @@ end
 function GM.EntityMeta:IsIngredient()
 
 	if CLIENT then
-		return self:GetNWBool("scookp_IsIngredient", ingredient_class[self:GetClass()])
+		return self:GetNWBool("scookp_IsIngredient", ent_is_ingredient(self))
 	end
 
 	if self._ingredient == false then
 		return false
 	end
 
-	return self._ingredient or ingredient_class[self:GetClass()]
+	return self._ingredient or ent_is_ingredient(self)
 
 end
 
@@ -91,6 +115,10 @@ end
 -----------------------------------------------------------]]
 function GM.EntityMeta:GetPoints()
 
+	if not self:IsIngredient() then
+		return nil
+	end
+
 	--TODO: do point stuff
 
 	--TODO: do actual check when trap is ready
@@ -98,26 +126,21 @@ function GM.EntityMeta:GetPoints()
 		return 0
 	end]]
 
-	if self:IsIngredient() then
+	local points = self:GetBasePoints()
 
-		if CLIENT then
-			if self:IsSuperIngredient() then
-				return self:GetNWInt("scookp_points",
-					self:GetBasePoints() * super_ingredient_score_multiplier)
-			end
+	if CLIENT then
 
-			return self:GetNWInt("scookp_points", self:GetBasePoints())
-		end
-
-		if self:IsSuperIngredient() then
-			return self:GetBasePoints() * super_ingredient_score_multiplier
-		end
-
-		return self:GetBasePoints()
+		points = self:GetNWInt("scookp_points", points)
 
 	end
 
-	return nil
+	if self:IsBonusIngredient() then
+
+		points = points * super_ingredient_score_multiplier
+
+	end
+
+	return points
 
 end
 

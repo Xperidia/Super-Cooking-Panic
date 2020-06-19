@@ -27,20 +27,12 @@ function GM:MouseOverHalo()
 	end
 
 	--TODO: remove debug check
-	if self:ConVarGetBool("dev_mode") and ent:IsSuperIngredient() then
+	if self:ConVarGetBool("dev_mode") and ent:IsBonusIngredient() then
+		halo.Add({ent}, Color(0, 255, 255), 2, 2, 1, true, true)
 		return
 	end
 
 	halo.Add({ent}, self:GetTeamColor(ent), 2, 2, 1, true, true)
-
-end
-
---TODO: remove debug function
-function GM:SuperIngredientsHalo()
-
-	if not self:ConVarGetBool("dev_mode") then return end
-
-	halo.Add(self:GetSuperIngredients(), Color(0, 255, 0), 2, 2, 1, true, true)
 
 end
 
@@ -53,6 +45,5 @@ function GM:PreDrawHalos()
 
 	self:CookingPotHalo()
 	self:MouseOverHalo()
-	self:SuperIngredientsHalo() --TODO: remove debug function
 
 end

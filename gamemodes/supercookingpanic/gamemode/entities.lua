@@ -3,7 +3,6 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
-util.AddNetworkString("scookp_SuperIngredientUpdate")
 
 --[[---------------------------------------------------------
 	Name: gamemode:RemoveCookingPots()
@@ -37,20 +36,6 @@ function GM:SpawnCookingPot(tm)
 	ent:SetTeam(tm or 0)
 	ent:SetColor(team.GetColor(tm))
 	ent:Spawn()
-
-end
-
---[[---------------------------------------------------------
-	Name: Entity:SetSuperIngredient(bool)
-	Desc: Set true, false or nil (auto) for super ingredient status.
------------------------------------------------------------]]
-function GM.EntityMeta:SetSuperIngredient(bool)
-
-	self._super_ingredient = bool
-	self:SetNWBool("scookp_IsSuperIngredient", bool)
-
-	net.Start("scookp_SuperIngredientUpdate")
-	net.Broadcast()
 
 end
 
@@ -107,14 +92,34 @@ function GM.EntityMeta:ResetPoints()
 end
 
 --[[---------------------------------------------------------
-	Name: gamemode:ChooseSuperIngredient()
-	Desc: Transforms an ingredient into a super ingredient
+	Name: gamemode:SetBonusIngredientModel(model)
+	Desc: Set bonus ingredient model
 -----------------------------------------------------------]]
-function GM:ChooseSuperIngredient()
+function GM:SetBonusIngredientModel(model)
 
-	local all_props = ents.FindByClass("prop_physics")
-	local super_ingredient = all_props[math.random(#all_props)]
+	SetGlobalString("scookp_BonusIngredientUpdate", model)
 
-	super_ingredient:SetSuperIngredient(true)
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:AutoChooseBonusIngredient()
+	Desc: Transforms an ingredient into a bonus ingredient
+-----------------------------------------------------------]]
+function GM:AutoChooseBonusIngredient()
+
+	local sel_model
+
+	for _, v in RandomPairs(ents.GetAll()) do
+
+		if IsValid(v) and v:IsIngredient() and not v:IsPlayer() then
+
+			sel_model = v:GetModel()
+			break
+
+		end
+
+	end
+
+	self:SetBonusIngredientModel(sel_model)
 
 end
