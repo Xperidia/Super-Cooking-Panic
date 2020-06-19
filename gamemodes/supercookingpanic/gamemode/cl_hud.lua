@@ -75,6 +75,7 @@ function GM:HUDPaint()
 		draw.SimpleText("Bonus Ingredient: " .. self:GetBonusIngredientModel(), "DermaDefault", 50, y)
 		y = y + 40
 
+		self:DrawHUDBonusProp(self:GetBonusIngredientModel(), 50, y, 200, 200)
 
 	end
 
@@ -88,5 +89,59 @@ function GM:HUDPaintBackground()
 
 	-- Draw all of the default stuff
 	self.BaseClass.HUDPaintBackground(self)
+
+end
+
+function GM:CreateHUDBonusProp(model)
+
+	self.HUDBonusProp = ClientsideModel(model, RENDER_GROUP_OPAQUE_ENTITY)
+	self.HUDBonusProp:SetNoDraw(true)
+
+end
+
+function GM:DrawHUDBonusProp(model, x, y, w, h)
+
+	if not IsValid(self.HUDBonusProp) then
+		self:CreateHUDBonusProp(model)
+	end
+
+	if IsValid(self.HUDBonusProp) then
+
+		if self.HUDBonusProp:GetModel() ~= model then
+			self:CreateHUDBonusProp(model)
+		end
+
+		local radius = self.HUDBonusProp:GetModelRadius()
+		local pos = Vector(radius * 2, 0, radius)
+
+		self.HUDBonusProp:SetAngles(Angle(0, math.Remap(math.sin(CurTime()), -1, 1, -180, 180), 0))
+
+		cam.Start3D(pos, Vector(-(radius * 2), 0, -radius):Angle(), 70, x, y, w, h)
+		cam.IgnoreZ(true)
+
+		render.OverrideDepthEnable(false)
+		render.SuppressEngineLighting(true)
+		render.SetLightingOrigin(pos)
+		render.SetColorModulation(1, 1, 1)
+		render.SetBlend(1)
+
+		self.HUDBonusProp:DrawModel()
+
+		render.SuppressEngineLighting(false)
+		cam.IgnoreZ(false)
+		cam.End3D()
+
+	end
+
+	render.SetStencilEnable(false)
+
+	render.SetStencilWriteMask(0)
+	render.SetStencilReferenceValue(0)
+	render.SetStencilTestMask(0)
+	render.SetStencilEnable(false)
+	render.OverrideDepthEnable(false)
+	render.SetBlend(1)
+
+	cam.IgnoreZ(false)
 
 end
