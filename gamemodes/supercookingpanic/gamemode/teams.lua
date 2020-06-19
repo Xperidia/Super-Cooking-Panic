@@ -6,6 +6,7 @@
 -- Constants
 local min_number_of_players = 1 -- Required on each team
 local score_to_win = 10
+local combo_time_length = 10 -- Seconds
 --
 
 --[[---------------------------------------------------------
@@ -43,12 +44,93 @@ function GM:ResetScoreMultiplier(id)
 end
 
 --[[---------------------------------------------------------
+	Name: gamemode:ResetScoresMultiplier()
+	Desc: Resets teams score multiplier back to zero
+-----------------------------------------------------------]]
+function GM:ResetScoreMultipliers()
+
+	for k, _ in pairs(self.team_list) do
+		self:ResetScoreMultiplier(k)
+	end
+
+end
+
+--[[---------------------------------------------------------
 	Name: gamemode:GetScoreMultiplier( number id )
 	Desc: Gets the score multiplier of the given team id
 -----------------------------------------------------------]]
 function GM:GetScoreMultiplier(id)
 
 	return GetGlobalInt("scookp_team_" .. id .. "_score_multiplier", 1)
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:StartComboTimer( number id )
+	Desc: Creates a new combo timer / Stores the value of its endtime
+-----------------------------------------------------------]]
+function GM:StartComboTimer(id)
+
+	if self:IsValidPlayingTeam(id) then
+
+		SetGlobalFloat("scookp_team_" .. id .. "_combo_timer", CurTime() + combo_time_length)
+
+	end
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:GetComboTimer( number id )
+	Desc: Called to know the endtime value of the team combo
+-----------------------------------------------------------]]
+function GM:GetComboTimer(id)
+
+	return GetGlobalFloat("scookp_team_" .. id .. "_combo_timer", 0)
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:IsComboTimerOver( number id )
+	Desc: Checks if the team combo timer is over
+-----------------------------------------------------------]]
+function GM:IsComboTimerOver(id)
+
+	if self:GetComboTimer(id) < CurTime() then
+		return true
+	end
+
+	return false
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:EndCombo( number id )
+	Desc: Ends a team combo
+-----------------------------------------------------------]]
+function GM:EndCombo(id)
+
+	if self:IsValidPlayingTeam(id) then
+
+		SetGlobalFloat("scookp_team_" .. id .. "_combo_timer", 0)
+		self:ResetScoreMultiplier(id)
+
+	end
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:CheckToEndCombos()
+	Desc: Checks necessary conditions to end teams combo
+-----------------------------------------------------------]]
+function GM:CheckToEndCombos()
+
+	for k, _ in pairs(self.team_list) do
+
+		if self:IsComboTimerOver(k) then
+			self:EndCombo(k)
+		end
+
+	end
 
 end
 
@@ -161,6 +243,18 @@ function GM:AutoTeam(ply)
 
 		self:Log(string.format("Couldn't find a team for %s", ply:GetName()))
 
+	end
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:TeamThink()
+	Desc: Called every frame to handle teams logic
+-----------------------------------------------------------]]
+function GM:TeamThink()
+
+	if self:GetRoundStatus() then
+		self:CheckToEndCombos()
 	end
 
 end

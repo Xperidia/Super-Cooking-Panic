@@ -46,6 +46,7 @@ end
 function GM:Think()
 
 	self:RoundThink()
+	self:TeamThink()
 
 end
 

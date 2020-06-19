@@ -12,3 +12,13 @@ function GM:GetScoreMultiplier(id)
 	return GetGlobalInt("scookp_team_" .. id .. "_score_multiplier", 1)
 
 end
+
+--[[---------------------------------------------------------
+	Name: gamemode:GetComboTimer( number id )
+	Desc: Called to know the endtime value of the team combo
+-----------------------------------------------------------]]
+function GM:GetComboTimer(id)
+
+	return GetGlobalFloat("scookp_team_" .. id .. "_combo_timer", 0)
+
+end

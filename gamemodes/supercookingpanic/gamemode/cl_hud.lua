@@ -67,14 +67,15 @@ function GM:HUDPaint()
 		for k, v in pairs(self:GetPlayingTeams()) do
 			--v.Score doesn't work
 			draw.SimpleText("Score " .. v.Name .. ": " .. team.GetScore(k), "DermaDefault", 50, y)
-			draw.SimpleText("Combo: x" .. self:GetScoreMultiplier(k), "DermaDefault", 50, y + 10)
-			y = y + 30
+			draw.SimpleText("Combo Timer: " .. self:FormatTime(self:GetComboTimer(k) - CurTime()), "DermaDefault", 50, y + 10)
+			draw.SimpleText("Combo: x" .. self:GetScoreMultiplier(k), "DermaDefault", 50, y + 20)
+			y = y + 40
 		end
 
 		draw.SimpleText("Super Ingredients: " .. #self:GetSuperIngredients(), "DermaDefault", 50, y)
 		y = y + 10
 
-		for k, v in pairs(self:GetSuperIngredients()) do
+		for _, v in pairs(self:GetSuperIngredients()) do
 			draw.SimpleText(v, "DermaDefault", 50, y)
 			y = y + 10
 		end

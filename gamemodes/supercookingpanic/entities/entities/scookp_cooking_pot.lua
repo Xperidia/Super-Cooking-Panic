@@ -72,7 +72,12 @@ end
 function ENT:StartTouch(ent)
 
 	if ent:IsIngredient() and not ent:IsPlayer() then
-		team.AddScore(self:GetTeam(), ent:GetPoints())
+		team.AddScore(self:GetTeam(),
+			ent:GetPoints() * GAMEMODE:GetScoreMultiplier(self:GetTeam()))
+
+		GAMEMODE:IncrementScoreMultiplier(self:GetTeam())
+		GAMEMODE:StartComboTimer(self:GetTeam())
+
 		ent:Remove() --TODO: maybe do some anim
 	end
 
