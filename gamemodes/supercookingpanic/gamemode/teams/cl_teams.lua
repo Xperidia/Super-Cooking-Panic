@@ -3,6 +3,8 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
+include("sh_teams.lua")
+
 --[[---------------------------------------------------------
 	Name: gamemode:GetScoreMultiplier( number id )
 	Desc: Gets the score multiplier of the given team id

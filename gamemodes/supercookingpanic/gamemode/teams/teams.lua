@@ -3,6 +3,10 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
+include("sh_teams.lua")
+
+AddCSLuaFile("cl_teams.lua")
+
 -- Constants
 local min_number_of_players = 1 -- Required on each team
 local score_to_win = 10

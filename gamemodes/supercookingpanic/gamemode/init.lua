@@ -3,24 +3,15 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
-AddCSLuaFile("shared.lua")
-AddCSLuaFile("sh_utils.lua")
-AddCSLuaFile("sh_teams.lua")
-AddCSLuaFile("sh_convars.lua")
-AddCSLuaFile("sh_entities.lua")
 AddCSLuaFile("cl_hud.lua")
-AddCSLuaFile("cl_player.lua")
-AddCSLuaFile("cl_teams.lua")
-AddCSLuaFile("cl_rounds.lua")
-AddCSLuaFile("cl_entities.lua")
 AddCSLuaFile("cl_render.lua")
 AddCSLuaFile("cl_targetid.lua")
 
 include("shared.lua")
-include("player.lua")
-include("teams.lua")
-include("rounds.lua")
-include("entities.lua")
+include("player/player.lua")
+include("teams/teams.lua")
+include("rounds/rounds.lua")
+include("entities/entities.lua")
 
 --[[---------------------------------------------------------
 	Name: gamemode:Initialize()

@@ -3,6 +3,8 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
+AddCSLuaFile("cl_rounds.lua")
+
 util.AddNetworkString("scookp_roundupdate")
 
 -- Constants

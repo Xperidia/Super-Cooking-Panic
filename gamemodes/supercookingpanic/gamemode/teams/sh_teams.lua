@@ -3,6 +3,8 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
+AddCSLuaFile()
+
 -- Default teams
 GM.team_list = {
 	{

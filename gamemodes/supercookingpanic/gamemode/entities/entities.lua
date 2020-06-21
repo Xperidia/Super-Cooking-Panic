@@ -3,6 +3,9 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
+include("sh_entities.lua")
+
+AddCSLuaFile("cl_entities.lua")
 
 --[[---------------------------------------------------------
 	Name: gamemode:RemoveCookingPots()

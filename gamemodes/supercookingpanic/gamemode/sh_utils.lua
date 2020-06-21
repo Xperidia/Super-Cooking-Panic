@@ -3,6 +3,8 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
+AddCSLuaFile()
+
 -- Function to log important stuff
 function GM:Log(str)
 	Msg("[" .. self.Name .. "] " .. (str or "This was a log message, but something went wrong") .. "\n")

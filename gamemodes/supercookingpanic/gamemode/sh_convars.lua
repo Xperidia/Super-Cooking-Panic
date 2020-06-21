@@ -3,6 +3,8 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
+AddCSLuaFile()
+
 GM.cvars = GM.cvars or {}
 
 local shared_cvars = {

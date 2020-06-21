@@ -3,6 +3,7 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
+AddCSLuaFile("cl_player.lua")
 
 --[[---------------------------------------------------------
 	Called once on the player's first spawn

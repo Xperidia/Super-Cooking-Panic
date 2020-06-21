@@ -3,6 +3,8 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
+AddCSLuaFile()
+
 -- Constants
 local ingredient_class = {
 	["prop_physics"] = true,
