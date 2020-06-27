@@ -31,32 +31,9 @@ function PLAYER:Loadout()
 
 end
 
-local pm_list = {
-	"male01",
-	"male02",
-	"male03",
-	"male04",
-	"male05",
-	"male06",
-	"male07",
-	"male08",
-	"male09",
-	"male09",
-	"female01",
-	"female02",
-	"female03",
-	"female04",
-	"female05",
-	"female06",
-}
-
-for _, v in pairs(pm_list) do
-	util.PrecacheModel(v)
-end
-
 function PLAYER:SetModel()
 
-	local playermodel = pm_list[math.random(1, #pm_list)]
+	local playermodel = GAMEMODE.pm_list[math.random(1, #GAMEMODE.pm_list)]
 	local model = player_manager.TranslatePlayerModel(playermodel)
 
 	self.Player:SetModel(model)

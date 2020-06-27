@@ -24,6 +24,25 @@ include("sh_utils.lua")
 include("sh_convars.lua")
 include("player_class/player_cook.lua")
 
+GM.pm_list = {
+	"male01",
+	"male02",
+	"male03",
+	"male04",
+	"male05",
+	"male06",
+	"male07",
+	"male08",
+	"male09",
+	"male09",
+	"female01",
+	"female02",
+	"female03",
+	"female04",
+	"female05",
+	"female06",
+}
+
 function GM:SharedInitialize()
 
 	self.BaseClass.Initialize(self)
@@ -33,5 +52,21 @@ function GM:SharedInitialize()
 	end
 
 	self:CreateConVars()
+
+	for _, v in pairs(self.pm_list) do
+
+		local pm = player_manager.TranslatePlayerModel(v)
+
+		util.PrecacheModel(pm)
+
+		local hm = player_manager.TranslatePlayerHands(v)
+
+		if hm.model then
+
+			util.PrecacheModel(hm.model)
+
+		end
+
+	end
 
 end
