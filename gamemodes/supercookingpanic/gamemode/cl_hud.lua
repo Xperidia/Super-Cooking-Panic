@@ -77,7 +77,7 @@ function GM:HUDPaint()
 		draw.SimpleText("Bonus Ingredient: " .. self:GetBonusIngredientModel(), "DermaDefault", 50, y)
 		y = y + 40
 
-		self:DrawHUDBonusProp(self:GetBonusIngredientModel(), 50, y, 200, 200)
+		self:DrawHUDModel(self:GetBonusIngredientModel(), 50, y, 200, 200)
 
 	end
 
@@ -94,14 +94,14 @@ function GM:HUDPaintBackground()
 
 end
 
-function GM:CreateHUDBonusProp(model)
+function GM:CreateHUDModel(model)
 
 	self.HUDBonusProp = ClientsideModel(model, RENDER_GROUP_OPAQUE_ENTITY)
 	self.HUDBonusProp:SetNoDraw(true)
 
 end
 
-function GM:DrawHUDBonusProp(model, x, y, w, h)
+function GM:DrawHUDModel(model, x, y, w, h)
 
 	if not util.IsValidModel(model) then
 		return
