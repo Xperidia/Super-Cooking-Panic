@@ -103,6 +103,10 @@ end
 
 function GM:DrawHUDBonusProp(model, x, y, w, h)
 
+	if not util.IsValidModel(model) then
+		return
+	end
+
 	if not IsValid(self.HUDBonusProp) then
 		self:CreateHUDBonusProp(model)
 	end
