@@ -9,9 +9,13 @@
 			The color matches the entity's team
 -----------------------------------------------------------]]
 function GM:CookingPotHalo()
+
+	local plyTeam = LocalPlayer():Team()
+
 	for _, v in pairs(ents.FindByClass("scookp_cooking_pot")) do
-		halo.Add({v}, v:GetTeamColor(), 2, 2, 1, true, true)
+		halo.Add({v}, v:GetTeamColor(), 2, 2, 1, true, plyTeam == v:Team())
 	end
+
 end
 
 --[[---------------------------------------------------------
