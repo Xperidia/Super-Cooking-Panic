@@ -19,7 +19,6 @@ PLAYER.DropWeaponOnDie		= true
 
 function PLAYER:SetupDataTables()
 
-	self.Player:NetworkVar("Int", 0, "UpgradePoints")
 	self.Player:NetworkVar("Entity", 0, "HeldIngredient")
 	self.Player:NetworkVar("String", 0, "PowerUP")
 
