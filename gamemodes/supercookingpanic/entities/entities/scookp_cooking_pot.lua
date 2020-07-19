@@ -56,16 +56,6 @@ function ENT:SetupDataTables()
 end
 
 --[[---------------------------------------------------------
-	Name: entity:GetTeamColor()
-	Desc: Gets the color of the entity's team
------------------------------------------------------------]]
-function ENT:GetTeamColor()
-
-	return team.GetColor(self:GetTeam())
-
-end
-
---[[---------------------------------------------------------
 	Name: entity:StartTouch( entity ent )
 	Desc: Detects when an ingredient is brought to the cooking pot
 -----------------------------------------------------------]]
@@ -90,5 +80,25 @@ end
 function ENT:Draw()
 
 	self:DrawModel()
+
+end
+
+--[[---------------------------------------------------------
+	Name: entity:Team()
+	Desc: Gets the entity's team ID
+-----------------------------------------------------------]]
+function ENT:Team()
+
+	return self:GetTeam()
+
+end
+
+--[[---------------------------------------------------------
+	Name: entity:GetTeamColor()
+	Desc: Gets the color of the entity's team
+-----------------------------------------------------------]]
+function ENT:GetTeamColor()
+
+	return team.GetColor(self:GetTeam())
 
 end
