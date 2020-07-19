@@ -22,6 +22,8 @@ function GM:HUDDrawTargetID()
 		text = string.format("%s (%d points)", ent:Nick(), ent:GetPoints())
 	elseif ent:IsIngredient() then
 		text = string.format("%d points", ent:GetPoints())
+	elseif ent:GetClass() == "scookp_cooking_pot" then
+		text = string.format("%s's cooking pot", team.GetName(ent:Team()))
 	else
 		return
 	end
