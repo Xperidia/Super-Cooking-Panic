@@ -26,11 +26,7 @@ function ENT:Initialize()
 		self:SetTrigger(true) -- Generates signal on touch
 		self:SetModelScale(4)
 
-		local phys = self:GetPhysicsObject()
-
-		if IsValid(phys) then
-			phys:Wake()
-		end
+		self:PhysWake()
 
 		self:Activate()
 
