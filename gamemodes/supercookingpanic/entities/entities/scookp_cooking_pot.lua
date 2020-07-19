@@ -21,8 +21,8 @@ function ENT:Initialize()
 	if SERVER then
 
 		self:SetModel(MODEL)
-		self:PhysicsInit(SOLID_VPHYSICS)
 		self:SetMoveType(MOVETYPE_VPHYSICS)
+		self:PhysicsInit(SOLID_VPHYSICS)
 		self:SetTrigger(true) -- Generates signal on touch
 		self:SetModelScale(4)
 
