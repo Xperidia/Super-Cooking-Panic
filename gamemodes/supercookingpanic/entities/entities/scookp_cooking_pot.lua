@@ -25,8 +25,6 @@ function ENT:Initialize()
 		self:PhysicsInit(SOLID_VPHYSICS)
 		self:SetModelScale(4)
 
-		self:PhysWake()
-
 		self:Activate()
 
 	end
