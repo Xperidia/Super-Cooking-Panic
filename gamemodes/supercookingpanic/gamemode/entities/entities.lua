@@ -34,8 +34,28 @@ end
 function GM:SpawnCookingPot(tm)
 
 	local ent = ents.Create("scookp_cooking_pot")
+	local all_spawn_points = ents.FindByClass("info_player*")
+	local random_spawn_point = all_spawn_points[math.random(#all_spawn_points)]
 
-	ent:SetPos(Vector(0, 100 * (tm or 0), 0))
+	-- Spawns a cooking pot at a random player spawn point location
+	-- Downsides:	- There is no check to see if it spawns on a player location
+	--				- If the cooking pot spawns in an unloaded room the halo
+	--					will not appear untill the room is loaded
+	ent:SetPos(random_spawn_point:GetPos())
+
+	-- Spawns a cooking pot in front of a player
+	-- Downsides:	- If the choosen player looks towards a wall at a close
+	--			 		distance it will can spawn behind the wall
+
+	-- if tm then
+	-- 	local tm_players = team.GetPlayers(tm)
+	-- 	local random_tm_player = tm_players[math.random(1, #tm_players)]
+	--
+	-- 	ent:SetPos(random_tm_player:GetPos() + random_tm_player:GetAimVector() * 100 - Vector(0, 0, -40 + random_tm_player:GetAimVector().z * 100))
+	-- else
+	-- 	ent:SetPos(Vector(0, 0, 0))
+	-- end
+
 	ent:SetTeam(tm or 0)
 	ent:SetColor(team.GetColor(tm))
 	ent:Spawn()
