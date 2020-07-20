@@ -230,6 +230,17 @@ function GM:CheckTeamsScoreToWin()
 end
 
 --[[---------------------------------------------------------
+	Name: gamemode:OnPlayerChangedTeam( ply, oldteam, newteam )
+-----------------------------------------------------------]]
+function GM:OnPlayerChangedTeam(ply, oldteam, newteam)
+
+	ply.oldteam = oldteam
+
+	self.BaseClass.OnPlayerChangedTeam(self, ply, oldteam, newteam)
+
+end
+
+--[[---------------------------------------------------------
 	Name: gamemode.AutoTeam(Player)
 	Desc: Try to make a player join the team with the least players
 -----------------------------------------------------------]]

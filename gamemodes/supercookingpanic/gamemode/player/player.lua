@@ -59,6 +59,25 @@ function GM:PlayerSpawn(ply, transiton)
 end
 
 --[[---------------------------------------------------------
+	Name: gamemode:PlayerDeathThink(player)
+	Desc: Called when the player is waiting to respawn
+-----------------------------------------------------------]]
+function GM:PlayerDeathThink(ply)
+
+	if ply.oldteam
+	and (ply.oldteam == TEAM_SPECTATOR or ply.oldteam == TEAM_UNASSIGNED) then
+
+		ply:Spawn()
+
+	elseif not ply.NextSpawnTime or ply.NextSpawnTime <= CurTime() then
+
+		ply:Spawn()
+
+	end
+
+end
+
+--[[---------------------------------------------------------
 	Name: gamemode:DoPlayerDeath( )
 	Desc: Carries out actions when the player dies
 -----------------------------------------------------------]]
