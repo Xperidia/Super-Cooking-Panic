@@ -98,14 +98,6 @@ function GM:PlayerDeathSound()
 end
 
 --[[---------------------------------------------------------
-	Name: gamemode:CanPlayerSuicide( ply )
-	Desc: Player typed KILL in the console. Can they kill themselves?
------------------------------------------------------------]]
-function GM:CanPlayerSuicide(ply)
-	return false
-end
-
---[[---------------------------------------------------------
 	Name: gamemode:GetFallDamage()
 	Desc: return amount of damage to do due to fall
 -----------------------------------------------------------]]
