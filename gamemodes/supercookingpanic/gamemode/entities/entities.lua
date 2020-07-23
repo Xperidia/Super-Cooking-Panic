@@ -28,6 +28,102 @@ function GM:SpawnCookingPots()
 end
 
 --[[---------------------------------------------------------
+	Name: gamemode:IsCookingPotSpawnpointSuitable( cookingpot, spawnpoint )
+	Desc: Find out if the spawnpoint is suitable or not
+-----------------------------------------------------------]]
+function GM:IsCookingPotSpawnpointSuitable(ent, spawnpointent)
+
+	local Pos = spawnpointent:GetPos()
+
+	local Ents = ents.FindInBox( Pos + Vector(-32, -32, 0), Pos + Vector(32, 32, 64) )
+
+	local Blockers = 0
+
+	for _, v in pairs(Ents) do
+
+		if IsValid(v) and v ~= ent and v:GetClass() == "scookp_cooking_pot" then
+
+			Blockers = Blockers + 1
+
+		end
+
+	end
+
+	if Blockers > 0 then return false end
+
+	return true
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:ListCookingPotSpawn( bool )
+	Desc: List all possible spawn point for cooking pots
+-----------------------------------------------------------]]
+function GM:ListCookingPotSpawn(everything)
+
+	local spawns = ents.FindByClass("info_cooking_pot")
+
+	if #spawns == 0 or everything then
+
+		-- Most spawn points
+		spawns = table.Add(spawns, ents.FindByClass("info_player*"))
+
+		-- (Old) GMod Maps
+		spawns = table.Add(spawns, ents.FindByClass("gmod_player_start"))
+
+		-- INS Maps
+		spawns = table.Add(spawns, ents.FindByClass("ins_spawnpoint"))
+
+		-- AOC Maps
+		spawns = table.Add(spawns, ents.FindByClass("aoc_spawnpoint"))
+
+		-- Dystopia Maps
+		spawns = table.Add(spawns, ents.FindByClass("dys_spawn_point"))
+
+		-- DIPRIP Maps
+		spawns = table.Add(spawns, ents.FindByClass("diprip_start_team_blue"))
+		spawns = table.Add(spawns, ents.FindByClass("diprip_start_team_red"))
+
+		-- L4D Maps
+		spawns = table.Add(spawns, ents.FindByClass("info_survivor_rescue"))
+
+	end
+
+	return spawns
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:CookingPotSelectSpawn( ent cookingpot, bool force )
+	Desc: Find a spawn point entity for this cooking pot
+-----------------------------------------------------------]]
+function GM:CookingPotSelectSpawn(ent, force)
+
+	local random_spawn_point
+
+	for _, v in RandomPairs( self:ListCookingPotSpawn(force) ) do
+
+		local suitable = self:IsCookingPotSpawnpointSuitable(ent, v)
+
+		if suitable or (not random_spawn_point and force) then
+
+			random_spawn_point = v
+
+			if suitable then break end
+
+		end
+
+	end
+
+	if not random_spawn_point then
+		return self:CookingPotSelectSpawn(ent, true)
+	end
+
+	return random_spawn_point
+
+end
+
+--[[---------------------------------------------------------
 	Name: gamemode:SpawnCookingPot( number tm )
 	Desc: Prepares and spawns a 'cooking pot' entity linked to a team
 -----------------------------------------------------------]]
@@ -35,37 +131,11 @@ function GM:SpawnCookingPot(tm)
 
 	local ent = ents.Create("scookp_cooking_pot")
 
-	local all_spawn_points = ents.FindByClass("info_cooking_pot")
-
-	if #all_spawn_points == 0 then
-
-		all_spawn_points = ents.FindByClass("info_player*")
-
-	end
-
-	local random_spawn_point = all_spawn_points[math.random(#all_spawn_points)]
-
-	-- Spawns a cooking pot at a random player spawn point location
-	-- Downsides:	- There is no check to see if it spawns on a player location
-	--				- If the cooking pot spawns in an unloaded room the halo
-	--					will not appear untill the room is loaded
-	ent:SetPos(random_spawn_point:GetPos())
-
-	-- Spawns a cooking pot in front of a player
-	-- Downsides:	- If the choosen player looks towards a wall at a close
-	--			 		distance it will can spawn behind the wall
-
-	-- if tm then
-	-- 	local tm_players = team.GetPlayers(tm)
-	-- 	local random_tm_player = tm_players[math.random(1, #tm_players)]
-	--
-	-- 	ent:SetPos(random_tm_player:GetPos() + random_tm_player:GetAimVector() * 100 - Vector(0, 0, -40 + random_tm_player:GetAimVector().z * 100))
-	-- else
-	-- 	ent:SetPos(Vector(0, 0, 0))
-	-- end
-
 	ent:SetTeam(tm or 0)
 	ent:SetColor(team.GetColor(tm))
+
+	ent:SetPos(self:CookingPotSelectSpawn(ent):GetPos() + Vector(0, 0, 32))
+
 	ent:Spawn()
 
 end
