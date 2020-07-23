@@ -55,7 +55,7 @@ function GM:HUDPaint()
 	-- Draw all of the default stuff
 	self.BaseClass.HUDPaint(self)
 
-	draw.DrawText("Super Cooking Panic\nv" .. (self.Version and tostring(self.Version) or "?") .. "\n" .. (self.VersionDate or ""), "Trebuchet18", ScrW() - 4, 0, Color(255, 255, 255, 255), TEXT_ALIGN_RIGHT)
+	draw.DrawText("Super Cooking Panic\nv" .. (self.Version and tostring(self.Version) or "?") .. "\n" .. (self.VersionDate or ""), "DermaDefault", ScrW() - 4, 0, Color(255, 255, 255, 255), TEXT_ALIGN_RIGHT)
 
 	-- Development / Debug values
 	if self:ConVarGetBool("dev_mode") then
