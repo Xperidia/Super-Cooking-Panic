@@ -34,7 +34,15 @@ end
 function GM:SpawnCookingPot(tm)
 
 	local ent = ents.Create("scookp_cooking_pot")
-	local all_spawn_points = ents.FindByClass("info_player*")
+
+	local all_spawn_points = ents.FindByClass("info_cooking_pot")
+
+	if #all_spawn_points == 0 then
+
+		all_spawn_points = ents.FindByClass("info_player*")
+
+	end
+
 	local random_spawn_point = all_spawn_points[math.random(#all_spawn_points)]
 
 	-- Spawns a cooking pot at a random player spawn point location
