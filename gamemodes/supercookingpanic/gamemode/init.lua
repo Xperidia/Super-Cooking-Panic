@@ -3,6 +3,7 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
+AddCSLuaFile("cl_utils.lua")
 AddCSLuaFile("cl_hud.lua")
 AddCSLuaFile("cl_render.lua")
 AddCSLuaFile("cl_targetid.lua")

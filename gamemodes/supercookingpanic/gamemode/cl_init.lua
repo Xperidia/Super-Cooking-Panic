@@ -4,6 +4,7 @@
 -----------------------------------------------------------]]
 
 include("shared.lua")
+include("cl_utils.lua")
 include("cl_hud.lua")
 include("player/cl_player.lua")
 include("teams/cl_teams.lua")
