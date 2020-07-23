@@ -28,7 +28,7 @@ function PLAYER:Loadout()
 
 	self.Player:RemoveAllAmmo()
 
-	self.Player:Give("weapon_fists")
+	self.Player:Give("scookp_arms")
 
 end
 

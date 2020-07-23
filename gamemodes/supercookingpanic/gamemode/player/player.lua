@@ -3,6 +3,8 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
+include("sh_player.lua")
+
 AddCSLuaFile("cl_player.lua")
 
 --[[---------------------------------------------------------
@@ -87,6 +89,12 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 
 	ply:CreateRagdoll() --TODO: make serverside ragdoll to use as ingredient
 
+	ply:DropHeldIngredient()
+
+	for _, wep in pairs(ply:GetWeapons()) do
+		ply:DropWeapon(wep)
+	end
+
 	ply:AddDeaths(1)
 
 end
@@ -97,14 +105,6 @@ end
 -----------------------------------------------------------]]
 function GM:PlayerDeathSound()
 	return true
-end
-
---[[---------------------------------------------------------
-	Name: gamemode:GetFallDamage()
-	Desc: return amount of damage to do due to fall
------------------------------------------------------------]]
-function GM:GetFallDamage(ply, flFallSpeed)
-	return 0
 end
 
 --[[---------------------------------------------------------
@@ -128,4 +128,87 @@ end
 	Desc: Called when a player is hurt.
 -----------------------------------------------------------]]
 function GM:PlayerHurt(player, attacker, healthleft, healthtaken)
+end
+
+--[[---------------------------------------------------------
+	Name: ply:GrabIngredient( ent )
+	Desc: Player will try to grab ent
+-----------------------------------------------------------]]
+function GM.PlayerMeta:GrabIngredient(ingredient)
+
+	if ingredient:IsIngredient() then
+
+		if ingredient:IsNPC() then
+
+			ingredient:ExitScriptedSequence()
+			ingredient:ClearExpression()
+			ingredient:ClearSchedule()
+			ingredient:CapabilitiesClear()
+			ingredient:DropWeapon(nil, self:GetPos())
+			ingredient:StopMoving()
+			ingredient:UseNoBehavior()
+
+			local ragdoll = ents.Create("prop_ragdoll")
+			ragdoll:SetModel(ingredient:GetModel())
+			ragdoll:SetPos(ingredient:GetPos())
+			ragdoll:SetAngles(ingredient:GetAngles())
+			ragdoll:SetVelocity(ingredient:GetVelocity())
+			ragdoll:Spawn()
+
+			ingredient:Remove()
+
+			ingredient = ragdoll
+
+		end
+
+		self:SetHeldIngredient(ingredient)
+		ingredient:SetOwner(self)
+		ingredient:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
+		ingredient:SetRenderMode(RENDERMODE_NONE)
+		ingredient:DrawShadow(false)
+
+	end
+
+end
+
+--[[---------------------------------------------------------
+	Name: ply:DropHeldIngredient( bool forward )
+	Desc: Player will drop their ingredient
+-----------------------------------------------------------]]
+function GM.PlayerMeta:DropHeldIngredient(forward)
+
+	local ingredient = self:GetHeldIngredient()
+
+	if IsValid(ingredient) then
+
+		ingredient:SetOwner(NULL)
+		ingredient:SetCollisionGroup(COLLISION_GROUP_NONE)
+		ingredient:SetRenderMode(RENDERMODE_NORMAL)
+		ingredient:DrawShadow(true)
+		self:SetHeldIngredient(NULL)
+
+		local Forward = self:GetAimVector()
+
+		if forward then
+
+			ingredient:SetPos(self:GetShootPos() + Forward * (32 + ingredient:GetModelRadius()))
+			if not ingredient:IsNPC() then
+				ingredient:SetAngles(self:EyeAngles())
+			end
+			ingredient:PhysWake()
+			ingredient:Activate()
+			ingredient:SetVelocity( Forward * 200 )
+
+		else
+
+			ingredient:SetPos(self:GetPos())
+			ingredient:PhysWake()
+			ingredient:Activate()
+
+		end
+
+	end
+
+	return ingredient
+
 end

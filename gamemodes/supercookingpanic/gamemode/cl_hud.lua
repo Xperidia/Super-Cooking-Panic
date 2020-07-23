@@ -52,6 +52,8 @@ function GM:HUDPaint()
 		return
 	end
 
+	local ply = LocalPlayer()
+
 	-- Draw all of the default stuff
 	self.BaseClass.HUDPaint(self)
 
@@ -78,6 +80,19 @@ function GM:HUDPaint()
 		y = y + 40
 
 		self:DrawHUDModel(self:GetBonusIngredientModel(), 50, y, 200, 200)
+		y = y + 200
+
+		if ply:IsHoldingIngredient() then
+
+			local model = ply:GetHeldIngredient():GetModel()
+
+			draw.SimpleText("Held Ingredient: " .. model, "DermaDefault", 50, y)
+			y = y + 40
+
+			self:DrawHUDModel(model, 50, y, 200, 200)
+			y = y + 200
+
+		end
 
 	end
 
@@ -108,13 +123,13 @@ function GM:DrawHUDModel(model, x, y, w, h)
 	end
 
 	if not IsValid(self.HUDBonusProp) then
-		self:CreateHUDBonusProp(model)
+		self:CreateHUDModel(model)
 	end
 
 	if IsValid(self.HUDBonusProp) then
 
 		if self.HUDBonusProp:GetModel() ~= model then
-			self:CreateHUDBonusProp(model)
+			self:CreateHUDModel(model)
 		end
 
 		local radius = self.HUDBonusProp:GetModelRadius()

@@ -53,7 +53,11 @@ function GM:SetLookedAtEntity()
 		entity_looked_at = nil
 	end
 
-	entity_looked_at = trace.Entity
+	if trace.HitPos:Distance(trace.StartPos) < 160 then
+
+		entity_looked_at = trace.Entity
+
+	end
 
 end
 

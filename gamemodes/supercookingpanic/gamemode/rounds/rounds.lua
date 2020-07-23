@@ -36,6 +36,9 @@ function GM:StartRound()
 	self:SpawnCookingPots()
 
 	self:StartRoundTimer()
+
+	self:AutoChooseBonusIngredient()
+
 	self.RoundVars.status = true
 
 	self:UpdateClientRoundValues()
@@ -70,6 +73,8 @@ function GM:EndRound()
 
 	self.RoundVars.status = false
 	self.RoundVars.timer = 0
+
+	game.CleanUpMap(true)
 
 	self:UpdateClientRoundValues()
 

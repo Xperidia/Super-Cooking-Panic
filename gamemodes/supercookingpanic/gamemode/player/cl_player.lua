@@ -3,6 +3,8 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
+include("sh_player.lua")
+
 if not GM.PlayerMeta.IsListenServerHost then
 
 	function GM.PlayerMeta:IsListenServerHost()

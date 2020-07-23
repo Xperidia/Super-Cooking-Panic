@@ -47,6 +47,18 @@ function ENT:SetupDataTables()
 
 end
 
+function ENT:AbsorbEnt(ent)
+
+	team.AddScore(self:GetTeam(),
+		ent:GetPoints() * GAMEMODE:GetScoreMultiplier(self:GetTeam()))
+
+	GAMEMODE:IncrementScoreMultiplier(self:GetTeam())
+	GAMEMODE:StartComboTimer(self:GetTeam())
+
+	ent:Remove() --TODO: maybe do some anim
+
+end
+
 --[[---------------------------------------------------------
 	Name: entity:StartTouch( entity ent )
 	Desc: Detects when an ingredient is brought to the cooking pot
@@ -54,13 +66,14 @@ end
 function ENT:StartTouch(ent)
 
 	if ent:IsIngredient() and not ent:IsPlayer() then
-		team.AddScore(self:GetTeam(),
-			ent:GetPoints() * GAMEMODE:GetScoreMultiplier(self:GetTeam()))
 
-		GAMEMODE:IncrementScoreMultiplier(self:GetTeam())
-		GAMEMODE:StartComboTimer(self:GetTeam())
+		self:AbsorbEnt(ent)
 
-		ent:Remove() --TODO: maybe do some anim
+	elseif ent:IsPlayer() and ent:Team() == self:Team()
+		and ent:IsValidPlayingState() and ent:IsHoldingIngredient() then
+
+		self:AbsorbEnt(ent:DropHeldIngredient())
+
 	end
 
 end
