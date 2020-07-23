@@ -86,3 +86,11 @@ luac.out
 *.i*86
 *.x86_64
 *.hex
+
+# Log files
+*.log
+
+# Hammer/VBSP/VVIS files that we probably don't need to Git
+*.vmx
+*.prt
+*.pts
