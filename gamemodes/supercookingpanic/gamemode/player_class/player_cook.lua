@@ -90,4 +90,7 @@ function PLAYER:CalcView(view)
 
 end
 
+function PLAYER:Death(inflictor, attacker)
+end
+
 player_manager.RegisterClass("player_cook", PLAYER, "player_default")
