@@ -3,31 +3,11 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
-local round_status = round_status or false -- Active = true
-local round_timer = round_timer or 0 -- Endtime value
+include("sh_rounds.lua")
 
---[[---------------------------------------------------------
-	Name: gamemode.GetRoundStatus()
-	Desc: Called to know the current game round status
------------------------------------------------------------]]
-function GM:GetRoundStatus()
-	return round_status
-end
+net.Receive("scookp_roundupdate", function(len)
 
---[[---------------------------------------------------------
-	Name: gamemode.GetRoundTimer()
-	Desc: Called to know the endtime value of the round timer
------------------------------------------------------------]]
-function GM:GetRoundTimer()
-	return round_timer
-end
+	GAMEMODE.RoundVars.status = net.ReadBool()
+	GAMEMODE.RoundVars.timer = net.ReadFloat()
 
---[[---------------------------------------------------------
-	Name: gamemode.UpdateRoundValues( number )
-	Desc: Receives multiple updated values from the server
------------------------------------------------------------]]
-function GM.UpdateRoundValues(len)
-	round_status = net.ReadBool()
-	round_timer = net.ReadFloat()
-end
-net.Receive("scookp_roundupdate", GM.UpdateRoundValues)
+end)

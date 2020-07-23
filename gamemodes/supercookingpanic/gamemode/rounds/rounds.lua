@@ -3,6 +3,8 @@
 				by Xperidia (2020)
 -----------------------------------------------------------]]
 
+include("sh_rounds.lua")
+
 AddCSLuaFile("cl_rounds.lua")
 
 util.AddNetworkString("scookp_roundupdate")
@@ -10,9 +12,6 @@ util.AddNetworkString("scookp_roundupdate")
 -- Constants
 local round_time_length = 120 -- Seconds
 --
-
-local round_status = round_status or false -- Active = true
-local round_timer = round_timer or 0 -- Endtime float value (since the server uptime)
 
 --[[---------------------------------------------------------
 	Name: gamemode.CheckToStartRound()
@@ -37,7 +36,7 @@ function GM:StartRound()
 	self:SpawnCookingPots()
 
 	self:StartRoundTimer()
-	round_status = true
+	self.RoundVars.status = true
 
 	self:UpdateClientRoundValues()
 
@@ -69,8 +68,8 @@ function GM:EndRound()
 	self:ResetScores()
 	self:ResetScoreMultipliers()
 
-	round_status = false
-	round_timer = 0
+	self.RoundVars.status = false
+	self.RoundVars.timer = 0
 
 	self:UpdateClientRoundValues()
 
@@ -78,27 +77,11 @@ function GM:EndRound()
 end
 
 --[[---------------------------------------------------------
-	Name: gamemode:GetRoundStatus()
-	Desc: Called to know the current game round status
------------------------------------------------------------]]
-function GM:GetRoundStatus()
-	return round_status
-end
-
---[[---------------------------------------------------------
 	Name: gamemode:StartRoundTimer()
 	Desc: Creates a new round timer / Stores the value of its endtime
 -----------------------------------------------------------]]
 function GM:StartRoundTimer()
-	round_timer = CurTime() + round_time_length
-end
-
---[[---------------------------------------------------------
-	Name: gamemode:GetRoundTimer()
-	Desc: Called to know the endtime value of the round timer
------------------------------------------------------------]]
-function GM:GetRoundTimer()
-	return round_timer
+	self.RoundVars.timer = CurTime() + round_time_length
 end
 
 --[[---------------------------------------------------------
@@ -137,8 +120,8 @@ end
 -----------------------------------------------------------]]
 function GM:UpdateClientRoundValues()
 	net.Start("scookp_roundupdate")
-	net.WriteBool(round_status)
-	net.WriteFloat(round_timer)
+	net.WriteBool(self.RoundVars.status)
+	net.WriteFloat(self.RoundVars.timer)
 	net.Broadcast()
 end
 
@@ -148,12 +131,12 @@ end
 -----------------------------------------------------------]]
 function GM:RoundThink()
 	-- If no round is live, constantly try to start one
-	if not round_status then
+	if not self.RoundVars.status then
 		self:CheckToStartRound()
 	end
 
 	-- If a round is live, constantly try to end it
-	if round_status then
+	if self.RoundVars.status then
 		self:CheckToEndRound()
 	end
 end
