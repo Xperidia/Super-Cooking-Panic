@@ -5,3 +5,6 @@
 //-------------------------------------------------------------------------
 
 @include "base.fgd"
+
+@PointClass base(Targetname) size(-32 -32 0, 32 32 32) = info_cooking_pot : "Spawn point for the cooking pots."
+[]
