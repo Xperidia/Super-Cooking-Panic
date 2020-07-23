@@ -11,9 +11,14 @@
 function GM:CookingPotHalo()
 
 	local plyTeam = LocalPlayer():Team()
+	local cooking_pots = ents.FindByClass("scookp_cooking_pot")
+	local lots_of_cooking_pots = #cooking_pots > 4
 
-	for _, v in pairs(ents.FindByClass("scookp_cooking_pot")) do
-		halo.Add({v}, v:GetTeamColor(), 2, 2, 1, true, plyTeam == v:Team())
+	for _, v in pairs(cooking_pots) do
+		local is_own_team = plyTeam == v:Team()
+		if not lots_of_cooking_pots or is_own_team then
+			halo.Add({v}, v:GetTeamColor(), 2, 2, 1, true, is_own_team)
+		end
 	end
 
 end
