@@ -69,6 +69,8 @@ function GM:PlayerDeathThink(ply)
 
 		ply:Spawn()
 
+		ply.oldteam = nil
+
 	elseif not ply.NextSpawnTime or ply.NextSpawnTime <= CurTime() then
 
 		ply:Spawn()
