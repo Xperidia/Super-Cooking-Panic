@@ -10,7 +10,7 @@ GM.Prefix			= "scookp"
 GM.Author 			= "Xperidia"
 GM.Website 			= "github.com/Xperidia/Super-Cooking-Panic"
 GM.Version 			= "0.1.0"
-GM.VersionDate 		= 200723
+GM.VersionDate 		= 200724
 GM.TeamBased 		= true
 GM.AllowAutoTeam	= true
 
