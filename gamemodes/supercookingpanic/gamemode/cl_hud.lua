@@ -62,12 +62,16 @@ function GM:HUDPaint()
 	-- Development / Debug values
 	if self:ConVarGetBool("dev_mode") then
 
-		draw.SimpleText("Round Status: " .. tostring(self:GetRoundStatus()),
-			"DermaDefault", 50, 50)
-		draw.SimpleText("Round Timer: " .. self:FormatTime(self:GetRoundTimer() - CurTime()),
-			"DermaDefault", 50, 60)
-
 		local y = 80
+
+		draw.SimpleText("Round Status: " .. tostring(self:GetRoundStatus()),
+			"DermaDefault", 50, y)
+		y = y + 10
+
+		draw.SimpleText("Round Timer: " .. self:FormatTime(self:GetRoundTimer() - CurTime()),
+			"DermaDefault", 50, y)
+		y = y + 20
+
 		for k, v in pairs(self:GetPlayingTeams()) do
 			--v.Score doesn't work
 			draw.SimpleText("Score " .. v.Name .. ": " .. team.GetScore(k), "DermaDefault", 50, y)
@@ -79,7 +83,7 @@ function GM:HUDPaint()
 		draw.SimpleText("Bonus Ingredient: " .. self:GetBonusIngredientModel(), "DermaDefault", 50, y)
 		y = y + 40
 
-		self:DrawHUDModel(self:GetBonusIngredientModel(), 50, y, 200, 200)
+		self:DrawHUDModel(self:GetBonusIngredientModel(), "bonus", 50, y, 200, 200)
 		y = y + 200
 
 		if ply:IsHoldingIngredient() then
@@ -89,7 +93,7 @@ function GM:HUDPaint()
 			draw.SimpleText("Held Ingredient: " .. model, "DermaDefault", 50, y)
 			y = y + 40
 
-			self:DrawHUDModel(model, 50, y, 200, 200)
+			self:DrawHUDModel(model, "hold", 50, y, 200, 200)
 			y = y + 200
 
 		end
@@ -109,33 +113,44 @@ function GM:HUDPaintBackground()
 
 end
 
-function GM:CreateHUDModel(model)
+function GM:CreateHUDModel(model, name_id)
 
-	self.HUDBonusProp = ClientsideModel(model, RENDER_GROUP_OPAQUE_ENTITY)
-	self.HUDBonusProp:SetNoDraw(true)
+	if IsValid(self.HUDModels[name_id]) then
+		self.HUDModels[name_id]:Remove()
+	end
+
+	self.HUDModels[name_id] = ClientsideModel(model, RENDER_GROUP_OPAQUE_ENTITY)
+
+	if IsValid(self.HUDModels[name_id]) then
+		self.HUDModels[name_id]:SetNoDraw(true)
+	end
 
 end
 
-function GM:DrawHUDModel(model, x, y, w, h)
+function GM:DrawHUDModel(model, name_id, x, y, w, h)
 
 	if not util.IsValidModel(model) then
 		return
 	end
 
-	if not IsValid(self.HUDBonusProp) then
-		self:CreateHUDModel(model)
+	if not self.HUDModels then
+		self.HUDModels = {}
 	end
 
-	if IsValid(self.HUDBonusProp) then
+	if not IsValid(self.HUDModels[name_id]) then
+		self:CreateHUDModel(model, name_id)
+	end
 
-		if self.HUDBonusProp:GetModel() ~= model then
-			self:CreateHUDModel(model)
+	if IsValid(self.HUDModels[name_id]) then
+
+		if self.HUDModels[name_id]:GetModel() ~= model then
+			self:CreateHUDModel(model, name_id)
 		end
 
-		local radius = self.HUDBonusProp:GetModelRadius()
+		local radius = self.HUDModels[name_id]:GetModelRadius()
 		local pos = Vector(radius * 2, 0, radius)
 
-		self.HUDBonusProp:SetAngles(Angle(0, math.Remap(math.sin(CurTime()), -1, 1, -180, 180), 0))
+		self.HUDModels[name_id]:SetAngles(Angle(0, math.Remap(math.sin(CurTime()), -1, 1, -180, 180), 0))
 
 		cam.Start3D(pos, Vector(-(radius * 2), 0, -radius):Angle(), 70, x, y, w, h)
 		cam.IgnoreZ(true)
@@ -146,7 +161,7 @@ function GM:DrawHUDModel(model, x, y, w, h)
 		render.SetColorModulation(1, 1, 1)
 		render.SetBlend(1)
 
-		self.HUDBonusProp:DrawModel()
+		self.HUDModels[name_id]:DrawModel()
 
 		render.SuppressEngineLighting(false)
 		cam.IgnoreZ(false)
