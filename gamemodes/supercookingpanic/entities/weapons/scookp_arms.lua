@@ -20,45 +20,93 @@ SWEP.Secondary.Automatic = false
 
 if CLIENT then
 	SWEP.PrintName = language.GetPhrase("scookp_arms")
-	SWEP.Instructions = GAMEMODE:CheckBind("+attack") .. " to release ingredients\n" .. GAMEMODE:CheckBind("+attack2") .. " to grab ingredient\n" .. GAMEMODE:CheckBind("+reload") .. " to use power up"
+	SWEP.Instructions = GAMEMODE:CheckBind("+attack") .. " to grab ingredients\n" .. GAMEMODE:CheckBind("+attack2") .. " to use power-up\n" .. GAMEMODE:CheckBind("+reload") .. " to drop ingredient"
 end
 
 function SWEP:PrimaryAttack()
 
 	if not SERVER then return end
 
-	self:GetOwner():DropHeldIngredient(true)
+	self:GrabIngredient()
 
 end
 
 function SWEP:SecondaryAttack()
-
-	if not SERVER then return end
-
-	local owner = self:GetOwner()
-
-	local trace = util.TraceLine(util.GetPlayerTrace(owner))
-
-	if not trace.Hit then return end
-
-	if not trace.HitNonWorld then return end
-
-	if not IsValid(trace.Entity) or trace.Entity:IsPlayer() then return end
-
-	if trace.HitPos:Distance(trace.StartPos) < 160 then
-
-		if IsValid(owner:GetHeldIngredient()) then
-
-			self:GetOwner():DropHeldIngredient(true)
-
-		end
-
-		owner:GrabIngredient(trace.Entity)
-
-	end
-
-
 end
 
 function SWEP:Reload()
+
+	if not SERVER then return end
+
+	self:DropIngredient()
+
+end
+
+if SERVER then
+
+	function SWEP:GrabIngredient()
+
+		local owner = self:GetOwner()
+
+		local trace = util.TraceLine(util.GetPlayerTrace(owner))
+
+		if not trace.Hit then return end
+
+		if not trace.HitNonWorld then return end
+
+		if not IsValid(trace.Entity) or trace.Entity:IsPlayer() then return end
+
+		if trace.HitPos:Distance(trace.StartPos) < 160 then
+
+			if IsValid(owner:GetHeldIngredient())
+			and trace.Entity:GetClass() == "scookp_cooking_pot" then
+
+				trace.Entity:AbsorbEnt(owner:DropHeldIngredient())
+
+				self:DropIngredientAnim(owner)
+
+			elseif not trace.Entity:IsIngredient() then
+
+				return
+
+			elseif IsValid(owner:GetHeldIngredient())
+			and trace.Entity:GetClass() == "scookp_cooking_pot" then
+
+				trace.Entity:AbsorbEnt(owner:DropHeldIngredient())
+
+			elseif IsValid(owner:GetHeldIngredient()) then
+
+				owner:DropHeldIngredient(true)
+
+			end
+
+			owner:GrabIngredient(trace.Entity)
+
+		end
+
+	end
+
+	function SWEP:DropIngredient()
+
+		local owner = self:GetOwner()
+
+		local usecooldown = owner.usecooldown or 0
+
+		if CurTime() <= usecooldown then return end
+
+		owner:DropHeldIngredient(true)
+
+		self:DropIngredientAnim(owner)
+
+	end
+
+	function SWEP:DropIngredientAnim(owner)
+
+		net.Start("VManip_SimplePlay")
+			net.WriteString("use")
+		net.Send(owner)
+		owner.usecooldown = CurTime() + 1
+
+	end
+
 end
