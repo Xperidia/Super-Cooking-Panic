@@ -167,6 +167,10 @@ function GM.PlayerMeta:GrabIngredient(ingredient)
 		ingredient:SetRenderMode(RENDERMODE_NONE)
 		ingredient:DrawShadow(false)
 
+		GAMEMODE:DebugLog(self:GetName() .. " grabbed ingredient "
+		.. ingredient:GetClass()
+		.. ": " .. ingredient:GetModel())
+
 	end
 
 end
@@ -206,6 +210,10 @@ function GM.PlayerMeta:DropHeldIngredient(forward)
 			ingredient:Activate()
 
 		end
+
+		GAMEMODE:DebugLog(self:GetName() .. " dropped held ingredient "
+		.. ingredient:GetClass()
+		.. ": " .. ingredient:GetModel())
 
 	end
 
