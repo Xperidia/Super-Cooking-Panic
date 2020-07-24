@@ -27,6 +27,8 @@ function ENT:Initialize()
 
 		self:Activate()
 
+		self:SetUseType(SIMPLE_USE)
+
 	end
 
 	if CLIENT then
@@ -49,11 +51,16 @@ end
 
 function ENT:AbsorbEnt(ent)
 
-	team.AddScore(self:GetTeam(),
-		ent:GetPoints() * GAMEMODE:GetScoreMultiplier(self:GetTeam()))
+	local points = ent:GetPoints() * GAMEMODE:GetScoreMultiplier(self:GetTeam())
+
+	team.AddScore(self:GetTeam(), points)
 
 	GAMEMODE:IncrementScoreMultiplier(self:GetTeam())
 	GAMEMODE:StartComboTimer(self:GetTeam())
+
+	GAMEMODE:DebugLog(self:Team() .. " got new ingredient " .. ent:GetClass()
+	.. " for " .. points .. " points"
+	.. ": " .. ent:GetModel())
 
 	ent:Remove() --TODO: maybe do some anim
 
@@ -73,6 +80,21 @@ function ENT:StartTouch(ent)
 		and ent:IsValidPlayingState() and ent:IsHoldingIngredient() then
 
 		self:AbsorbEnt(ent:DropHeldIngredient())
+
+	end
+
+end
+
+--[[---------------------------------------------------------
+	Name: entity:Use( Entity activator, Entity caller, number useType, number value )
+	Desc: Called when an entity "uses" this entity
+-----------------------------------------------------------]]
+function ENT:Use(activator, caller, useType, value)
+
+	if activator:IsPlayer() and activator:Team() == self:Team()
+	and activator:IsValidPlayingState() and activator:IsHoldingIngredient() then
+
+		self:AbsorbEnt(activator:DropHeldIngredient())
 
 	end
 
