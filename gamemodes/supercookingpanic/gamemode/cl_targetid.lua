@@ -17,11 +17,13 @@ function GM:HUDDrawTargetID()
 
 	local text = "ERROR"
 	local font = "DermaLarge"
+	local multiplier = self:GetScoreMultiplier(LocalPlayer():Team())
 
 	if ent:IsPlayer() then
 		text = string.format("%s (%d points)", ent:Nick(), ent:GetPoints())
 	elseif ent:IsIngredient() then
-		text = string.format("%d points", ent:GetPoints())
+		local points = ent:GetPoints()
+		text = string.format("%d points (%dx %d points)", points * multiplier, multiplier, points)
 	elseif ent:GetClass() == "scookp_cooking_pot" then
 		text = string.format("%s's cooking pot", team.GetName(ent:Team()))
 	else
