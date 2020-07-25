@@ -25,6 +25,7 @@
 		"Thumbs.db",
 		"CODEOWNERS",
 		"LICENSE",
-		"glualint.json"
+		"glualint.json",
+		"gamemodes/*/content/*"
 	]
 }
