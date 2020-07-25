@@ -91,10 +91,10 @@ function GM:SharedInitialize()
 	})
 
 	sound.Add({
-		name = "scookp_power_up_grab",
+		name = "scookp_power_up_pickup",
 		channel = CHAN_ITEM,
 		level = 66,
-		sound = "supercookingpanic/effects/power_up_grab.wav"
+		sound = "supercookingpanic/effects/power_up_pickup.wav"
 	})
 
 end
