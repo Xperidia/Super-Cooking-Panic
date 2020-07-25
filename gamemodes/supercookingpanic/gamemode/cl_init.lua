@@ -70,3 +70,18 @@ function GM:Tick()
 	self:SetLookedAtEntity()
 
 end
+
+--[[---------------------------------------------------------
+	Name: gamemode:GetTeamColor( ent )
+	Desc: Return the color for this ent's team
+		This is for chat and deathnotice text
+-----------------------------------------------------------]]
+function GM:GetTeamColor(ent)
+
+	if ent:IsBonusIngredient() then
+		return Color(0, 255, 255)
+	end
+
+	return self.BaseClass.GetTeamColor(self, ent)
+
+end
