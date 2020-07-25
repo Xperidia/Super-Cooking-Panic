@@ -35,12 +35,6 @@ function GM:MouseOverHalo()
 		return
 	end
 
-	--TODO: remove debug check
-	if self:ConVarGetBool("dev_mode") and ent:IsBonusIngredient() then
-		halo.Add({ent}, Color(0, 255, 255), 2, 2, 1, true, true)
-		return
-	end
-
 	halo.Add({ent}, self:GetTeamColor(ent), 2, 2, 1, true, true)
 
 end
