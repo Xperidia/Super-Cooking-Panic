@@ -5,14 +5,30 @@
 
 AddCSLuaFile()
 
+RND_NULL = 0
+RND_WAITING = 2
+RND_PREPARING = 32
+RND_PLAYING = 2048
+RND_ENDING = 8388608
+RND_VOTEMAP = 1073741824
+
+GM.GameStates = {
+	[RND_NULL] = "null",
+	[RND_WAITING] = "waiting",
+	[RND_PREPARING] = "preparing",
+	[RND_PLAYING] = "playing",
+	[RND_ENDING] = "ending",
+	[RND_VOTEMAP] = "voting",
+}
+
 GM.RoundVars = GM.RoundVars or {}
 
 --[[---------------------------------------------------------
-	Name: gamemode.GetRoundStatus()
+	Name: gamemode.GetRoundState()
 	Desc: Called to know the current game round status
 -----------------------------------------------------------]]
-function GM:GetRoundStatus()
-	return self.RoundVars.status or false
+function GM:GetRoundState()
+	return self.RoundVars.state or RND_NULL
 end
 
 --[[---------------------------------------------------------

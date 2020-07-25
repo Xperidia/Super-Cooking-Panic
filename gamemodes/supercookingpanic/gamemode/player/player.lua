@@ -23,6 +23,8 @@ function GM:PlayerInitialSpawn(ply, transiton)
 		ply:SetNWBool("IsListenServerHost", true)
 	end
 
+	self:UpdateClientRoundValues(ply)
+
 end
 
 --[[---------------------------------------------------------
@@ -135,6 +137,10 @@ end
 	Desc: Player will try to grab ent
 -----------------------------------------------------------]]
 function GM.PlayerMeta:GrabIngredient(ingredient)
+
+	if GAMEMODE:GetRoundState() ~= RND_PLAYING then return end
+
+	if not self:IsValidPlayingState() then return end
 
 	if ingredient:IsIngredient() then
 

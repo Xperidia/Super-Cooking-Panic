@@ -7,7 +7,7 @@ include("sh_rounds.lua")
 
 net.Receive("scookp_roundupdate", function(len)
 
-	GAMEMODE.RoundVars.status = net.ReadBool()
+	GAMEMODE.RoundVars.state = net.ReadUInt(32)
 	GAMEMODE.RoundVars.timer = net.ReadFloat()
 
 end)

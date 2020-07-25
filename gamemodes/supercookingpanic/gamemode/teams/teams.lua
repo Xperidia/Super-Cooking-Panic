@@ -99,11 +99,7 @@ end
 -----------------------------------------------------------]]
 function GM:IsComboTimerOver(id)
 
-	if self:GetComboTimer(id) < CurTime() then
-		return true
-	end
-
-	return false
+	return self:GetComboTimer(id) < CurTime()
 
 end
 
@@ -268,7 +264,7 @@ end
 -----------------------------------------------------------]]
 function GM:TeamThink()
 
-	if self:GetRoundStatus() then
+	if self:GetRoundState() > RND_WAITING then
 		self:CheckToEndCombos()
 	end
 

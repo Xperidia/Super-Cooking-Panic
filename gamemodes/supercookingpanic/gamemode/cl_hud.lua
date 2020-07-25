@@ -57,30 +57,30 @@ function GM:HUDPaint()
 	-- Draw all of the default stuff
 	self.BaseClass.HUDPaint(self)
 
-	draw.DrawText("Super Cooking Panic\nv" .. (self.Version and tostring(self.Version) or "?") .. "\n" .. (self.VersionDate or ""), "DermaDefault", ScrW() - 4, 0, Color(255, 255, 255, 255), TEXT_ALIGN_RIGHT)
+	draw.DrawText("Super Cooking Panic\nv" .. (self.Version and tostring(self.Version) or "?") .. "\n" .. (self.VersionDate or ""), nil, ScrW() - 4, 0, nil, TEXT_ALIGN_RIGHT)
 
 	-- Development / Debug values
 	if self:ConVarGetBool("dev_mode") then
 
 		local y = 80
 
-		draw.SimpleText("Round Status: " .. tostring(self:GetRoundStatus()),
-			"DermaDefault", 50, y)
+		draw.SimpleText("Round Status: " .. self.GameStates[self:GetRoundState()],
+			nil, 50, y)
 		y = y + 10
 
 		draw.SimpleText("Round Timer: " .. self:FormatTime(self:GetRoundTimer() - CurTime()),
-			"DermaDefault", 50, y)
+			nil, 50, y)
 		y = y + 20
 
 		for k, v in pairs(self:GetPlayingTeams()) do
 			--v.Score doesn't work
-			draw.SimpleText("Score " .. v.Name .. ": " .. team.GetScore(k), "DermaDefault", 50, y)
-			draw.SimpleText("Combo Timer: " .. self:FormatTime(self:GetComboTimer(k) - CurTime()), "DermaDefault", 50, y + 10)
-			draw.SimpleText("Combo: x" .. self:GetScoreMultiplier(k), "DermaDefault", 50, y + 20)
+			draw.SimpleText("Score " .. v.Name .. ": " .. team.GetScore(k), nil, 50, y)
+			draw.SimpleText("Combo Timer: " .. self:FormatTime(self:GetComboTimer(k) - CurTime()), nil, 50, y + 10)
+			draw.SimpleText("Combo: x" .. self:GetScoreMultiplier(k), nil, 50, y + 20)
 			y = y + 40
 		end
 
-		draw.SimpleText("Bonus Ingredient: " .. self:GetBonusIngredientModel(), "DermaDefault", 50, y)
+		draw.SimpleText("Bonus Ingredient: " .. self:GetBonusIngredientModel(), nil, 50, y)
 		y = y + 40
 
 		self:DrawHUDModel(self:GetBonusIngredientModel(), "bonus", 50, y, 200, 200)
@@ -90,7 +90,7 @@ function GM:HUDPaint()
 
 			local model = ply:GetHeldIngredient():GetModel()
 
-			draw.SimpleText("Held Ingredient: " .. model, "DermaDefault", 50, y)
+			draw.SimpleText("Held Ingredient: " .. model, nil, 50, y)
 			y = y + 40
 
 			self:DrawHUDModel(model, "hold", 50, y, 200, 200)

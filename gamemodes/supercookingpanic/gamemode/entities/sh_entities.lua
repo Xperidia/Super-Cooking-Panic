@@ -44,7 +44,7 @@ local model_list = {
 	--TODO: fill models or replace with a way to get any prop model
 }
 
-local super_ingredient_score_multiplier = 2
+local super_ingredient_score_multiplier = 10
 --
 
 function GM:GetRandomPropModel()

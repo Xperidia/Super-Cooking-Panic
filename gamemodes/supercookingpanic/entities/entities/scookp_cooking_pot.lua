@@ -51,6 +51,8 @@ end
 
 function ENT:AbsorbEnt(ent)
 
+	if GAMEMODE:GetRoundState() ~= RND_PLAYING then return end
+
 	if ent:IsBonusIngredient() then
 		GAMEMODE:AutoChooseBonusIngredient()
 	end
