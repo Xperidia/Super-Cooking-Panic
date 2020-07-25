@@ -18,20 +18,28 @@ function GM:HUDDrawTargetID()
 	local text = "ERROR"
 	local font = "DermaLarge"
 	local multiplier = self:GetScoreMultiplier(LocalPlayer():Team())
+	local points = ent:GetPoints() or 0
+	local cpoints = points * multiplier
 
 	if ent:IsPlayer() then
-		text = string.format("%s (%d points)", ent:Nick(), ent:GetPoints())
+
+		text = string.format("%s\n%d points\n(%dx %d points)", ent:Nick(), cpoints, multiplier, points)
+
 	elseif ent:IsIngredient() then
-		local points = ent:GetPoints()
-		text = string.format("%d points (%dx %d points)", points * multiplier, multiplier, points)
+
+		text = string.format("%d points\n(%dx %d points)", cpoints, multiplier, points)
+
 	elseif ent:GetClass() == "scookp_cooking_pot" then
+
 		text = string.format("%s's cooking pot", team.GetName(ent:Team()))
+
 	else
+
 		return
+
 	end
 
 	surface.SetFont(font)
-	local w, _ = surface.GetTextSize(text)
 
 	local MouseX, MouseY = gui.MousePos()
 
@@ -45,12 +53,11 @@ function GM:HUDDrawTargetID()
 	local x = MouseX
 	local y = MouseY
 
-	x = x - w / 2
 	y = y + 30
 
 	-- The fonts internal drop shadow looks lousy with AA on
-	draw.SimpleText(text, font, x + 2, y + 2, Color(0, 0, 0, 120))
-	draw.SimpleText(text, font, x + 4, y + 4, Color(0, 0, 0, 50))
-	draw.SimpleText(text, font, x, y, self:GetTeamColor(ent))
+	draw.DrawText(text, font, x + 2, y + 2, Color(0, 0, 0, 120), TEXT_ALIGN_CENTER)
+	draw.DrawText(text, font, x + 4, y + 4, Color(0, 0, 0, 50), TEXT_ALIGN_CENTER)
+	draw.DrawText(text, font, x, y, self:GetTeamColor(ent), TEXT_ALIGN_CENTER)
 
 end
