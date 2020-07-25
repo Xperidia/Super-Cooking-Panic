@@ -9,6 +9,7 @@
 		"*.psd",
 		"*.psb",
 		"*.xcf",
+		"*.svg",
 		"*.vcproj",
 		"*.md",
 		"*.bat",
