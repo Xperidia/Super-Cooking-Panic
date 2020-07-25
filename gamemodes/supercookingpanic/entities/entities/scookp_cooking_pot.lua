@@ -51,6 +51,10 @@ end
 
 function ENT:AbsorbEnt(ent)
 
+	if ent:IsBonusIngredient() then
+		GAMEMODE:AutoChooseBonusIngredient()
+	end
+
 	local points = ent:GetPoints() * GAMEMODE:GetScoreMultiplier(self:GetTeam())
 
 	team.AddScore(self:GetTeam(), points)
