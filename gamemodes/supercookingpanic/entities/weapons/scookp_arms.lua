@@ -82,6 +82,8 @@ if SERVER then
 
 			owner:GrabIngredient(trace.Entity)
 
+			self:EmitSound("scookp_ingredient_grab")
+
 		end
 
 	end
@@ -97,6 +99,8 @@ if SERVER then
 		owner:DropHeldIngredient(true)
 
 		self:DropIngredientAnim(owner)
+
+		self:EmitSound("scookp_ingredient_release")
 
 	end
 

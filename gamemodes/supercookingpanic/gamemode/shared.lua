@@ -69,4 +69,32 @@ function GM:SharedInitialize()
 
 	end
 
+	sound.Add({
+		name = "scookp_combo_trigger",
+		channel = CHAN_ITEM,
+		level = 80,
+		sound = "supercookingpanic/effects/combo_trigger.wav"
+	})
+
+	sound.Add({
+		name = "scookp_ingredient_grab",
+		channel = CHAN_WEAPON,
+		level = 66,
+		sound = "supercookingpanic/effects/ingredient_grab.wav"
+	})
+
+	sound.Add({
+		name = "scookp_ingredient_release",
+		channel = CHAN_WEAPON,
+		level = 66,
+		sound = "supercookingpanic/effects/ingredient_release.wav"
+	})
+
+	sound.Add({
+		name = "scookp_power_up_grab",
+		channel = CHAN_ITEM,
+		level = 66,
+		sound = "supercookingpanic/effects/power_up_grab.wav"
+	})
+
 end

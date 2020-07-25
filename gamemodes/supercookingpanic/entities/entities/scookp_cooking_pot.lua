@@ -61,6 +61,10 @@ function ENT:AbsorbEnt(ent)
 
 	team.AddScore(self:GetTeam(), points)
 
+	if not GAMEMODE:IsComboTimerOver(self:Team()) then
+		self:EmitSound("scookp_combo_trigger")
+	end
+
 	GAMEMODE:IncrementScoreMultiplier(self:GetTeam())
 	GAMEMODE:StartComboTimer(self:GetTeam())
 
