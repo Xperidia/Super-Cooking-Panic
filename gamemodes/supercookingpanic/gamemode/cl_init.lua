@@ -5,6 +5,7 @@
 
 include("shared.lua")
 include("cl_utils.lua")
+include("cl_music.lua")
 include("cl_hud.lua")
 include("player/cl_player.lua")
 include("teams/cl_teams.lua")
@@ -16,6 +17,8 @@ include("cl_targetid.lua")
 function GM:Initialize()
 
 	self:SharedInitialize()
+
+	self:SetupMusics()
 
 end
 
@@ -68,6 +71,8 @@ end
 function GM:Tick()
 
 	self:SetLookedAtEntity()
+
+	self:MusicThink()
 
 end
 

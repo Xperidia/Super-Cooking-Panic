@@ -4,6 +4,7 @@
 -----------------------------------------------------------]]
 
 AddCSLuaFile("cl_utils.lua")
+AddCSLuaFile("cl_music.lua")
 AddCSLuaFile("cl_hud.lua")
 AddCSLuaFile("cl_render.lua")
 AddCSLuaFile("cl_targetid.lua")
