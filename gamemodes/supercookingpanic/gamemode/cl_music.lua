@@ -6,8 +6,7 @@
 GM.MusicsChans = GM.MusicsChans or {}
 
 local musics_location = "sound/supercookingpanic/music/"
-local max_volume = 0.4 --TODO: remove by replacing with live cvar
-local switch_time = 60 --TODO: remove if system change
+local switch_time = 30 --TODO: remove if system change
 
 --[[---------------------------------------------------------
 	Name: gamemode:SetupMusics()
@@ -161,11 +160,15 @@ function GM:MusicThink()
 
 	end
 
-	local base_vol = Lerp(t, 0, 1)
-	local vol = Lerp(t, 0, 1) * max_volume
-	local ivol = (-base_vol * 1 + 1) * max_volume
+	local user_vol = math.Round(self:ConVarGetFloat("music_volume") or 0.6, 6)
+	local base_vol = math.Round(Lerp(t, 0, 1), 6)
+	local vol = base_vol * user_vol
+	local ivol = (-base_vol * 1 + 1) * user_vol
+	local cur_vol = math.Round(self.MusicsChans[self.CurMusChan]:GetVolume(), 6)
 
-	if t > 1.02 then return end
+	if cur_vol == vol then return end
+
+	print(vol, cur_vol, cur_vol ~= vol)
 
 	for k, v in pairs(self.MusicsChans) do
 
