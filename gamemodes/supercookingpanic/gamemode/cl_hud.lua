@@ -52,51 +52,89 @@ function GM:HUDPaint()
 		return
 	end
 
-	local ply = LocalPlayer()
-
 	-- Draw all of the default stuff
 	self.BaseClass.HUDPaint(self)
 
 	draw.DrawText("Super Cooking Panic\nv" .. (self.Version and tostring(self.Version) or "?") .. "\n" .. (self.VersionDate or ""), nil, ScrW() - 4, 0, nil, TEXT_ALIGN_RIGHT)
 
 	-- Development / Debug values
-	if self:ConVarGetBool("dev_mode") then
+	self:DebugHUDPaint()
 
-		local y = 80
+end
 
-		draw.SimpleText("Round Status: " .. self.GameStates[self:GetRoundState()],
-			nil, 50, y)
+--[[---------------------------------------------------------
+	Name: gamemode:DebugHUDPaint()
+	Desc: Draw dev/debug values
+-----------------------------------------------------------]]
+function GM:DebugHUDPaint()
+
+	if not self:ConVarGetBool("dev_mode") then
+		return
+	end
+
+	local ply = LocalPlayer()
+
+	local y = 80
+
+	draw.SimpleText("Round Status: " .. self.GameStates[self:GetRoundState()],
+		nil, 50, y)
+	y = y + 10
+
+	draw.SimpleText("Round Timer: " .. self:FormatTime(self:GetRoundTime()),
+		nil, 50, y)
+	y = y + 20
+
+	for k, v in pairs(self:GetPlayingTeams()) do
+		--v.Score doesn't work
+		draw.SimpleText("Score " .. v.Name .. ": " .. team.GetScore(k), nil, 50, y)
+		draw.SimpleText("Combo Timer: " .. self:FormatTime(self:GetComboTimer(k) - CurTime()), nil, 50, y + 10)
+		draw.SimpleText("Combo: x" .. self:GetScoreMultiplier(k), nil, 50, y + 20)
+		y = y + 40
+	end
+
+	if #self.MusicsChans > 0 then
+
+		draw.SimpleText("Music channels:", nil, 50, y)
 		y = y + 10
 
-		draw.SimpleText("Round Timer: " .. self:FormatTime(self:GetRoundTimer() - CurTime()),
-			nil, 50, y)
-		y = y + 20
+		for k, v in pairs(self.MusicsChans) do
 
-		for k, v in pairs(self:GetPlayingTeams()) do
-			--v.Score doesn't work
-			draw.SimpleText("Score " .. v.Name .. ": " .. team.GetScore(k), nil, 50, y)
-			draw.SimpleText("Combo Timer: " .. self:FormatTime(self:GetComboTimer(k) - CurTime()), nil, 50, y + 10)
-			draw.SimpleText("Combo: x" .. self:GetScoreMultiplier(k), nil, 50, y + 20)
-			y = y + 40
+			local txt = string.format("%d➡\tT=%fs\tV=%f", k, v:GetTime(), v:GetVolume())
+			local color = nil
+
+			if self.CurMusChan and k == self.CurMusChan then
+				color = Color(255, 255, 0)
+			end
+
+			draw.SimpleText(txt, nil, 50, y, color)
+			y = y + 10
+
 		end
 
-		draw.SimpleText("Bonus Ingredient: " .. self:GetBonusIngredientModel(), nil, 50, y)
+	end
+
+	local bonus_ingredient = self:GetBonusIngredientModel()
+
+	if bonus_ingredient ~= "" then
+
+		y = y + 10
+		draw.SimpleText("Bonus Ingredient: " .. bonus_ingredient, nil, 50, y)
 		y = y + 40
 
-		self:DrawHUDModel(self:GetBonusIngredientModel(), "bonus", 50, y, 200, 200)
+		self:DrawHUDModel(bonus_ingredient, "bonus", 50, y, 200, 200)
 		y = y + 200
 
-		if ply:IsHoldingIngredient() then
+	end
 
-			local model = ply:GetHeldIngredient():GetModel()
+	if ply:IsHoldingIngredient() then
 
-			draw.SimpleText("Held Ingredient: " .. model, nil, 50, y)
-			y = y + 40
+		local model = ply:GetHeldIngredient():GetModel()
 
-			self:DrawHUDModel(model, "hold", 50, y, 200, 200)
-			y = y + 200
+		draw.SimpleText("Held Ingredient: " .. model, nil, 50, y)
+		y = y + 40
 
-		end
+		self:DrawHUDModel(model, "hold", 50, y, 200, 200)
+		y = y + 200
 
 	end
 
