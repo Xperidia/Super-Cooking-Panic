@@ -40,6 +40,14 @@ function GM:GetRoundTimer()
 end
 
 --[[---------------------------------------------------------
+	Name: gamemode:IsRoundTimerOver()
+	Desc: Checks if the round time is over
+-----------------------------------------------------------]]
+function GM:IsRoundTimerOver()
+	return self:GetRoundTimer() < CurTime()
+end
+
+--[[---------------------------------------------------------
 	Name: gamemode.GetRoundTime()
 	Desc: Returns the current time left for the round
 -----------------------------------------------------------]]

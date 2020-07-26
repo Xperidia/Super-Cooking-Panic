@@ -126,20 +126,6 @@ function GM:StartRoundTimer(time)
 end
 
 --[[---------------------------------------------------------
-	Name: gamemode:IsRoundTimerOver()
-	Desc: Checks if the round time is over
------------------------------------------------------------]]
-function GM:IsRoundTimerOver()
-
-	if self:GetRoundTimer() < CurTime() then
-		return true
-	end
-
-	return false
-
-end
-
---[[---------------------------------------------------------
 	Name: gamemode:SetRoundTimeLength( number )
 	Desc: Sets the rounds time length in seconds
 -----------------------------------------------------------]]
