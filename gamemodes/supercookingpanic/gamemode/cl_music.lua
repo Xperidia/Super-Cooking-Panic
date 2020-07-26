@@ -148,12 +148,16 @@ function GM:MusicThink()
 
 	if t > switch_time then
 
-		local n = self.CurMusChan + 1
+		if #self.MusicsChans > 1 then
 
-		if self.MusicsChans[n] then
+			local n = self.CurMusChan
+
+			while n == self.CurMusChan do
+				n = math.random(1, #self.MusicsChans)
+			end
+
 			self.CurMusChan = n
-		else
-			self.CurMusChan = 1
+
 		end
 
 		self.DeltaMusChan = SysTime()
