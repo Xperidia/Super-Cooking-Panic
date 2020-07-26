@@ -130,7 +130,7 @@ function GM:MusicThink()
 
 	local rndstate = self:GetRoundState()
 
-	if not self:IsPlayingMusics() and rndstate == RND_PREPARING then
+	if not self:IsPlayingMusics() and rndstate > RND_WAITING then
 		self:StartMusics()
 	end
 
