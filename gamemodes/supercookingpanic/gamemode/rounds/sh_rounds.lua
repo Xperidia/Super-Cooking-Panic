@@ -38,3 +38,11 @@ end
 function GM:GetRoundTimer()
 	return self.RoundVars.timer or 0
 end
+
+--[[---------------------------------------------------------
+	Name: gamemode.GetRoundTime()
+	Desc: Returns the current time left for the round
+-----------------------------------------------------------]]
+function GM:GetRoundTime()
+	return self:GetRoundTimer() - CurTime()
+end
