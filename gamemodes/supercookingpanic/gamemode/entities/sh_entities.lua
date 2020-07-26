@@ -180,7 +180,11 @@ end
 -----------------------------------------------------------]]
 function GM.EntityMeta:Team()
 
-	if self.ply_team then
+	if self.GetTeam then
+
+		return self:GetTeam()
+
+	elseif self.ply_team then
 
 		return self.ply_team
 
