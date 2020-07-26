@@ -155,3 +155,65 @@ function GM.EntityMeta:GetBasePoints()
 	return math.Round(self:GetModelRadius())
 
 end
+
+GM.EntityMeta.GetOriginalRagdollOwner = GM.EntityMeta.GetOriginalRagdollOwner or GM.EntityMeta.GetRagdollOwner
+
+--[[---------------------------------------------------------
+	Name: Entity:GetRagdollOwner()
+	Desc: This is needed for special player ragdolls
+-----------------------------------------------------------]]
+function GM.EntityMeta:GetRagdollOwner()
+
+	if IsValid(self:GetOwner()) and self:IsRagdoll() then
+
+		return self:GetOwner()
+
+	end
+
+	return self:GetOriginalRagdollOwner()
+
+end
+
+--[[---------------------------------------------------------
+	Name: Entity:Team()
+	Desc: This is needed for special player ragdolls
+-----------------------------------------------------------]]
+function GM.EntityMeta:Team()
+
+	if self.ply_team then
+
+		return self.ply_team
+
+	elseif IsValid(self:GetOwner()) and self:IsRagdoll() then
+
+		self.ply_team = self:GetOwner():Team()
+
+		return self.ply_team
+
+	end
+
+	return 0
+
+end
+
+--[[---------------------------------------------------------
+	Name: Entity:Nick()
+	Desc: This is needed for special player ragdolls
+-----------------------------------------------------------]]
+function GM.EntityMeta:Nick()
+
+	if self.ply_nick then
+
+		return self.ply_nick
+
+	elseif IsValid(self:GetOwner()) and self:IsRagdoll() then
+
+		self.ply_nick = self:GetOwner():Nick()
+
+		return self.ply_nick
+
+	end
+
+	return ""
+
+end

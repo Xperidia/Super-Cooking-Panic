@@ -89,7 +89,11 @@ end
 -----------------------------------------------------------]]
 function GM:DoPlayerDeath(ply, attacker, dmginfo)
 
-	ply:CreateRagdoll() --TODO: make serverside ragdoll to use as ingredient
+	if not ply.GoneToRagdoll then
+		ply:CreateRagdoll()
+	else
+		ply.GoneToRagdoll = nil
+	end
 
 	ply:DropHeldIngredient()
 
@@ -146,24 +150,7 @@ function GM.PlayerMeta:GrabIngredient(ingredient)
 
 		if ingredient:IsNPC() then
 
-			ingredient:ExitScriptedSequence()
-			ingredient:ClearExpression()
-			ingredient:ClearSchedule()
-			ingredient:CapabilitiesClear()
-			ingredient:DropWeapon(nil, self:GetPos())
-			ingredient:StopMoving()
-			ingredient:UseNoBehavior()
-
-			local ragdoll = ents.Create("prop_ragdoll")
-			ragdoll:SetModel(ingredient:GetModel())
-			ragdoll:SetPos(ingredient:GetPos())
-			ragdoll:SetAngles(ingredient:GetAngles())
-			ragdoll:SetVelocity(ingredient:GetVelocity())
-			ragdoll:Spawn()
-
-			ingredient:Remove()
-
-			ingredient = ragdoll
+			ingredient = ingredient:GoToRagdoll(self)
 
 		end
 

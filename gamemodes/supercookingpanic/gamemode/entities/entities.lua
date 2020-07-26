@@ -224,3 +224,40 @@ function GM:AutoChooseBonusIngredient()
 	self:SetBonusIngredientModel(sel_model)
 
 end
+
+--[[---------------------------------------------------------
+	Name: entity:GoToRagdoll()
+	Desc: Transforms npcs and players into usable ragdoll
+-----------------------------------------------------------]]
+function GM.EntityMeta:GoToRagdoll(attacker)
+
+	if not self:IsNPC() and not self:IsPlayer() then return self end
+
+	local ragdoll = ents.Create("prop_ragdoll")
+	ragdoll:SetModel(self:GetModel())
+	ragdoll:SetPos(self:GetPos())
+	ragdoll:SetAngles(self:GetAngles())
+	ragdoll:SetVelocity(self:GetVelocity())
+
+	if self:IsNPC() then
+
+		self:DropWeapon()
+		self:Remove()
+
+	elseif self:IsPlayer() then
+
+		ragdoll:SetOwner(self)
+
+		ragdoll:SetNWInt("Team", self:Team())
+
+		self.GoneToRagdoll = true
+
+		self:TakeDamage(2147483647, attacker)
+
+	end
+
+	ragdoll:Spawn()
+
+	return ragdoll
+
+end

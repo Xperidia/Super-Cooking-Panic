@@ -21,13 +21,12 @@ function GM:HUDDrawTargetID()
 	local points = ent:GetPoints() or 0
 	local cpoints = points * multiplier
 
-	if ent:IsPlayer() then
+	if ent:IsPlayer() or ent:IsIngredient() then
 
-		text = string.format("%s\n%d points\n(%dx %d points)", ent:Nick(), cpoints, multiplier, points)
+		local nick = ent:Nick()
+		nick = Either(nick ~= "", nick .. "\n", "")
 
-	elseif ent:IsIngredient() then
-
-		text = string.format("%d points\n(%dx %d points)", cpoints, multiplier, points)
+		text = string.format("%s%d points\n(%dx %d points)", nick, cpoints, multiplier, points)
 
 	elseif ent:GetClass() == "scookp_cooking_pot" then
 
