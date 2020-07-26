@@ -168,8 +168,6 @@ function GM:MusicThink()
 
 	if cur_vol == vol then return end
 
-	print(vol, cur_vol, cur_vol ~= vol)
-
 	for k, v in pairs(self.MusicsChans) do
 
 		if k == self.CurMusChan then
