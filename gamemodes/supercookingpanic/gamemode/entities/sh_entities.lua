@@ -40,6 +40,28 @@ local ingredient_class = {
 	["npc_turret_floor"] = true,
 }
 
+local ingredient_worth_by_class = {
+	["item_healthkit"] = 100,
+	["item_item_crate"] = 100,
+	["player"] = 200,
+	["npc_citizen"] = 200,
+	["npc_metropolice"] = 100,
+	["npc_fastzombie"] = 100,
+	["npc_headcrab"] = 100,
+	["npc_headcrab_black"] = 100,
+	["npc_headcrab_fast"] = 100,
+	["npc_antlion"] = 400,
+	["npc_antlion_worker"] = 400,
+	["npc_vortigaunt"] = 200,
+	["npc_odessa"] = 600,
+	["npc_kleiner"] = 600,
+	["npc_breen"] = 600,
+	["npc_crow"] = 100,
+	["npc_pigeon"] = 100,
+	["npc_seagull"] = 100,
+	["npc_antlion_grub"] = 200,
+}
+
 local model_list = {
 	--TODO: fill models or replace with a way to get any prop model
 }
@@ -151,6 +173,12 @@ end
 	Desc: Returns the base points the entity is worth.
 -----------------------------------------------------------]]
 function GM.EntityMeta:GetBasePoints()
+
+	local worth = ingredient_worth_by_class[self:GetClass()]
+
+	if worth then
+		return worth
+	end
 
 	return math.Round(self:GetModelRadius())
 
