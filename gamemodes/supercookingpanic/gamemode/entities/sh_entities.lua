@@ -128,7 +128,7 @@ function GM.EntityMeta:GetPoints()
 		return 0
 	end]]
 
-	local points = self:GetBasePoints()
+	local points = self._points or self:GetBasePoints()
 
 	if CLIENT then
 
