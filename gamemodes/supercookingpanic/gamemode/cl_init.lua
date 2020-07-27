@@ -56,7 +56,7 @@ function GM:SetLookedAtEntity()
 		entity_looked_at = nil
 	end
 
-	if trace.HitPos:Distance(trace.StartPos) < 160 then
+	if trace.HitPos:Distance(trace.StartPos) < self.ConvDistance then
 
 		entity_looked_at = trace.Entity
 

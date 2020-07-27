@@ -10,7 +10,7 @@ GM.Prefix			= "scookp"
 GM.Author 			= "Xperidia"
 GM.Website 			= "github.com/Xperidia/Super-Cooking-Panic"
 GM.Version 			= "0.1.0"
-GM.VersionDate 		= 200726
+GM.VersionDate 		= 200728
 GM.TeamBased 		= true
 GM.AllowAutoTeam	= true
 
@@ -42,6 +42,8 @@ GM.pm_list = {
 	"female05",
 	"female06",
 }
+
+GM.ConvDistance = 160
 
 function GM:SharedInitialize()
 

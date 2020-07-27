@@ -56,7 +56,7 @@ if SERVER then
 
 		if not IsValid(trace.Entity) or trace.Entity:IsPlayer() then return end
 
-		if trace.HitPos:Distance(trace.StartPos) < 160 then
+		if trace.HitPos:Distance(trace.StartPos) < GAMEMODE.ConvDistance then
 
 			if IsValid(owner:GetHeldIngredient())
 			and trace.Entity:GetClass() == "scookp_cooking_pot" then
