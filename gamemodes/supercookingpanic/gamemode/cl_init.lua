@@ -86,7 +86,14 @@ end
 function GM:GetTeamColor(ent)
 
 	if ent:IsBonusIngredient() then
-		return Color(0, 255, 255)
+
+		local time = CurTime() * 6
+		local r = 0.5 * (math.sin(time - 1) + 1)
+		local g = 0.5 * (math.sin(time) + 1)
+		local b = 0.5 * (math.sin(time + 1) + 1)
+
+		return Color(r * 255, g * 255, b * 255)
+
 	end
 
 	return self.BaseClass.GetTeamColor(self, ent)
