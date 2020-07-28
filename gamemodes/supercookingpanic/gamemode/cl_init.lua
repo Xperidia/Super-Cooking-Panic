@@ -6,6 +6,8 @@
 include("shared.lua")
 include("cl_utils.lua")
 include("cl_music.lua")
+include("cl_scale.lua")
+include("cl_fonts.lua")
 include("cl_hud.lua")
 include("player/cl_player.lua")
 include("teams/cl_teams.lua")

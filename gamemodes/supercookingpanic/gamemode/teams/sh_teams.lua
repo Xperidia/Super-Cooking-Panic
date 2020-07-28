@@ -77,7 +77,11 @@ function GM:GetPlayingTeams()
 	for i, tm in pairs(team.GetAllTeams()) do
 
 		if self:IsValidPlayingTeam(i) then
+
+			tm.Score = team.GetScore(i)
+
 			p_teams[i] = tm
+
 		end
 
 	end
