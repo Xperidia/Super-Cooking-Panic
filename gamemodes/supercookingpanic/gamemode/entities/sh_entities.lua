@@ -222,6 +222,10 @@ function GM.EntityMeta:Team()
 
 		return self.ply_team
 
+	elseif self:IsIngredient() then
+
+		return TEAM_INGREDIENT
+
 	end
 
 	return 0

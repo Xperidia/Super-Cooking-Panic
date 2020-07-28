@@ -17,6 +17,8 @@ GM.team_list = {
 	},
 }
 
+TEAM_INGREDIENT = 1009
+
 --[[---------------------------------------------------------
 	Name: gamemode:IsValidPlayingTeam( number id )
 	Desc: Checks if the team is playable
@@ -61,6 +63,7 @@ function GM:CreateTeams()
 		team.SetSpawnPoint(k, "info_player_start")
 		team.SetClass(k, {"player_cook"})
 	end
+	team.SetUp(TEAM_INGREDIENT, "#scookp_ingredient", Color(255, 255, 255), false)
 end
 
 --[[---------------------------------------------------------
