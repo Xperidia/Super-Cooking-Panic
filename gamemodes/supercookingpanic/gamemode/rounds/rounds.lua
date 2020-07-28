@@ -45,6 +45,8 @@ function GM:SetRoundState(state)
 
 		self:KillPlayers()
 
+		self:ResetScores()
+
 		game.CleanUpMap(true)
 
 		self:StartRoundTimer()
