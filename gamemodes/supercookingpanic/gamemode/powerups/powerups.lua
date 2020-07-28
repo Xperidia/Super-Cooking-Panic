@@ -62,7 +62,7 @@ end
 
 function GM.PlayerMeta:PickPowerUP(powerup_id)
 
-	if not self:HasPowerUP() then
+	if not self:HasPowerUP() and self:IsValidPlayingState() then
 
 		if powerup_id and GAMEMODE.PowerUPs[powerup_id] then
 
