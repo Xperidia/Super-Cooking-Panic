@@ -10,6 +10,7 @@
 		"*.psb",
 		"*.xcf",
 		"*.svg",
+		"*.aseprite",
 		"*.vcproj",
 		"*.md",
 		"*.bat",
