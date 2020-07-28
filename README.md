@@ -12,4 +12,4 @@ A team based gamemode where you collect ingredients and put them in the cooking 
 * Music: [R1nlz3r](https://github.com/R1nlz3r)
 * Sounds: [R1nlz3r](https://github.com/R1nlz3r)
 
-[![Super Cooking Panic Discord server](https://discordapp.com/api/guilds/140113271809245184/widget.png?style=banner3)](https://discord.com/invite/YX6uqz)
+[![Super Cooking Panic Discord server](https://discord.com/api/guilds/722426501836046456/widget.png?style=banner3)](https://discord.com/invite/YX6uqz)
