@@ -1,6 +1,10 @@
 # Super Cooking Panic (Garry's Mod Gamemode)
 
-A team based gamemode where you collect ingredients and put them in the cooking pot in order to get points...
+A team based gamemode where you collect ingredients and put them in the cooking pot in order to get points.
+
+**Please note that this gamemode is in development! Expect missing features!**
+
+This gamemode was made during the [GmodStore Gamemode Competition 2020](https://www.gmodstore.com/community/threads/7507).
 
 # Credits
 * Artworks:
@@ -17,4 +21,4 @@ A team based gamemode where you collect ingredients and put them in the cooking 
 * [Installation on a dedicated server](https://github.com/Xperidia/Super-Cooking-Panic/wiki/Installation-on-a-Dedicated-Server-(official))
 * [Installation from Git](https://github.com/Xperidia/Super-Cooking-Panic/wiki/Installation-from-Git) (for developers)
 
-[![Super Cooking Panic Discord server](https://discord.com/api/guilds/722426501836046456/widget.png?style=banner3)](https://discord.com/invite/YX6uqz "Join us on Discord")
+[![Super Cooking Panic Discord server](https://discord.com/api/guilds/722426501836046456/widget.png?style=banner3)](https://discord.com/invite/bedrnPP "Join us on Discord")
