@@ -81,6 +81,8 @@ function GM:GetPhrase(str)
 		return str
 	end
 
+	str = string.Right(str, #str - 1)
+
 	--[[	This library/function does not seems exist on SERVER
 					so here is this check if it ever does			]]
 	if not language or not language.GetPhrase then
