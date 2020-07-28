@@ -32,6 +32,13 @@ function SWEP:PrimaryAttack()
 end
 
 function SWEP:SecondaryAttack()
+
+	if SERVER then
+
+		self:GetOwner():UsePowerUP()
+
+	end
+
 end
 
 function SWEP:Reload()

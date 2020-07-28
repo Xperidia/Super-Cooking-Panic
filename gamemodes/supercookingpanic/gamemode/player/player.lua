@@ -96,6 +96,7 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 	end
 
 	ply:DropHeldIngredient()
+	ply:DropPowerUP()
 
 	for _, wep in pairs(ply:GetWeapons()) do
 		ply:DropWeapon(wep)
@@ -119,8 +120,10 @@ end
 -----------------------------------------------------------]]
 function GM:PlayerShouldTakeDamage(ply, attacker)
 
-	if	not GetConVar("mp_friendlyfire"):GetBool()
-	and	attacker:IsPlayer() and ply:Team() == attacker:Team()
+	if ply.GoneToRagdoll then
+		return true
+	elseif not GetConVar("mp_friendlyfire"):GetBool()
+	and attacker:IsPlayer() and ply:Team() == attacker:Team()
 	and ply ~= attacker then
 		return false
 	end

@@ -126,6 +126,14 @@ function GM:DebugHUDPaint()
 
 	end
 
+	if ply:HasPowerUP() then
+
+		y = y + 10
+		draw.SimpleText("Power-UP: " .. self.PowerUPs[ply:GetPowerUP()].name, nil, 50, y)
+		y = y + 40
+
+	end
+
 	if ply:IsHoldingIngredient() then
 
 		local model = ply:GetHeldIngredient():GetModel()

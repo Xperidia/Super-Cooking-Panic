@@ -14,6 +14,7 @@ include("player/player.lua")
 include("teams/teams.lua")
 include("rounds/rounds.lua")
 include("entities/entities.lua")
+include("powerups/powerups.lua")
 
 --[[---------------------------------------------------------
 	Name: gamemode:Initialize()

@@ -195,6 +195,7 @@ function GM:KillPlayers()
 
 		if v:IsValidPlayingState() then
 
+			v:DropPowerUP()
 			v:KillSilent()
 
 		end

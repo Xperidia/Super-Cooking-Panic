@@ -11,6 +11,7 @@ include("player/cl_player.lua")
 include("teams/cl_teams.lua")
 include("rounds/cl_rounds.lua")
 include("entities/cl_entities.lua")
+include("powerups/cl_powerups.lua")
 include("cl_render.lua")
 include("cl_targetid.lua")
 

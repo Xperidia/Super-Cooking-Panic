@@ -14,3 +14,15 @@ if not GM.PlayerMeta.IsListenServerHost then
 	end
 
 end
+
+function GM:PlayerBindPress(ply, bind, down)
+
+	if down and bind == "gmod_undo" then
+
+		RunConsoleCommand("scookp_powerup_drop")
+
+	end
+
+	return false
+
+end

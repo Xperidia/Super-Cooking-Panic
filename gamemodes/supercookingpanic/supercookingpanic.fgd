@@ -8,3 +8,11 @@
 
 @PointClass base(Targetname) size(-32 -32 0, 32 32 32) = info_cooking_pot : "Spawn point for the cooking pots."
 []
+
+@PointClass base(Targetname) size(-16 -16 0, 16 16 8) = scookp_powerup_spawn : "Spawn point for Power-UPs."
+[
+	PowerUP(string) : "Force the spawn of a specific Power-UP."
+	RespawnTime(float) : "Time before the Power-UP respawn."
+	input ForceRespawn(void) : "Respawn the Power-UP instantly."
+	output OnPickup(void) : "Fired when the Power-UP has been taken."
+]

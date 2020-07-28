@@ -239,6 +239,8 @@ function GM.EntityMeta:GoToRagdoll(attacker)
 	ragdoll:SetAngles(self:GetAngles())
 	ragdoll:SetVelocity(self:GetVelocity())
 
+	ragdoll:SetPoints(self:GetPoints())
+
 	if self:IsNPC() then
 
 		self:DropWeapon()

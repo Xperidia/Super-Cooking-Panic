@@ -20,7 +20,13 @@ PLAYER.DropWeaponOnDie		= true
 function PLAYER:SetupDataTables()
 
 	self.Player:NetworkVar("Entity", 0, "HeldIngredient")
-	self.Player:NetworkVar("String", 0, "PowerUP")
+	self.Player:NetworkVar("Int", 0, "PowerUP")
+
+	if SERVER then
+
+		self.Player:SetPowerUP(0)
+
+	end
 
 end
 
