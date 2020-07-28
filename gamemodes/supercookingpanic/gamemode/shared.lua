@@ -93,10 +93,31 @@ function GM:SharedInitialize()
 	})
 
 	sound.Add({
+		name = "scookp_power_up_drop",
+		channel = CHAN_ITEM,
+		level = 66,
+		sound = "supercookingpanic/effects/power_up_drop.wav"
+	})
+
+	sound.Add({
 		name = "scookp_power_up_pickup",
 		channel = CHAN_ITEM,
 		level = 66,
 		sound = "supercookingpanic/effects/power_up_pickup.wav"
+	})
+
+	sound.Add({
+		name = "scookp_power_up_spawn",
+		channel = CHAN_ITEM,
+		level = 66,
+		sound = "supercookingpanic/effects/power_up_spawn.wav"
+	})
+
+	sound.Add({
+		name = "scookp_power_up_use",
+		channel = CHAN_ITEM,
+		level = 66,
+		sound = "supercookingpanic/effects/power_up_use.wav"
 	})
 
 end
