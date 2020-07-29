@@ -163,6 +163,8 @@ function GM.PlayerMeta:GrabIngredient(ingredient)
 		ingredient:SetRenderMode(RENDERMODE_NONE)
 		ingredient:DrawShadow(false)
 
+		self:EmitSound("scookp_ingredient_grab")
+
 		GAMEMODE:DebugLog(self:GetName() .. " grabbed ingredient "
 		.. ingredient:GetClass()
 		.. ": " .. ingredient:GetModel())
@@ -206,6 +208,8 @@ function GM.PlayerMeta:DropHeldIngredient(forward)
 			ingredient:Activate()
 
 		end
+
+		self:EmitSound("scookp_ingredient_release")
 
 		GAMEMODE:DebugLog(self:GetName() .. " dropped held ingredient "
 		.. ingredient:GetClass()
