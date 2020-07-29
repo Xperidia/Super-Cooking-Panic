@@ -53,10 +53,6 @@ function ENT:AbsorbEnt(ent)
 
 	if GAMEMODE:GetRoundState() ~= RND_PLAYING then return end
 
-	if ent:IsBonusIngredient() then
-		GAMEMODE:AutoChooseBonusIngredient()
-	end
-
 	local points = ent:GetPoints() * GAMEMODE:GetScoreMultiplier(self:GetTeam())
 
 	team.AddScore(self:GetTeam(), points)
@@ -71,6 +67,10 @@ function ENT:AbsorbEnt(ent)
 	GAMEMODE:DebugLog(self:Team() .. " got new ingredient " .. ent:GetClass()
 	.. " for " .. points .. " points"
 	.. ": " .. ent:GetModel())
+
+	if ent:IsBonusIngredient() then
+		GAMEMODE:AutoChooseBonusIngredient()
+	end
 
 	ent:Remove() --TODO: maybe do some anim
 
