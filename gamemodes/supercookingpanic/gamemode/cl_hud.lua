@@ -92,7 +92,7 @@ function GM:HUDPaint()
 
 	self:HUDPaintPowerUP(ply)
 
-	draw.DrawText("Super Cooking Panic\nv" .. (self.Version and tostring(self.Version) or "?") .. "\n" .. (self.VersionDate or ""), nil, ScrW() - 4, 0, nil, TEXT_ALIGN_RIGHT)
+	draw.DrawText("Super Cooking Panic\n" .. (self.Version or "?") .. "\n" .. (self.VersionDate or ""), nil, ScrW() - 4, 0, nil, TEXT_ALIGN_RIGHT)
 
 	-- Development / Debug values
 	self:DebugHUDPaint(ply)
