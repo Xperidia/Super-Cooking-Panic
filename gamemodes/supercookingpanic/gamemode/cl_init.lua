@@ -57,12 +57,18 @@ function GM:SetLookedAtEntity()
 	local trace = util.TraceLine(tr)
 
 	if not trace.Hit or not trace.HitNonWorld then
+
 		entity_looked_at = nil
+
 	end
 
 	if trace.HitPos:Distance(trace.StartPos) < self.ConvDistance then
 
 		entity_looked_at = trace.Entity
+
+	else
+
+		entity_looked_at = nil
 
 	end
 
