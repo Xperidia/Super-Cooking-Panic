@@ -78,13 +78,11 @@ if SERVER then
 
 				return
 
-			elseif IsValid(owner:GetHeldIngredient()) then
+			elseif not owner:IsHoldingIngredient() then
 
-				owner:DropHeldIngredient(true)
+				owner:GrabIngredient(trace.Entity)
 
 			end
-
-			owner:GrabIngredient(trace.Entity)
 
 		end
 
