@@ -7,18 +7,30 @@
 	Name: gamemode:SetCookingPotHalo()
 	Desc: Renders an halo around every 'cooking pot' entity
 			The color matches the entity's team
+			At range of use the halo is stronger
 -----------------------------------------------------------]]
 function GM:CookingPotHalo()
 
-	local plyTeam = LocalPlayer():Team()
+	local ply = LocalPlayer()
+	local plyTeam = ply:Team()
 	local cooking_pots = ents.FindByClass("scookp_cooking_pot")
 	local lots_of_cooking_pots = #cooking_pots > 4
 
 	for _, v in pairs(cooking_pots) do
+
 		local is_own_team = plyTeam == v:Team()
+		local ply_distance_from_cooking_pot = ply:GetPos():Distance(v:GetPos())
+
 		if not lots_of_cooking_pots or is_own_team then
-			halo.Add({v}, v:GetTeamColor(), 2, 2, 1, true, is_own_team)
+
+			if ply_distance_from_cooking_pot < self.ConvDistance then
+				halo.Add({v}, v:GetTeamColor(), 6, 6, 1, true, is_own_team)
+			else
+				halo.Add({v}, v:GetTeamColor(), 2, 2, 1, true, is_own_team)
+			end
+
 		end
+
 	end
 
 end
