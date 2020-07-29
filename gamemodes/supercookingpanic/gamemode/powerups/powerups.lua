@@ -42,7 +42,7 @@ function GM.PlayerMeta:UsePowerUP()
 
 			self:SetPowerUP(0)
 
-			self:EmitSound("scookp_power_up_use")
+			self:EmitSound(GAMEMODE.PowerUPs[powerup_id].use_sound or "scookp_power_up_use")
 
 		elseif result == nil then
 
@@ -50,7 +50,7 @@ function GM.PlayerMeta:UsePowerUP()
 
 			self:SetPowerUP(0)
 
-			self:EmitSound("scookp_power_up_use")
+			self:EmitSound(GAMEMODE.PowerUPs[powerup_id].use_sound or "scookp_power_up_use")
 
 		end
 
@@ -99,3 +99,19 @@ concommand.Add("scookp_powerup_drop", function(ply, cmd, args)
 		ply:DropPowerUP()
 	end
 end, nil, "Drop a power-up", FCVAR_CLIENTCMD_CAN_EXECUTE)
+
+--[[---------------------------------------------------------
+	Name: gamemode:SpawnPowerUP( number howmuch )
+	Desc: Spawns how many Power-UPs
+-----------------------------------------------------------]]
+function GM:SpawnPowerUP(howmuch)
+
+	while howmuch > 0 do
+
+		self:CreatePowerUP(self:EntSelectSpawn())
+
+		howmuch = howmuch - 1
+
+	end
+
+end
