@@ -57,8 +57,6 @@ function GM:SetRoundState(state)
 
 		self:SpawnPlayers()
 
-		self:SpawnPowerUP(16)
-
 	elseif state == RND_ENDING then
 
 		self:StartRoundTimer(round_end_length)
