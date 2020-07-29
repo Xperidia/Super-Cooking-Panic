@@ -38,6 +38,8 @@ function GM:HUDShouldDraw(name)
 
 end
 
+GM.default_hud_color = Color(206, 182, 214)
+
 --[[---------------------------------------------------------
 	Name: gamemode:HUDPaint()
 	Desc: Use this section to paint your HUD
@@ -104,7 +106,7 @@ function GM:HUDPaint()
 end
 
 local clock_mat = Material("supercookingpanic/hud/clock")
-local clock_w, clock_h = 1024, 64
+local clock_w, clock_h = 512, 64
 --[[---------------------------------------------------------
 	Name: gamemode:HUDPaintClock()
 	Desc: Paint clock
@@ -112,12 +114,18 @@ local clock_w, clock_h = 1024, 64
 function GM:HUDPaintClock()
 
 	local w, h = self:ScreenScale(clock_w, clock_h)
+	local color = self.default_hud_color
+	local time = self:GetRoundTime()
 
-	surface.SetDrawColor(255, 255, 255, 255)
+	if time < 30 and time > 0 then
+		color = self:RainbowColor(2, nil, 196)
+	end
+
+	surface.SetDrawColor(color)
 	surface.SetMaterial(clock_mat)
 	surface.DrawTexturedRect(ScrW() / 2 - w / 2, 0, w, h)
 
-	draw.DrawText(self:FormatTime(self:GetRoundTime()), self:GetScaledFont("clock"), ScrW() / 2, 0, nil, TEXT_ALIGN_CENTER)
+	draw.DrawText(self:FormatTime(time), self:GetScaledFont("clock"), ScrW() / 2, 0, nil, TEXT_ALIGN_CENTER)
 
 end
 
@@ -162,7 +170,7 @@ function GM:HUDPaintScoreRightTeam(t)
 end
 
 local status_mat = Material("supercookingpanic/hud/status")
-local status_w, status_h = 1024, 128
+local status_w, status_h = 512, 128
 --[[---------------------------------------------------------
 	Name: gamemode:HUDPaintStatus()
 	Desc: Paint round status
@@ -178,8 +186,9 @@ function GM:HUDPaintStatus()
 	if not txt then return end
 
 	local w, h = self:ScreenScale(status_w, status_h)
+	local color = self:RainbowColor(2, nil, 196)
 
-	surface.SetDrawColor(255, 255, 255, 255)
+	surface.SetDrawColor(color)
 	surface.SetMaterial(status_mat)
 	surface.DrawTexturedRect(ScrW() / 2 - w / 2, 0, w, h)
 
@@ -222,6 +231,8 @@ local stats_w, stats_h = 512, 256
 	Desc: Paint stats
 -----------------------------------------------------------]]
 function GM:HUDPaintStats(ply)
+
+	if not ply:IsValidPlayingState() then return end
 
 	local w, h = self:ScreenScale(stats_w, stats_h)
 	local x, y = 0, ScrH() - h
