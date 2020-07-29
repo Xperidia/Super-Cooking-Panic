@@ -149,6 +149,10 @@ function GM.PlayerMeta:GrabIngredient(ingredient)
 
 	if not self:IsValidPlayingState() then return end
 
+	local cur_ingredient = self:GetHeldIngredient()
+
+	if IsValid(cur_ingredient) then return end
+
 	if ingredient:IsIngredient() then
 
 		if ingredient:IsNPC() then
