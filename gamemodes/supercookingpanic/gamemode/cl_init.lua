@@ -95,12 +95,7 @@ function GM:GetTeamColor(ent)
 
 	if ent:IsBonusIngredient() then
 
-		local time = CurTime() * 6
-		local r = 0.5 * (math.sin(time - 1) + 1)
-		local g = 0.5 * (math.sin(time) + 1)
-		local b = 0.5 * (math.sin(time + 1) + 1)
-
-		return Color(r * 255, g * 255, b * 255)
+		return self:RainbowColor(6, 128)
 
 	end
 

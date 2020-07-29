@@ -92,3 +92,22 @@ function GM:GetPhrase(str)
 	return language.GetPhrase(str)
 
 end
+
+--[[---------------------------------------------------------
+	Name: gamemode:RainbowColor(float speed, min_val, max_val)
+	Desc: Returns a cyclic color
+-----------------------------------------------------------]]
+function GM:RainbowColor(speed, min_val, max_val)
+
+	local time = CurTime() * (speed or 1)
+
+	local r = 0.5 * (math.sin(time - 2) + 1)
+	local g = 0.5 * (math.sin(time) + 1)
+	local b = 0.5 * (math.sin(time + 2) + 1)
+	r = math.Remap(r, 0, 1, min_val or 0, max_val or 255)
+	g = math.Remap(g, 0, 1, min_val or 0, max_val or 255)
+	b = math.Remap(b, 0, 1, min_val or 0, max_val or 255)
+
+	return Color(r, g, b)
+
+end
