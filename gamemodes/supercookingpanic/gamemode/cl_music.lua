@@ -79,7 +79,7 @@ function GM:IsPlayingMusics()
 
 	for _, v in pairs(self.MusicsChans) do
 
-		res = v:GetState() == GMOD_CHANNEL_PLAYING
+		res = IsValid(v) and v:GetState() == GMOD_CHANNEL_PLAYING
 
 		if not res then
 			return res
@@ -117,6 +117,11 @@ function GM:StopMusics()
 
 	end
 
+	table.Empty(self.MusicsChans)
+	self.CurMusChan = nil
+
+	self:SetupMusics()
+
 end
 
 --[[---------------------------------------------------------
@@ -131,6 +136,8 @@ function GM:MusicThink()
 
 	if not self:IsPlayingMusics() and rndstate > RND_WAITING then
 		self:StartMusics()
+	elseif self:IsPlayingMusics() and rndstate < RND_WAITING then
+		self:StopMusics()
 	end
 
 	if rndstate < RND_PLAYING or rndstate >= RND_VOTEMAP then

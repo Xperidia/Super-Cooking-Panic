@@ -351,15 +351,19 @@ function GM:DebugHUDPaint(ply)
 
 		for k, v in pairs(self.MusicsChans) do
 
-			local txt = string.format("%d➡\tT=%fs\tV=%f", k, v:GetTime(), v:GetVolume())
-			local color = nil
+			if IsValid(v) then
 
-			if self.CurMusChan and k == self.CurMusChan then
-				color = Color(255, 255, 0)
+				local txt = string.format("%d➡\tT=%fs\tV=%f", k, v:GetTime(), v:GetVolume())
+				local color = nil
+
+				if self.CurMusChan and k == self.CurMusChan then
+					color = Color(255, 255, 0)
+				end
+
+				draw.SimpleText(txt, nil, x, y, color)
+				y = y + 10
+
 			end
-
-			draw.SimpleText(txt, nil, x, y, color)
-			y = y + 10
 
 		end
 
