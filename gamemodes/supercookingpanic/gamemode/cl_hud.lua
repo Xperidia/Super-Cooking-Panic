@@ -57,8 +57,6 @@ function GM:HUDPaint()
 
 	local ply = LocalPlayer()
 
-	self:HUDPaintClock()
-
 	local teams = self:GetPlayingTeams()
 	local team_showcase = {}
 
@@ -85,6 +83,8 @@ function GM:HUDPaint()
 	self:HUDPaintScoreLeftTeam(team_showcase.left)
 
 	self:HUDPaintScoreRightTeam(team_showcase.right)
+
+	self:HUDPaintClock()
 
 	self:HUDPaintBonus()
 
@@ -133,7 +133,7 @@ function GM:HUDPaintScoreLeftTeam(t)
 	surface.SetMaterial(team_left_mat)
 	surface.DrawTexturedRect(ScrW() / 2 - w / 2, 0, w, h)
 
-	draw.DrawText(t.Score, self:GetScaledFont("clock"), ScrW() / 2 - 208, 0, nil, TEXT_ALIGN_CENTER)
+	draw.DrawText(t.Score, self:GetScaledFont("clock"), ScrW() / 2 - w * 0.203125, 0, nil, TEXT_ALIGN_CENTER)
 
 end
 
@@ -153,7 +153,7 @@ function GM:HUDPaintScoreRightTeam(t)
 	surface.SetMaterial(team_right_mat)
 	surface.DrawTexturedRect(ScrW() / 2 - w / 2, 0, w, h)
 
-	draw.DrawText(t.Score, self:GetScaledFont("clock"), ScrW() / 2 + 208, 0, nil, TEXT_ALIGN_CENTER)
+	draw.DrawText(t.Score, self:GetScaledFont("clock"), ScrW() / 2 + w * 0.203125, 0, nil, TEXT_ALIGN_CENTER)
 
 end
 
