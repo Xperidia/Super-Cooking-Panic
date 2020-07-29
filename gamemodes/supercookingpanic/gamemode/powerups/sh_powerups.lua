@@ -32,14 +32,14 @@ GM.PowerUPs = {
 
 		end,
 	},
-	{
+	--[[{
 		key = "fake",
 		name = "Fake ingredient",
 		icon = Material("supercookingpanic/powerup/fake"),
 		func = function(self)
 			return false
 		end,
-	},
+	},]]
 	{
 		key = "reroll",
 		name = "Reroll",
@@ -49,20 +49,20 @@ GM.PowerUPs = {
 			return true
 		end,
 	},
-	{
+	--[[{
 		key = "soapy",
 		name = "Soapy",
 		icon = Material("supercookingpanic/powerup/soapy"),
 		think = function(self)
 		end,
-	},
-	{
+	},]]
+	--[[{
 		key = "spicy",
 		name = "Spicy",
 		icon = Material("supercookingpanic/powerup/spicy"),
 		think = function(self)
 		end,
-	},
+	},]]
 }
 
 function GM.PlayerMeta:HasPowerUP()
