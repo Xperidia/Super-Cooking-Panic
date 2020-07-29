@@ -120,4 +120,11 @@ function GM:SharedInitialize()
 		sound = "supercookingpanic/effects/power_up_use.wav"
 	})
 
+	sound.Add({
+		name = "scookp_reroll_bonus_ingredient",
+		channel = CHAN_ITEM,
+		level = 120,
+		sound = "supercookingpanic/effects/reroll_super_ingredient.wav"
+	})
+
 end
