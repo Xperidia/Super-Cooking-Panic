@@ -278,6 +278,8 @@ local power_up_w, power_up_h = 256, 256
 -----------------------------------------------------------]]
 function GM:HUDPaintPowerUP(ply)
 
+	if not ply:HasPowerUP() then return end
+
 	local w, h = self:ScreenScale(power_up_w, power_up_h)
 	local x, y = ScrW() - w, ScrH() - h
 
@@ -285,17 +287,13 @@ function GM:HUDPaintPowerUP(ply)
 	surface.SetMaterial(power_up_mat)
 	surface.DrawTexturedRect(x, y, w, h)
 
-	if ply:HasPowerUP() then
+	local mat = self.PowerUPs[ply:GetPowerUP()].icon
+	local p_x, p_y = self:ScreenScale(16, 18)
+	local p_w, p_h = self:ScreenScale(114, 114)
 
-		local mat = self.PowerUPs[ply:GetPowerUP()].icon
-		local p_x, p_y = self:ScreenScale(16, 18)
-		local p_w, p_h = self:ScreenScale(114, 114)
-
-		surface.SetDrawColor(255, 255, 255, 255)
-		surface.SetMaterial(mat)
-		surface.DrawTexturedRect(ScrW() - p_x - p_w, ScrH() - p_w - p_y, p_w, p_h)
-
-	end
+	surface.SetDrawColor(255, 255, 255, 255)
+	surface.SetMaterial(mat)
+	surface.DrawTexturedRect(ScrW() - p_x - p_w, ScrH() - p_w - p_y, p_w, p_h)
 
 end
 
