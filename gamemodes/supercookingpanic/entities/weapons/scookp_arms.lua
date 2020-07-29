@@ -72,14 +72,11 @@ if SERVER then
 
 				self:DropIngredientAnim(owner)
 
+				return
+
 			elseif not trace.Entity:IsIngredient() then
 
 				return
-
-			elseif IsValid(owner:GetHeldIngredient())
-			and trace.Entity:GetClass() == "scookp_cooking_pot" then
-
-				trace.Entity:AbsorbEnt(owner:DropHeldIngredient())
 
 			elseif IsValid(owner:GetHeldIngredient()) then
 
@@ -88,8 +85,6 @@ if SERVER then
 			end
 
 			owner:GrabIngredient(trace.Entity)
-
-			self:EmitSound("scookp_ingredient_grab")
 
 		end
 
@@ -106,8 +101,6 @@ if SERVER then
 		owner:DropHeldIngredient(true)
 
 		self:DropIngredientAnim(owner)
-
-		self:EmitSound("scookp_ingredient_release")
 
 	end
 
