@@ -197,6 +197,7 @@ function GM:HUDPaintStatus()
 end
 
 local bonus_mat = Material("supercookingpanic/hud/bonus")
+local bonus_x10_mat = Material("supercookingpanic/hud/bonus_x10")
 local bonus_w, bonus_h = 256, 256
 --[[---------------------------------------------------------
 	Name: gamemode:HUDPaintBonus()
@@ -220,6 +221,10 @@ function GM:HUDPaintBonus()
 		self:DrawHUDModel(model, "bonus", m_x, m_y, m_w, m_h)
 
 	end
+
+	surface.SetDrawColor(self:RainbowColor(6, 128))
+	surface.SetMaterial(bonus_x10_mat)
+	surface.DrawTexturedRect(0, 0, w, h)
 
 end
 
