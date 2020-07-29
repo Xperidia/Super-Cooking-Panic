@@ -23,10 +23,16 @@ function GM:CookingPotHalo()
 
 		if not lots_of_cooking_pots or is_own_team then
 
-			if ply_distance_from_cooking_pot < self.ConvDistance then
+			if v == self:EntityLookedAt()
+			or ply_distance_from_cooking_pot < self.ConvDistance --TODO: Remove this if we can get a cooking pot with GM:EntityLookedAt()
+			then
+
 				halo.Add({v}, v:GetTeamColor(), 6, 6, 1, true, is_own_team)
+
 			else
+
 				halo.Add({v}, v:GetTeamColor(), 2, 2, 1, true, is_own_team)
+
 			end
 
 		end
