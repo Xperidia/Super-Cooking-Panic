@@ -50,14 +50,16 @@ function GM:CreateScaledFont(fname)
 			sfont.size		= self:ScreenScaleMin(fsize)
 
 	for k, v in pairs(font) do
-		sfont[k] = v
+		if not sfont[k] then
+			sfont[k] = v
+		end
 	end
 
 	surface.CreateFont(aname, sfont)
 
 	self.CreatedFonts[aname] = true
 
-	self:DebugLog("Created scaled font " .. aname .. " from " .. fsize)
+	self:DebugLog("Created scaled font " .. aname .. " from " .. fsize .. " to " .. sfont.size)
 
 	return aname
 
