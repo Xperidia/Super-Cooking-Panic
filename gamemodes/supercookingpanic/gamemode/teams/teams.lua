@@ -10,8 +10,6 @@ AddCSLuaFile("cl_teams.lua")
 -- Constants
 local min_number_of_players = 1 -- Required on each team
 local score_to_win = 10
-local combo_time_length = 5 -- Seconds
-local max_combo = 5
 --
 
 --[[---------------------------------------------------------
@@ -22,8 +20,8 @@ function GM:SetScoreMultiplier(id, val)
 
 	if self:IsValidPlayingTeam(id) and val > 0 then
 
-		if val > max_combo then
-			val = max_combo
+		if val > self.max_combo then
+			val = self.max_combo
 		end
 
 		SetGlobalInt("scookp_team_" .. id .. "_score_multiplier", val)
@@ -82,7 +80,7 @@ function GM:StartComboTimer(id)
 
 	if self:IsValidPlayingTeam(id) then
 
-		SetGlobalFloat("scookp_team_" .. id .. "_combo_timer", CurTime() + combo_time_length)
+		SetGlobalFloat("scookp_team_" .. id .. "_combo_timer", CurTime() + self.combo_time_length)
 
 	end
 

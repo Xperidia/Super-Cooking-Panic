@@ -94,6 +94,8 @@ function GM:HUDPaint()
 
 	self:HUDPaintPowerUP(ply)
 
+	self:HUDPaintCombo(ply)
+
 	draw.DrawText("Super Cooking Panic\n" .. (self.Version or "?") .. "\n" .. (self.VersionDate or ""), nil, ScrW() - 4, 0, nil, TEXT_ALIGN_RIGHT)
 
 	-- Development / Debug values
@@ -284,6 +286,26 @@ function GM:HUDPaintPowerUP(ply)
 end
 
 --[[---------------------------------------------------------
+	Name: gamemode:HUDPaintCombo()
+	Desc: Paint combo
+-----------------------------------------------------------]]
+function GM:HUDPaintCombo(ply)
+
+	local team = ply:Team()
+	local time = self:GetComboTime(team)
+
+	if time < 0 then return end
+
+	local mult = "x" .. self:GetScoreMultiplier(team)
+	local color = self:GetTeamColor(ply)
+
+	color = ColorAlpha(color, math.Remap(time, 0, self.combo_time_length, 0, 255))
+
+	draw.SimpleText(mult, self:GetScaledFont("big_text"), ScrW() / 2, ScrH() * 0.9, color, TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM)
+
+end
+
+--[[---------------------------------------------------------
 	Name: gamemode:DebugHUDPaint()
 	Desc: Draw dev/debug values
 -----------------------------------------------------------]]
@@ -305,7 +327,7 @@ function GM:DebugHUDPaint(ply)
 
 	for k, v in pairs(self:GetPlayingTeams()) do
 		draw.SimpleText("Score " .. v.Name .. ": " .. v.Score, nil, x, y)
-		draw.SimpleText("Combo Timer: " .. self:FormatTime(self:GetComboTimer(k) - CurTime()), nil, x, y + 10)
+		draw.SimpleText("Combo Timer: " .. self:FormatTime(self:GetComboTime(k)), nil, x, y + 10)
 		draw.SimpleText("Combo: x" .. self:GetScoreMultiplier(k), nil, x, y + 20)
 		y = y + 40
 	end

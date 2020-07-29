@@ -24,3 +24,13 @@ function GM:GetComboTimer(id)
 	return GetGlobalFloat("scookp_team_" .. id .. "_combo_timer", 0)
 
 end
+
+--[[---------------------------------------------------------
+	Name: gamemode:GetComboTime( number id )
+	Desc: Called to know the remaining time of the team combo
+-----------------------------------------------------------]]
+function GM:GetComboTime(id)
+
+	return self:GetComboTimer(id) - CurTime()
+
+end

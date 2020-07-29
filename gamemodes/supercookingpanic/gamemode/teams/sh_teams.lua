@@ -17,6 +17,10 @@ GM.team_list = {
 	},
 }
 
+-- Constants
+GM.combo_time_length = 5
+GM.max_combo = 5
+
 TEAM_INGREDIENT = 1009
 
 --[[---------------------------------------------------------
