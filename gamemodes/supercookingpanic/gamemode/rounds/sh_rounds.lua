@@ -13,12 +13,12 @@ RND_ENDING = 8388608
 RND_VOTEMAP = 1073741824
 
 GM.GameStates = {
-	[RND_NULL] = "null",
-	[RND_WAITING] = "waiting",
-	[RND_PREPARING] = "preparing",
-	[RND_PLAYING] = "playing",
-	[RND_ENDING] = "ending",
-	[RND_VOTEMAP] = "voting",
+	[RND_NULL] = "#scookp_round_null",
+	[RND_WAITING] = "#scookp_round_waiting",
+	[RND_PREPARING] = "#scookp_round_preparing",
+	[RND_PLAYING] = "#scookp_round_playing",
+	[RND_ENDING] = "#scookp_round_ending",
+	[RND_VOTEMAP] = "#scookp_round_voting",
 }
 
 GM.RoundVars = GM.RoundVars or {}
