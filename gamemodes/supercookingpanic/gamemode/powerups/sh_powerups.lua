@@ -44,6 +44,7 @@ GM.PowerUPs = {
 		key = "reroll",
 		name = "Reroll",
 		icon = Material("supercookingpanic/powerup/reroll"),
+		use_sound = "scookp_reroll_bonus_ingredient",
 		func = function(self)
 			GAMEMODE:AutoChooseBonusIngredient()
 			return true
