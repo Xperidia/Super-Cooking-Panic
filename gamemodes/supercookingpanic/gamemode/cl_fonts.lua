@@ -5,21 +5,28 @@
 
 local fonts = {
 	clock = {
+		font = "Verdana",
 		size = 60,
+		antialias = false,
+		shadow = true,
 	},
 	big_text = {
+		font = "Verdana",
 		size = 40,
-		antialias = true,
+		antialias = false,
 		shadow = true,
 	},
 	text = {
+		font = "Verdana",
 		size = 24,
-		antialias = true,
+		antialias = false,
 		shadow = true,
 	},
 	min = {
+		font = "Verdana",
 		size = 18,
-		antialias = true,
+		antialias = false,
+		shadow = true,
 	},
 }
 
