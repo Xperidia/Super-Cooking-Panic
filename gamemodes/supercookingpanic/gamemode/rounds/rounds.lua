@@ -63,6 +63,8 @@ function GM:SetRoundState(state)
 
 		self.RemoveCookingPots()
 
+		self:SetBonusIngredientModel("")
+
 	end
 
 	self:UpdateClientRoundValues()
