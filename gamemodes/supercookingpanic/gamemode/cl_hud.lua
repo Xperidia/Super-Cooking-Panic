@@ -125,7 +125,15 @@ function GM:HUDPaintClock()
 	surface.SetMaterial(clock_mat)
 	surface.DrawTexturedRect(ScrW() / 2 - w / 2, 0, w, h)
 
-	draw.DrawText(self:FormatTime(time), self:GetScaledFont("clock"), ScrW() / 2, 0, nil, TEXT_ALIGN_CENTER)
+	local txt = self:FormatTime(time)
+	local t_w, t_h = self:ScreenScale(32, 32)
+	local x, y = ScrW() / 2 - t_w * (#txt / 2), t_h * 0.46
+
+	if txt == "∞" then
+		txt = "i"
+	end
+
+	self:HUDPaintNumbers(txt, x, y, t_w, t_h, nil, true)
 
 end
 
@@ -145,7 +153,11 @@ function GM:HUDPaintScoreLeftTeam(t)
 	surface.SetMaterial(team_left_mat)
 	surface.DrawTexturedRect(ScrW() / 2 - w / 2, 0, w, h)
 
-	draw.DrawText(t.Score, self:GetScaledFont("clock"), ScrW() / 2 - w * 0.203125, 0, nil, TEXT_ALIGN_CENTER)
+	local txt = tostring(t.Score)
+	local t_w, t_h = self:ScreenScale(32, 32)
+	local x, y = (ScrW() / 2 - w * 0.203125) - t_w * (#txt / 2), t_h * 0.46
+
+	self:HUDPaintNumbers(txt, x, y, t_w, t_h, nil, true)
 
 end
 
@@ -165,7 +177,11 @@ function GM:HUDPaintScoreRightTeam(t)
 	surface.SetMaterial(team_right_mat)
 	surface.DrawTexturedRect(ScrW() / 2 - w / 2, 0, w, h)
 
-	draw.DrawText(t.Score, self:GetScaledFont("clock"), ScrW() / 2 + w * 0.203125, 0, nil, TEXT_ALIGN_CENTER)
+	local txt = tostring(t.Score)
+	local t_w, t_h = self:ScreenScale(32, 32)
+	local x, y = (ScrW() / 2 + w * 0.203125) - t_w * (#txt / 2), t_h * 0.46
+
+	self:HUDPaintNumbers(txt, x, y, t_w, t_h, nil, true)
 
 end
 
@@ -197,7 +213,6 @@ function GM:HUDPaintStatus()
 end
 
 local bonus_mat = Material("supercookingpanic/hud/bonus")
-local bonus_x10_mat = Material("supercookingpanic/hud/bonus_x10")
 local bonus_w, bonus_h = 256, 256
 --[[---------------------------------------------------------
 	Name: gamemode:HUDPaintBonus()
@@ -220,9 +235,11 @@ function GM:HUDPaintBonus()
 
 	self:DrawHUDModel(model, "bonus", m_x, m_y, m_w, m_h)
 
-	surface.SetDrawColor(self:RainbowColor(6, 128))
-	surface.SetMaterial(bonus_x10_mat)
-	surface.DrawTexturedRect(0, 0, w, h)
+	local t_x, t_y = self:ScreenScale(138, 58)
+	local t_w, t_h = self:ScreenScale(32, 32)
+	local txt = "x" .. self.bonus_ingredient_score_multiplier
+
+	self:HUDPaintNumbers(txt, t_x, t_y, t_w, t_h, self:RainbowColor(6, 128), true)
 
 end
 
@@ -308,12 +325,79 @@ function GM:HUDPaintCombo(ply)
 
 	if time < 0 then return end
 
+	local w, h = self:ScreenScale(64, 64)
+	local x, y = ScrW() / 2 - w * 1, ScrH() * 0.9 - h
+
 	local mult = "x" .. self:GetScoreMultiplier(team)
 	local color = self:GetTeamColor(ply)
 
 	color = ColorAlpha(color, math.Remap(time, 0, self.combo_time_length, 0, 255))
 
-	draw.SimpleText(mult, self:GetScaledFont("big_text"), ScrW() / 2, ScrH() * 0.9, color, TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM)
+	self:HUDPaintNumbers(mult, x, y, w, h, color, true)
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:HUDPaintNumbers()
+	Desc: Paint numbers
+-----------------------------------------------------------]]
+function GM:HUDPaintNumbers(str, x, y, width, height, color, draw_shadow)
+
+	if not color then
+		color = Color(255, 255, 255)
+	end
+
+	for _, v in pairs(string.ToTable(str)) do
+
+		self:HUDPaintNumber(v, x, y, width, height, color, draw_shadow)
+
+		x = x + width
+
+	end
+
+end
+
+local numbers_mat = Material("supercookingpanic/hud/numbers")
+--[[---------------------------------------------------------
+	Name: gamemode:HUDPaintNumber()
+	Desc: Paint number
+-----------------------------------------------------------]]
+function GM:HUDPaintNumber(c, x, y, width, height, color, draw_shadow)
+
+	local n
+
+	if c == " " or c == "" then
+		return
+	elseif c == "x" or c == "X" then
+		n = 10
+	elseif c == "." then
+		n = 11
+	elseif c == ":" then
+		n = 12
+	elseif c == "i" then
+		n = 13
+	else
+		n = tonumber(c)
+	end
+
+	if not n then
+		n = 15
+	end
+
+	local startU = n * 0.0625
+	local endU = (n + 1) * 0.0625
+
+	if draw_shadow then
+
+		surface.SetDrawColor(Color(0, 0, 0, color.a))
+		surface.SetMaterial(numbers_mat)
+		surface.DrawTexturedRectUV(x + 2, y + 2, width, height, startU, 0, endU, 1)
+
+	end
+
+	surface.SetDrawColor(color)
+	surface.SetMaterial(numbers_mat)
+	surface.DrawTexturedRectUV(x, y, width, height, startU, 0, endU, 1)
 
 end
 
