@@ -224,14 +224,15 @@ function GM:HUDPaintStats(ply)
 	local w, h = self:ScreenScale(stats_w, stats_h)
 	local x, y = 0, ScrH() - h
 	local color = self:GetTeamColor(ply)
+	local ingredient = ply:GetHeldIngredient()
 
 	surface.SetDrawColor(255, 255, 255, 255)
 	surface.SetMaterial(stats_mat_background)
 	surface.DrawTexturedRect(x, y, w, h)
 
-	if ply:IsHoldingIngredient() then
+	if IsValid(ingredient) then
 
-		local model = ply:GetHeldIngredient():GetModel()
+		local model = ingredient:GetModel()
 		local m_x, m_y = self:ScreenScale(12, 18)
 		local m_w, m_h = self:ScreenScale(120, 122)
 
@@ -242,6 +243,14 @@ function GM:HUDPaintStats(ply)
 	surface.SetDrawColor(color)
 	surface.SetMaterial(stats_mat)
 	surface.DrawTexturedRect(0, ScrH() - h, w, h)
+
+	if IsValid(ingredient) then
+
+		local points = ingredient:GetPoints() * self:GetScoreMultiplier(ply:Team())
+
+		draw.DrawText(points, self:GetScaledFont("big_text"), w * 0.4, ScrH() - h * 0.24, nil, TEXT_ALIGN_CENTER)
+
+	end
 
 end
 
