@@ -86,6 +86,8 @@ function GM:HUDPaint()
 
 	self:HUDPaintClock()
 
+	self:HUDPaintStatus()
+
 	self:HUDPaintBonus()
 
 	self:HUDPaintStats(ply)
@@ -154,6 +156,32 @@ function GM:HUDPaintScoreRightTeam(t)
 	surface.DrawTexturedRect(ScrW() / 2 - w / 2, 0, w, h)
 
 	draw.DrawText(t.Score, self:GetScaledFont("clock"), ScrW() / 2 + w * 0.203125, 0, nil, TEXT_ALIGN_CENTER)
+
+end
+
+local status_mat = Material("supercookingpanic/hud/status")
+local status_w, status_h = 1024, 128
+--[[---------------------------------------------------------
+	Name: gamemode:HUDPaintStatus()
+	Desc: Paint round status
+-----------------------------------------------------------]]
+function GM:HUDPaintStatus()
+
+	local state = self:GetRoundState()
+
+	if state == RND_PLAYING then return end
+
+	local txt = self.GameStates[state]
+
+	if not txt then return end
+
+	local w, h = self:ScreenScale(status_w, status_h)
+
+	surface.SetDrawColor(255, 255, 255, 255)
+	surface.SetMaterial(status_mat)
+	surface.DrawTexturedRect(ScrW() / 2 - w / 2, 0, w, h)
+
+	draw.DrawText(txt, self:GetScaledFont("text"), ScrW() / 2, h * 0.52, nil, TEXT_ALIGN_CENTER)
 
 end
 
