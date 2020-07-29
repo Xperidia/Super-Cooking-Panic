@@ -223,6 +223,8 @@ function GM:AutoChooseBonusIngredient()
 
 	self:SetBonusIngredientModel(sel_model)
 
+	return sel_model
+
 end
 
 --[[---------------------------------------------------------
