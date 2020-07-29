@@ -10,7 +10,7 @@ AddCSLuaFile("cl_rounds.lua")
 util.AddNetworkString("scookp_roundupdate")
 
 -- Constants
-local round_wait_length = 60 -- Seconds
+local round_wait_length = 20 -- Seconds
 local round_time_length = 180 -- Seconds
 local round_end_length = 20 -- Seconds
 --
@@ -57,9 +57,13 @@ function GM:SetRoundState(state)
 
 		self:SpawnPlayers()
 
+		self:SpawnPowerUP(16)
+
 	elseif state == RND_ENDING then
 
 		self:StartRoundTimer(round_end_length)
+
+		self.RemoveCookingPots()
 
 	end
 
@@ -83,6 +87,20 @@ function GM:CheckToStartRound()
 	end
 
 	self:SetRoundState(RND_PLAYING)
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode.CheckToRestartRound()
+	Desc: Checks necessary conditions to start a round
+-----------------------------------------------------------]]
+function GM:CheckToRestartRound()
+
+	if not self:IsRoundTimerOver() then
+		return
+	end
+
+	self:SetRoundState(RND_PREPARING)
 
 end
 
@@ -174,8 +192,12 @@ function GM:RoundThink()
 
 		self:SetRoundState(RND_WAITING)
 
+	elseif self:GetRoundState() == RND_ENDING and not self:AreTeamsPopulated() then
+
+		self:SetRoundState(RND_NULL)
+
 	elseif self:GetRoundState() == RND_WAITING
-	or self:GetRoundState() == RND_ENDING then
+		or self:GetRoundState() == RND_ENDING then
 
 		self:CheckToStartRound()
 
