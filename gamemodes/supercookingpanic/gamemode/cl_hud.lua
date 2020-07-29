@@ -205,22 +205,20 @@ local bonus_w, bonus_h = 256, 256
 -----------------------------------------------------------]]
 function GM:HUDPaintBonus()
 
+	local model = self:GetBonusIngredientModel()
+
+	if not model or model == "" then return end
+
 	local w, h = self:ScreenScale(bonus_w, bonus_h)
 
 	surface.SetDrawColor(255, 255, 255, 255)
 	surface.SetMaterial(bonus_mat)
 	surface.DrawTexturedRect(0, 0, w, h)
 
-	local model = self:GetBonusIngredientModel()
+	local m_x, m_y = self:ScreenScale(8, 10)
+	local m_w, m_h = self:ScreenScale(130, 130)
 
-	if model ~= "" then
-
-		local m_x, m_y = self:ScreenScale(8, 10)
-		local m_w, m_h = self:ScreenScale(130, 130)
-
-		self:DrawHUDModel(model, "bonus", m_x, m_y, m_w, m_h)
-
-	end
+	self:DrawHUDModel(model, "bonus", m_x, m_y, m_w, m_h)
 
 	surface.SetDrawColor(self:RainbowColor(6, 128))
 	surface.SetMaterial(bonus_x10_mat)
