@@ -91,3 +91,7 @@ function GM:GetPowerUPByKey(powerup_key)
 	return nil
 
 end
+
+function GM:GetPowerUPName(key)
+	return self:GetPhrase("$scookp_power_up_" .. key)
+end
