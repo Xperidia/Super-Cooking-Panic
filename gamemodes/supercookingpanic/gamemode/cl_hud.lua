@@ -127,13 +127,13 @@ function GM:HUDPaintClock()
 
 	local txt = self:FormatTime(time)
 	local t_w, t_h = self:ScreenScale(32, 32)
-	local x, y = ScrW() / 2 - t_w * (#txt / 2), t_h * 0.46
+	local x, y = ScrW() / 2 - t_w * (#txt / 2), t_h * 0.42
 
 	if txt == "∞" then
 		txt = "i"
 	end
 
-	self:HUDPaintNumbers(txt, x, y, t_w, t_h, nil, true)
+	self:HUDPaintNumbers(txt, x, y, t_w, t_h, nil, true, true)
 
 end
 
@@ -154,10 +154,10 @@ function GM:HUDPaintScoreLeftTeam(t)
 	surface.DrawTexturedRect(ScrW() / 2 - w / 2, 0, w, h)
 
 	local txt = tostring(t.Score)
-	local t_w, t_h = self:ScreenScale(32, 32)
-	local x, y = (ScrW() / 2 - w * 0.203125) - t_w * (#txt / 2), t_h * 0.46
+	local t_w, t_h = self:ScreenScale(24, 24)
+	local x, y = (ScrW() / 2 - w * 0.20625) - t_w * (#txt / 2), t_h * 0.67
 
-	self:HUDPaintNumbers(txt, x, y, t_w, t_h, nil, true)
+	self:HUDPaintNumbers(txt, x, y, t_w, t_h, nil, true, true)
 
 end
 
@@ -178,10 +178,10 @@ function GM:HUDPaintScoreRightTeam(t)
 	surface.DrawTexturedRect(ScrW() / 2 - w / 2, 0, w, h)
 
 	local txt = tostring(t.Score)
-	local t_w, t_h = self:ScreenScale(32, 32)
-	local x, y = (ScrW() / 2 + w * 0.203125) - t_w * (#txt / 2), t_h * 0.46
+	local t_w, t_h = self:ScreenScale(24, 24)
+	local x, y = (ScrW() / 2 + w * 0.20625) - t_w * (#txt / 2), t_h * 0.67
 
-	self:HUDPaintNumbers(txt, x, y, t_w, t_h, nil, true)
+	self:HUDPaintNumbers(txt, x, y, t_w, t_h, nil, true, true)
 
 end
 
@@ -235,11 +235,11 @@ function GM:HUDPaintBonus()
 
 	self:DrawHUDModel(model, "bonus", m_x, m_y, m_w, m_h)
 
-	local t_x, t_y = self:ScreenScale(138, 58)
+	local t_x, t_y = self:ScreenScale(138, 28)
 	local t_w, t_h = self:ScreenScale(32, 32)
 	local txt = "x" .. self.bonus_ingredient_score_multiplier
 
-	self:HUDPaintNumbers(txt, t_x, t_y, t_w, t_h, self:RainbowColor(6, 128), true)
+	self:HUDPaintNumbers(txt, t_x, t_y, t_w, t_h, self:RainbowColor(6, 128), true, true)
 
 end
 
@@ -281,10 +281,10 @@ function GM:HUDPaintStats(ply)
 
 		local points = ingredient:GetPoints() * self:GetScoreMultiplier(ply:Team())
 		local txt = tostring(points)
-		local t_w, t_h = self:ScreenScale(32, 32)
-		local t_x, t_y = (w * 0.4) - t_w * (#txt / 2), ScrH() - h * 0.22
+		local t_w, t_h = self:ScreenScale(48, 48)
+		local t_x, t_y = (w * 0.43) - t_w * (#txt / 2), ScrH() - h * 0.25
 
-		self:HUDPaintNumbers(txt, t_x, t_y, t_w, t_h, nil, true)
+		self:HUDPaintNumbers(txt, t_x, t_y, t_w, t_h, nil, true, true)
 
 	end
 
@@ -336,7 +336,7 @@ function GM:HUDPaintCombo(ply)
 
 	color = ColorAlpha(color, math.Remap(time, 0, self.combo_time_length, 0, 255))
 
-	self:HUDPaintNumbers(mult, x, y, w, h, color, true)
+	self:HUDPaintNumbers(mult, x, y, w, h, color, true, true)
 
 end
 
@@ -344,17 +344,41 @@ end
 	Name: gamemode:HUDPaintNumbers()
 	Desc: Paint numbers
 -----------------------------------------------------------]]
-function GM:HUDPaintNumbers(str, x, y, width, height, color, draw_shadow)
+function GM:HUDPaintNumbers(str, x, y, width, height, color, draw_shadow, tilt)
 
 	if not color then
 		color = Color(255, 255, 255)
 	end
 
-	for _, v in pairs(string.ToTable(str)) do
+	for k, v in pairs(string.ToTable(str)) do
 
-		self:HUDPaintNumber(v, x, y, width, height, color, draw_shadow)
+		local tilted_y = y
 
-		x = x + width
+		if tilt then
+
+			local _, tilt_offset = self:ScreenScale(2, 2)
+
+			if k % 2 == 1 then
+				tilted_y = tilted_y + tilt_offset
+			else
+				tilted_y = tilted_y - tilt_offset
+			end
+
+		end
+
+		if v == ":" or v == "." or v == "x" or v == "X" then
+			x = x + width * 0.4
+		end
+
+		self:HUDPaintNumber(v, x, tilted_y, width, height, color, draw_shadow)
+
+		-- x = x + width
+
+		x = x + width * 0.8
+
+		if v == ":" or v == "." or v == "x" or v == "X" then
+			x = x + width * 0.4
+		end
 
 	end
 
@@ -392,9 +416,11 @@ function GM:HUDPaintNumber(c, x, y, width, height, color, draw_shadow)
 
 	if draw_shadow then
 
+		local sx, sy = self:ScreenScale(2, 2)
+
 		surface.SetDrawColor(Color(0, 0, 0, color.a))
 		surface.SetMaterial(numbers_mat)
-		surface.DrawTexturedRectUV(x + 2, y + 2, width, height, startU, 0, endU, 1)
+		surface.DrawTexturedRectUV(x + sx, y + sy, width, height, startU, 0, endU, 1)
 
 	end
 
