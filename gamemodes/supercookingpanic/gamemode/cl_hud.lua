@@ -280,8 +280,11 @@ function GM:HUDPaintStats(ply)
 	if IsValid(ingredient) then
 
 		local points = ingredient:GetPoints() * self:GetScoreMultiplier(ply:Team())
+		local txt = tostring(points)
+		local t_w, t_h = self:ScreenScale(32, 32)
+		local t_x, t_y = (w * 0.4) - t_w * (#txt / 2), ScrH() - h * 0.22
 
-		draw.DrawText(points, self:GetScaledFont("big_text"), w * 0.4, ScrH() - h * 0.24, nil, TEXT_ALIGN_CENTER)
+		self:HUDPaintNumbers(txt, t_x, t_y, t_w, t_h, nil, true)
 
 	end
 
