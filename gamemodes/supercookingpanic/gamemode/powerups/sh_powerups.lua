@@ -9,6 +9,7 @@ GM.PowerUPs = {
 	{
 		key = "canibalism",
 		name = "Canibalism",
+		target = "player",
 		icon = Material("supercookingpanic/powerup/canibalism"),
 		func = function(self)
 
@@ -35,6 +36,7 @@ GM.PowerUPs = {
 	--[[{
 		key = "fake",
 		name = "Fake ingredient",
+		target = "world",
 		icon = Material("supercookingpanic/powerup/fake"),
 		func = function(self)
 			return false
@@ -43,6 +45,7 @@ GM.PowerUPs = {
 	{
 		key = "reroll",
 		name = "Reroll",
+		target = "none",
 		icon = Material("supercookingpanic/powerup/reroll"),
 		use_sound = "scookp_reroll_bonus_ingredient",
 		func = function(self)

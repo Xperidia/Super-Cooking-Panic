@@ -14,6 +14,7 @@ local shared_cvars = {
 
 local client_cvars = {
 	music_volume = {0.6, FCVAR_ARCHIVE + FCVAR_CLIENTCMD_CAN_EXECUTE, "Set the music volume", 0},
+	hide_tips = {0, FCVAR_ARCHIVE + FCVAR_CLIENTCMD_CAN_EXECUTE, "Hide all tips"},
 }
 
 local server_cvars = {

@@ -273,8 +273,9 @@ function GM:HUDPaintStats(ply)
 		local model = ingredient:GetModel()
 		local m_x, m_y = self:ScreenScale(12, 18)
 		local m_w, m_h = self:ScreenScale(120, 122)
+		m_y =  ScrH() - m_h - m_y
 
-		self:DrawHUDModel(model, "hold", m_x, ScrH() - m_h - m_y, m_w, m_h)
+		self:DrawHUDModel(model, "hold", m_x, m_y, m_w, m_h)
 
 	end
 
@@ -290,6 +291,15 @@ function GM:HUDPaintStats(ply)
 		local t_x, t_y = (w * 0.43) - t_w * (#txt / 2), ScrH() - h * 0.25
 
 		self:HUDPaintNumbers(txt, t_x, t_y, t_w, t_h, self:GetTeamColor(ingredient), true, true)
+
+		if not self:ConVarGetBool("hide_tips") then
+
+			draw.SimpleText(self:FormatLangPhrase("$scookp_tip_press_x_to_drop",
+							self:CheckBind("+reload") ),
+							self:GetScaledFont("text"),
+							m_x, ScrH() - h * 0.609375, nil, nil, TEXT_ALIGN_BOTTOM)
+
+		end
 
 	end
 
@@ -319,6 +329,23 @@ function GM:HUDPaintPowerUP(ply)
 	surface.SetDrawColor(255, 255, 255, 255)
 	surface.SetMaterial(mat)
 	surface.DrawTexturedRect(ScrW() - p_x - p_w, ScrH() - p_w - p_y, p_w, p_h)
+
+	if not self:ConVarGetBool("hide_tips") then
+
+		local font = self:GetScaledFont("text")
+
+		surface.SetFont(font)
+
+		local txt = self:FormatLangPhrase("$scookp_tip_press_x_to_use",
+						self:CheckBind("+attack2"))
+		txt = txt .. "\n" .. self:FormatLangPhrase("$scookp_tip_press_x_to_drop",
+						self:CheckBind("gmod_undo"))
+
+		local _, t_h = surface.GetTextSize(txt)
+
+		draw.DrawText(txt, font, ScrW() - self:ScreenScaleMin(6), ScrH() - h * 0.5390625 - t_h, nil, TEXT_ALIGN_RIGHT)
+
+	end
 
 end
 
@@ -351,7 +378,7 @@ end
 	Name: gamemode:HUDPaintEntPoints()
 	Desc: Paint looked ent points
 -----------------------------------------------------------]]
-function GM:HUDPaintEntPoints(x, y, w, h)
+function GM:HUDPaintEntPoints(ply, x, y, w, h)
 
 	local ent = self:EntityLookedAt()
 
@@ -361,6 +388,19 @@ function GM:HUDPaintEntPoints(x, y, w, h)
 	x = x - w * (#points * .7)
 
 	self:HUDPaintNumbers(points, x, y, w, h, self:GetTeamColor(ent), true, true, ent:IsBonusIngredient())
+
+	if not self:ConVarGetBool("hide_tips")
+	and ply:IsValidPlayingState()
+	and not ply:IsHoldingIngredient()
+	and not ent:IsPlayer()
+	and self:GetRoundState() == RND_PLAYING then
+
+		draw.DrawText(	self:FormatLangPhrase( "$scookp_tip_press_x_to_grab",
+						self:CheckBind("+attack") ),
+						self:GetScaledFont("text"),
+						ScrW() / 2, y * 0.9, nil, TEXT_ALIGN_CENTER)
+
+	end
 
 end
 
@@ -373,7 +413,7 @@ function GM:HUDPaintComboAndPoints(ply)
 	local w, h = self:ScreenScale(64, 64)
 	local x, y = ScrW() / 2, ScrH() * 0.7 - h
 
-	self:HUDPaintEntPoints(x, y, w, h)
+	self:HUDPaintEntPoints(ply, x, y, w, h)
 	self:HUDPaintCombo(ply, x, y, w, h)
 
 end

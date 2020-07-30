@@ -58,6 +58,70 @@ function GM:MouseOverHalo()
 end
 
 --[[---------------------------------------------------------
+	Name: entity:DrawTip(str, offset)
+	Desc: Draw tip on entity
+-----------------------------------------------------------]]
+function GM.EntityMeta:DrawTip(str, offset)
+
+	-- Get the game's camera angles
+	local angle = EyeAngles()
+
+	-- Only use the Yaw component of the angle
+	angle = Angle(0, angle.y, 0)
+
+	-- Apply some animation to the angle
+	angle.y = angle.y + math.sin(CurTime()) * 10
+
+	-- Correct the angle so it points at the camera
+	-- This is usually done by trial and error using Up(), Right() and Forward() axes
+	angle:RotateAroundAxis(angle:Up(), -90)
+	angle:RotateAroundAxis(angle:Forward(), 90)
+
+	local pos = self:GetPos() + (offset or Vector(0, 0, 0))
+
+	cam.Start3D2D(pos, angle, 0.1)
+
+		local font = GAMEMODE:GetScaledFont("text")
+
+		surface.SetFont(font)
+
+		draw.SimpleText(str, font, 0, 0, nil, TEXT_ALIGN_CENTER, TEXT_ALIGN_BOTTOM)
+
+	cam.End3D2D()
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:DrawCookingPotTips()
+	Desc: Draw the tip for the cooking pot
+-----------------------------------------------------------]]
+function GM:DrawCookingPotTips()
+
+	local ply = LocalPlayer()
+
+	if not GAMEMODE:ConVarGetBool("hide_tips")
+	and ply:IsValidPlayingState()
+	and ply:IsHoldingIngredient()
+	and GAMEMODE:GetRoundState() == RND_PLAYING then
+
+		local text = GAMEMODE:FormatLangPhrase( "$scookp_tip_cooking_pot",
+						GAMEMODE:CheckBind("+attack"))
+
+		for _, v in pairs(ents.FindByClass("scookp_cooking_pot")) do
+
+			if IsValid(v) and v:Team() == ply:Team() then
+
+				v:DrawTip(text, Vector(0, 0, 32))
+
+			end
+
+		end
+
+	end
+
+end
+
+--[[---------------------------------------------------------
 	Name: gamemode:PreDrawHalos()
 	Desc:	Called before rendering the halos.
 			This is the place to call halo.Add.
@@ -66,5 +130,22 @@ function GM:PreDrawHalos()
 
 	self:CookingPotHalo()
 	self:MouseOverHalo()
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:PreDrawOpaqueRenderables()
+	Desc: Called before drawing opaque entities
+-----------------------------------------------------------]]
+function GM:PostDrawOpaqueRenderables(bDrawingDepth, bDrawingSkybox)
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:PostDrawTranslucentRenderables()
+	Desc: Called after all translucent entities are drawn
+-----------------------------------------------------------]]
+function GM:PostDrawTranslucentRenderables(bDrawingDepth, bDrawingSkybox)
+
+	self:DrawCookingPotTips()
 
 end
