@@ -77,7 +77,7 @@ end
 
 function GM:GetPhrase(str)
 
-	if not isstring(str) or #str < 1 or str[1] ~= "$" then
+	if not isstring(str) or #str < 1 or (str[1] ~= "$" and str[1] ~= "#") then
 		return str
 	end
 
