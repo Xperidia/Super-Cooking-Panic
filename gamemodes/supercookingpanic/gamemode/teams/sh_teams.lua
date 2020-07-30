@@ -109,6 +109,8 @@ function GM:GetWinningTeams()
 
 			table.insert(win_teams, tm)
 
+			last_team_score = tm.Score
+
 		else
 
 			break
