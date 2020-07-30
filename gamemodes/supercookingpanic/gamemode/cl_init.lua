@@ -53,8 +53,7 @@ function GM:SetLookedAtEntity()
 		return
 	end
 
-	local tr = util.GetPlayerTrace(LocalPlayer())
-	local trace = util.TraceLine(tr)
+	local trace = self:GetConvPlayerTrace(LocalPlayer())
 
 	if not trace.Hit or not trace.HitNonWorld then
 

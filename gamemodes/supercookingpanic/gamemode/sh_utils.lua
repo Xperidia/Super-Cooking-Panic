@@ -111,3 +111,19 @@ function GM:RainbowColor(speed, min_val, max_val)
 	return Color(r, g, b)
 
 end
+
+--[[---------------------------------------------------------
+	Name: GetConvPlayerTrace(ply)
+	Desc: Returns a tuned trace table for the player
+-----------------------------------------------------------]]
+function GM:GetConvPlayerTrace(ply)
+
+	local trace = {}
+
+	trace.start = ply:EyePos()
+	trace.endpos = trace.start + ply:GetAimVector() * self.ConvDistance
+	trace.filter = ply
+
+	return util.TraceLine(trace)
+
+end

@@ -12,7 +12,7 @@ GM.PowerUPs = {
 		icon = Material("supercookingpanic/powerup/cannibalism"),
 		func = function(self)
 
-			local trace = util.TraceLine(util.GetPlayerTrace(self))
+			local trace = GAMEMODE:GetConvPlayerTrace(self)
 
 			if not trace.Hit then return false end
 
