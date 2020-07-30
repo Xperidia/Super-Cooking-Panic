@@ -333,12 +333,12 @@ function GM:HUDPaintCombo(ply)
 
 	if time < 0 then return end
 
-	local w, h = self:ScreenScale(64, 64)
-	local x, y = ScrW() / 2 - w * 1, ScrH() * 0.9 - h
-
 	local mult = self:GetScoreMultiplier(team)
 	local txt = "x" .. mult
 	local color = self:GetTeamColor(ply)
+
+	local w, h = self:ScreenScale(64, 64)
+	local x, y = ScrW() / 2 - w  * (#txt / 2), ScrH() * 0.9 - h
 
 	color = ColorAlpha(color, math.Remap(time, 0, self.combo_time_length, 0, 255))
 
