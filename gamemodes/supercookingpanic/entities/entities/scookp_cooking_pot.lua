@@ -57,6 +57,8 @@ function ENT:AbsorbEnt(ent)
 
 	team.AddScore(self:GetTeam(), points)
 
+	self.point_cumul = (self.point_cumul or 0) + points
+
 	if not GAMEMODE:IsComboTimerOver(self:Team()) then
 		self:EmitSound("scookp_combo_trigger")
 	end
@@ -67,6 +69,14 @@ function ENT:AbsorbEnt(ent)
 	GAMEMODE:DebugLog(self:Team() .. " got new ingredient " .. ent:GetClass()
 	.. " for " .. points .. " points"
 	.. ": " .. ent:GetModel())
+
+	if self.point_cumul > 1000 then
+
+		GAMEMODE:CreatePowerUP(self:GetPos() + Vector(0, 0, 16), nil, true)
+
+		self.point_cumul = 0
+
+	end
 
 	if ent:IsBonusIngredient() then
 		GAMEMODE:AutoChooseBonusIngredient()
