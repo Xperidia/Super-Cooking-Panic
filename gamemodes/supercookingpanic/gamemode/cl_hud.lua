@@ -289,7 +289,7 @@ function GM:HUDPaintStats(ply)
 		local t_w, t_h = self:ScreenScale(48, 48)
 		local t_x, t_y = (w * 0.43) - t_w * (#txt / 2), ScrH() - h * 0.25
 
-		self:HUDPaintNumbers(txt, t_x, t_y, t_w, t_h, nil, true, true)
+		self:HUDPaintNumbers(txt, t_x, t_y, t_w, t_h, self:GetTeamColor(ingredient), true, true)
 
 	end
 
