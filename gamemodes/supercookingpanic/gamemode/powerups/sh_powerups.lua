@@ -52,20 +52,22 @@ GM.PowerUPs = {
 	},
 	--[[{
 		key = "soapy",
+		target = "player",
 		icon = Material("supercookingpanic/powerup/soapy"),
 		think = function(self)
 		end,
 	},]]
 	--[[{
 		key = "spicy",
+		target = "none",
 		icon = Material("supercookingpanic/powerup/spicy"),
 		think = function(self)
 		end,
 	},]]
 	{
 		key = "respawn_pot",
-		icon = Material("supercookingpanic/powerup/respawn_pot"),
 		target = "none",
+		icon = Material("supercookingpanic/powerup/respawn_pot"),
 		func = function(self)
 			GAMEMODE.RemoveCookingPots()
 			GAMEMODE:SpawnCookingPots()
