@@ -7,15 +7,24 @@ include("sh_powerups.lua")
 
 AddCSLuaFile("cl_powerups.lua")
 
-function GM:CreatePowerUP(ent, powerup_id, respawn)
+function GM:CreatePowerUP(arg, powerup_id, respawn)
 
 	local PowerUP = ents.Create("scookp_powerup")
+	local pos
 
-	PowerUP:SetPos(ent:GetPos())
+	if not arg then
+		return nil
+	elseif isvector(arg) then
+		pos = arg
+	elseif IsEntity(arg) then
+		pos = arg:GetPos()
+	end
+
+	PowerUP:SetPos(pos)
 
 	PowerUP:SetPowerUP(powerup_id or 0)
 	PowerUP.IsRespawn = respawn
-	PowerUP.WasDropped = ent
+	PowerUP.WasDropped = IsEntity(arg) and arg
 
 	PowerUP:Spawn()
 
