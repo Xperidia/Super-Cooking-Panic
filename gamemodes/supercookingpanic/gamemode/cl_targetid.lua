@@ -15,18 +15,12 @@ function GM:HUDDrawTargetID()
 		return
 	end
 
-	local text = "ERROR"
-	local font = "DermaLarge"
-	local multiplier = self:GetScoreMultiplier(LocalPlayer():Team())
-	local points = ent:GetPoints() or 0
-	local cpoints = points * multiplier
+	local text = ""
+	local font = self:GetScaledFont("big_text")
 
-	if ent:IsPlayer() or ent:IsIngredient() then
+	if ent:IsPlayer() then
 
-		local nick = ent:Nick()
-		nick = Either(nick ~= "", nick .. "\n", "")
-
-		text = string.format("%s%d points\n(%dx %d points)", nick, cpoints, multiplier, points)
+		text = ent:Nick()
 
 	elseif ent:GetClass() == "scookp_cooking_pot" then
 
@@ -51,12 +45,10 @@ function GM:HUDDrawTargetID()
 
 	local x = MouseX
 	local y = MouseY
+	local _, t_h = surface.GetTextSize(text)
 
-	y = y + 30
+	y = y + t_h * .2
 
-	-- The fonts internal drop shadow looks lousy with AA on
-	draw.DrawText(text, font, x + 2, y + 2, Color(0, 0, 0, 120), TEXT_ALIGN_CENTER)
-	draw.DrawText(text, font, x + 4, y + 4, Color(0, 0, 0, 50), TEXT_ALIGN_CENTER)
 	draw.DrawText(text, font, x, y, self:GetTeamColor(ent), TEXT_ALIGN_CENTER)
 
 end
