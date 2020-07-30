@@ -9,7 +9,7 @@ GM.PowerUPs = {
 	{
 		key = "cannibalism",
 		target = "player",
-		icon = Material("supercookingpanic/powerup/canibalism"),
+		icon = Material("supercookingpanic/powerup/cannibalism"),
 		func = function(self)
 
 			local trace = util.TraceLine(util.GetPlayerTrace(self))
