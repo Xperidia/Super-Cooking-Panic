@@ -367,8 +367,11 @@ function GM:HUDPaintPowerUP(ply)
 
 		surface.SetFont(font)
 
-		local txt = self:FormatLangPhrase("$scookp_tip_press_x_to_use",
-						self:CheckBind("+attack2"))
+		local txt = ""
+		if self:GetRoundState() == RND_PLAYING then
+			txt = self:FormatLangPhrase("$scookp_tip_press_x_to_use",
+							self:CheckBind("+attack2"))
+		end
 		txt = txt .. "\n" .. self:FormatLangPhrase("$scookp_tip_press_x_to_drop",
 						self:CheckBind("gmod_undo"))
 
