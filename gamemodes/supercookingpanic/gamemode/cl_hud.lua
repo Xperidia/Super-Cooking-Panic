@@ -116,8 +116,13 @@ function GM:HUDPaintClock()
 	local w, h = self:ScreenScale(clock_w, clock_h)
 	local color = self.default_hud_color
 	local time = self:GetRoundTime()
+	local state = self:GetRoundState()
+	local shake = nil
 
-	if time < 30 and time > 0 then
+	if time < 30 and time > 0 and state == RND_PLAYING then
+		color = self:RainbowColor(2, nil, 196)
+		shake = true
+	elseif time < 30 and time > 0 then
 		color = self:RainbowColor(2, nil, 196)
 	end
 
@@ -133,7 +138,7 @@ function GM:HUDPaintClock()
 		txt = "i"
 	end
 
-	self:HUDPaintNumbers(txt, x, y, t_w, t_h, nil, true, true)
+	self:HUDPaintNumbers(txt, x, y, t_w, t_h, nil, true, true, shake)
 
 end
 
@@ -239,7 +244,7 @@ function GM:HUDPaintBonus()
 	local t_w, t_h = self:ScreenScale(32, 32)
 	local txt = "x" .. self.bonus_ingredient_score_multiplier
 
-	self:HUDPaintNumbers(txt, t_x, t_y, t_w, t_h, self:RainbowColor(6, 128), true, true)
+	self:HUDPaintNumbers(txt, t_x, t_y, t_w, t_h, self:RainbowColor(6, 128), true, true, true)
 
 end
 
@@ -331,12 +336,13 @@ function GM:HUDPaintCombo(ply)
 	local w, h = self:ScreenScale(64, 64)
 	local x, y = ScrW() / 2 - w * 1, ScrH() * 0.9 - h
 
-	local mult = "x" .. self:GetScoreMultiplier(team)
+	local mult = self:GetScoreMultiplier(team)
+	local txt = "x" .. mult
 	local color = self:GetTeamColor(ply)
 
 	color = ColorAlpha(color, math.Remap(time, 0, self.combo_time_length, 0, 255))
 
-	self:HUDPaintNumbers(mult, x, y, w, h, color, true, true)
+	self:HUDPaintNumbers(txt, x, y, w, h, color, true, true, mult)
 
 end
 
@@ -344,7 +350,7 @@ end
 	Name: gamemode:HUDPaintNumbers()
 	Desc: Paint numbers
 -----------------------------------------------------------]]
-function GM:HUDPaintNumbers(str, x, y, width, height, color, draw_shadow, tilt)
+function GM:HUDPaintNumbers(str, x, y, width, height, color, draw_shadow, tilt, shake)
 
 	if not color then
 		color = Color(255, 255, 255)
@@ -354,9 +360,13 @@ function GM:HUDPaintNumbers(str, x, y, width, height, color, draw_shadow, tilt)
 
 		local tilted_y = y
 
-		if tilt then
+		if tilt or shake then
 
 			local tilt_offset = self:ScreenScaleMin(2)
+
+			if shake then
+				tilt_offset = tilt_offset * math.random(0, isnumber(skake) and shake or 1)
+			end
 
 			if k % 2 == 1 then
 				tilted_y = tilted_y + tilt_offset
