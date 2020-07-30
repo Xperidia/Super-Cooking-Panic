@@ -368,7 +368,7 @@ function GM:HUDPaintPowerUP(ply)
 		surface.SetFont(font)
 
 		local txt = ""
-		if self:GetRoundState() == RND_PLAYING then
+		if self:IsValidGamerMoment() then
 			txt = self:FormatLangPhrase("$scookp_tip_press_x_to_use",
 							self:CheckBind("+attack2"))
 		end
@@ -427,7 +427,7 @@ function GM:HUDPaintEntPoints(ply, x, y, w, h)
 	and ply:IsValidPlayingState()
 	and not ply:IsHoldingIngredient()
 	and not ent:IsPlayer()
-	and self:GetRoundState() == RND_PLAYING then
+	and self:IsValidGamerMoment() then
 
 		draw.DrawText(	self:FormatLangPhrase( "$scookp_tip_press_x_to_grab",
 						self:CheckBind("+attack") ),

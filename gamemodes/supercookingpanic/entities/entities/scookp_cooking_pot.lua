@@ -51,7 +51,7 @@ end
 
 function ENT:AbsorbEnt(ent)
 
-	if GAMEMODE:GetRoundState() ~= RND_PLAYING then return end
+	if not GAMEMODE:IsValidGamerMoment() then return end
 
 	local points = ent:GetPoints() * GAMEMODE:GetScoreMultiplier(self:GetTeam())
 

@@ -25,7 +25,7 @@ end
 
 function GM.PlayerMeta:UsePowerUP()
 
-	if GAMEMODE:GetRoundState() ~= RND_PLAYING then return end
+	if not GAMEMODE:IsValidGamerMoment() then return end
 
 	local result
 	local powerup_id = self:GetPowerUP()

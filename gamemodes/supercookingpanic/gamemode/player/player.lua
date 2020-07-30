@@ -145,7 +145,7 @@ end
 -----------------------------------------------------------]]
 function GM.PlayerMeta:GrabIngredient(ingredient)
 
-	if GAMEMODE:GetRoundState() ~= RND_PLAYING then return end
+	if not GAMEMODE:IsValidGamerMoment() then return end
 
 	if not self:IsValidPlayingState() then return end
 

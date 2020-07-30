@@ -54,3 +54,11 @@ end
 function GM:GetRoundTime()
 	return self:GetRoundTimer() - CurTime()
 end
+
+--[[---------------------------------------------------------
+	Name: gamemode.IsValidGamerMoment()
+	Desc: Returns true if we're playing
+-----------------------------------------------------------]]
+function GM:IsValidGamerMoment()
+	return self:GetRoundState() == RND_PLAYING
+end

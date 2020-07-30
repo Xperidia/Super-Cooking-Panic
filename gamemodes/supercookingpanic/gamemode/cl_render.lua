@@ -102,7 +102,7 @@ function GM:DrawCookingPotTips()
 	if not GAMEMODE:ConVarGetBool("hide_tips")
 	and ply:IsValidPlayingState()
 	and ply:IsHoldingIngredient()
-	and GAMEMODE:GetRoundState() == RND_PLAYING then
+	and GAMEMODE:IsValidGamerMoment() then
 
 		local text = GAMEMODE:FormatLangPhrase( "$scookp_tip_cooking_pot",
 						GAMEMODE:CheckBind("+attack"))
