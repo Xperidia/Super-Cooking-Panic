@@ -204,12 +204,14 @@ function GM:HUDPaintStatus()
 
 	local txt = self.GameStates[state]
 	local font = self:GetScaledFont("text")
+	local color = self.default_hud_color
 
 	if state == RND_ENDING then
 		txt = ""
 		for _, v in pairs(self:GetWinningTeams()) do
 			if txt == "" then
 				txt = v.Name
+				color = v.Color
 			else
 				txt =  txt .. " & " .. v.Name
 			end
@@ -220,7 +222,9 @@ function GM:HUDPaintStatus()
 	if not txt then return end
 
 	local w, h = self:ScreenScale(status_w, status_h)
-	local color = self:RainbowColor(2, nil, 220)
+	if color == self.default_hud_color then
+		color = self:RainbowColor(2, nil, 220)
+	end
 
 	surface.SetDrawColor(color)
 	surface.SetMaterial(status_mat)
