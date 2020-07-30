@@ -96,7 +96,7 @@ function GM:HUDPaint()
 
 	self:HUDPaintPowerUP(ply)
 
-	self:HUDPaintCombo(ply)
+	self:HUDPaintComboAndPoints(ply)
 
 	draw.DrawText("Super Cooking Panic\n" .. (self.Version or "?") .. "\n" .. (self.VersionDate or ""), nil, ScrW() - 4, 0, nil, TEXT_ALIGN_RIGHT)
 
@@ -326,23 +326,55 @@ end
 	Name: gamemode:HUDPaintCombo()
 	Desc: Paint combo
 -----------------------------------------------------------]]
-function GM:HUDPaintCombo(ply)
+function GM:HUDPaintCombo(ply, x, y, w, h)
 
 	local team = ply:Team()
 	local time = self:GetComboTime(team)
 
-	if time < 0 then return end
-
 	local mult = self:GetScoreMultiplier(team)
 	local txt = "x" .. mult
-	local color = self:GetTeamColor(ply)
+	local color = Color(255, 255, 255, 8)
 
-	local w, h = self:ScreenScale(64, 64)
-	local x, y = ScrW() / 2 - w  * (#txt / 2), ScrH() * 0.9 - h
-
-	color = ColorAlpha(color, math.Remap(time, 0, self.combo_time_length, 0, 255))
+	if time >= 0 and mult > 1 then
+		local alpha = math.Remap(time, 0, self.combo_time_length, 8, 255)
+		color = ColorAlpha(self:GetTeamColor(ply), alpha)
+		mult = mult - 1
+	else
+		mult = false
+	end
 
 	self:HUDPaintNumbers(txt, x, y, w, h, color, true, true, mult)
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:HUDPaintEntPoints()
+	Desc: Paint looked ent points
+-----------------------------------------------------------]]
+function GM:HUDPaintEntPoints(x, y, w, h)
+
+	local ent = self:EntityLookedAt()
+
+	if not IsValid(ent) or not ent:IsIngredient() then return end
+
+	local points = tostring(ent:GetPoints() or 0)
+	x = x - w * (#points * .7)
+
+	self:HUDPaintNumbers(points, x, y, w, h, self:GetTeamColor(ent), true, true, ent:IsBonusIngredient())
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:HUDPaintComboAndPoints()
+	Desc: Paint combo
+-----------------------------------------------------------]]
+function GM:HUDPaintComboAndPoints(ply)
+
+	local w, h = self:ScreenScale(64, 64)
+	local x, y = ScrW() / 2, ScrH() * 0.7 - h
+
+	self:HUDPaintEntPoints(x, y, w, h)
+	self:HUDPaintCombo(ply, x, y, w, h)
 
 end
 
