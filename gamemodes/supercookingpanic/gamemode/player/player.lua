@@ -224,12 +224,3 @@ function GM.PlayerMeta:DropHeldIngredient(forward)
 	return ingredient
 
 end
-
---[[---------------------------------------------------------
-	Name: gamemode:AllowPlayerPickup( Player ply, Entity ent )
-	Desc: Called when a player tries to pick up something
-			using the 'use' key
------------------------------------------------------------]]
-function GM:AllowPlayerPickup(ply, ent)
-	return
-end
