@@ -38,6 +38,7 @@ function SWEP:SecondaryAttack()
 	if SERVER then
 
 		owner:UsePowerUP()
+
 	end
 
 	owner:LagCompensation(false)
