@@ -356,7 +356,7 @@ function GM:HUDPaintNumbers(str, x, y, width, height, color, draw_shadow, tilt)
 
 		if tilt then
 
-			local _, tilt_offset = self:ScreenScale(2, 2)
+			local tilt_offset = self:ScreenScaleMin(2)
 
 			if k % 2 == 1 then
 				tilted_y = tilted_y + tilt_offset
