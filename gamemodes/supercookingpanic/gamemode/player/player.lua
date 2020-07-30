@@ -95,12 +95,7 @@ function GM:DoPlayerDeath(ply, attacker, dmginfo)
 		ply.GoneToRagdoll = nil
 	end
 
-	ply:DropHeldIngredient()
-	ply:DropPowerUP()
-
-	for _, wep in pairs(ply:GetWeapons()) do
-		ply:DropWeapon(wep)
-	end
+	ply:PerfomCleanUP()
 
 	ply:AddDeaths(1)
 
@@ -222,6 +217,35 @@ function GM.PlayerMeta:DropHeldIngredient(forward)
 	end
 
 	return ingredient
+
+end
+
+--[[---------------------------------------------------------
+	Name: player:PerfomCleanUP()
+	Desc: Clean up player
+-----------------------------------------------------------]]
+function GM.PlayerMeta:PerfomCleanUP()
+
+	self:DropHeldIngredient()
+	self:DropPowerUP()
+
+	for _, wep in pairs(self:GetWeapons()) do
+		self:DropWeapon(wep)
+	end
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:PlayerDisconnected()
+	Desc: Player has disconnected from the server.
+-----------------------------------------------------------]]
+function GM:PlayerDisconnected(ply)
+
+	if player.GetCount() <= 1 and not self:AreTeamsPopulated() then
+
+		self:SetRoundState(RND_NULL)
+
+	end
 
 end
 

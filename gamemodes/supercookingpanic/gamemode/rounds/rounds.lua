@@ -35,6 +35,8 @@ function GM:SetRoundState(state)
 
 		game.CleanUpMap(true)
 
+		self:ResetRoundTimer()
+
 		self:SpawnPlayers()
 
 	elseif state == RND_WAITING then
@@ -144,7 +146,15 @@ end
 	Desc: Creates a new round timer / Stores the value of its endtime
 -----------------------------------------------------------]]
 function GM:StartRoundTimer(time)
-	self.RoundVars.timer = CurTime() + (time or round_time_length)
+	self.RoundVars.timer = CurTime() + (time or round_time_length) + 0.5
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:ResetRoundTimer()
+	Desc: Reset the round timer
+-----------------------------------------------------------]]
+function GM:ResetRoundTimer()
+	self.RoundVars.timer = 0
 end
 
 --[[---------------------------------------------------------
@@ -194,7 +204,10 @@ function GM:RoundThink()
 
 		self:SetRoundState(RND_WAITING)
 
-	elseif self:GetRoundState() == RND_ENDING and not self:AreTeamsPopulated() then
+	elseif self:GetRoundState() == RND_ENDING
+	and not self:AreTeamsPopulated()
+	and self:IsRoundTimerOver()
+	then
 
 		self:SetRoundState(RND_NULL)
 
