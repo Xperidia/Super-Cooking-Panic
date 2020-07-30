@@ -93,3 +93,30 @@ function GM:GetPlayingTeams()
 	return p_teams
 
 end
+
+--[[---------------------------------------------------------
+	Name: gamemode.GetWinningTeams()
+	Desc: Return winning teams
+-----------------------------------------------------------]]
+function GM:GetWinningTeams()
+
+	local win_teams = {}
+	local last_team_score = 0
+
+	for _, tm in SortedPairsByMemberValue(self:GetPlayingTeams(), "Score", true) do
+
+		if tm.Score >= last_team_score then
+
+			table.insert(win_teams, tm)
+
+		else
+
+			break
+
+		end
+
+	end
+
+	return win_teams
+
+end

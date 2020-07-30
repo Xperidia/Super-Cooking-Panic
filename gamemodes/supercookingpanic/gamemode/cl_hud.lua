@@ -203,6 +203,19 @@ function GM:HUDPaintStatus()
 	if state == RND_PLAYING then return end
 
 	local txt = self.GameStates[state]
+	local font = self:GetScaledFont("text")
+
+	if state == RND_ENDING then
+		txt = ""
+		for _, v in pairs(self:GetWinningTeams()) do
+			if txt == "" then
+				txt = v.Name
+			else
+				txt =  txt .. " & " .. v.Name
+			end
+		end
+		txt = self:FormatLangPhrase("$scookp_round_win_str", txt)
+	end
 
 	if not txt then return end
 
@@ -213,7 +226,7 @@ function GM:HUDPaintStatus()
 	surface.SetMaterial(status_mat)
 	surface.DrawTexturedRect(ScrW() / 2 - w / 2, 0, w, h)
 
-	draw.DrawText(txt, self:GetScaledFont("text"), ScrW() / 2, h * 0.52, nil, TEXT_ALIGN_CENTER)
+	draw.DrawText(txt, font, ScrW() / 2, h * 0.52, nil, TEXT_ALIGN_CENTER)
 
 end
 
