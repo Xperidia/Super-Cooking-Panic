@@ -62,6 +62,16 @@ GM.PowerUPs = {
 		think = function(self)
 		end,
 	},]]
+	{
+		key = "respawn_pot",
+		icon = Material("supercookingpanic/powerup/respawn_pot"),
+		target = "none",
+		func = function(self)
+			GAMEMODE.RemoveCookingPots()
+			GAMEMODE:SpawnCookingPots()
+			return true
+		end,
+	},
 }
 
 function GM.PlayerMeta:HasPowerUP()
