@@ -235,7 +235,7 @@ function GM:HUDPaintBonus()
 
 	self:DrawHUDModel(model, "bonus", m_x, m_y, m_w, m_h)
 
-	local t_x, t_y = self:ScreenScale(138, 28)
+	local t_x, t_y = self:ScreenScale(138, 58)
 	local t_w, t_h = self:ScreenScale(32, 32)
 	local txt = "x" .. self.bonus_ingredient_score_multiplier
 
