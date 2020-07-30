@@ -537,7 +537,7 @@ function GM:DebugHUDPaint(ply)
 
 	local x, y = 0, ScrH() * 0.25
 
-	draw.SimpleText("Round Status: " .. self.GameStates[self:GetRoundState()],
+	draw.SimpleText("Round Status: " .. self:GetPhrase(self.GameStates[self:GetRoundState()]),
 		nil, x, y)
 	y = y + 10
 
@@ -589,7 +589,7 @@ function GM:DebugHUDPaint(ply)
 	if ply:HasPowerUP() then
 
 		y = y + 20
-		draw.SimpleText("Power-UP: " .. self.PowerUPs[ply:GetPowerUP()].name, nil, x, y)
+		draw.SimpleText("Power-UP: " .. self.PowerUPs[ply:GetPowerUP()].key, nil, x, y)
 
 	end
 
