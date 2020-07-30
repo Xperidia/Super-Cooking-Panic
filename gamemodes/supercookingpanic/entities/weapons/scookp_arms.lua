@@ -25,19 +25,22 @@ end
 
 function SWEP:PrimaryAttack()
 
-	if not SERVER then return end
-
 	self:GrabIngredient()
 
 end
 
 function SWEP:SecondaryAttack()
 
+	local owner = self:GetOwner()
+
+	owner:LagCompensation(true)
+
 	if SERVER then
 
-		self:GetOwner():UsePowerUP()
-
+		owner:UsePowerUP()
 	end
+
+	owner:LagCompensation(false)
 
 end
 
@@ -49,44 +52,36 @@ function SWEP:Reload()
 
 end
 
-if SERVER then
+function SWEP:GrabIngredient()
 
-	function SWEP:GrabIngredient()
+	local owner = self:GetOwner()
 
-		local owner = self:GetOwner()
+	owner:LagCompensation(true)
 
-		local trace = util.TraceLine(util.GetPlayerTrace(owner))
+	local trace = GAMEMODE:GetConvPlayerTrace(owner)
 
-		if not trace.Hit then return end
+	if trace.Hit and trace.HitNonWorld and IsValid(trace.Entity) and not trace.Entity:IsPlayer() then
 
-		if not trace.HitNonWorld then return end
+		if IsValid(owner:GetHeldIngredient())
+		and trace.Entity:GetClass() == "scookp_cooking_pot" and SERVER then
 
-		if not IsValid(trace.Entity) or trace.Entity:IsPlayer() then return end
+			trace.Entity:AbsorbEnt(owner:DropHeldIngredient())
 
-		if trace.HitPos:Distance(trace.StartPos) < GAMEMODE.ConvDistance then
+			self:DropIngredientAnim(owner)
 
-			if IsValid(owner:GetHeldIngredient())
-			and trace.Entity:GetClass() == "scookp_cooking_pot" then
+		elseif trace.Entity:IsIngredient() and not owner:IsHoldingIngredient() and SERVER then
 
-				trace.Entity:AbsorbEnt(owner:DropHeldIngredient())
-
-				self:DropIngredientAnim(owner)
-
-				return
-
-			elseif not trace.Entity:IsIngredient() then
-
-				return
-
-			elseif not owner:IsHoldingIngredient() then
-
-				owner:GrabIngredient(trace.Entity)
-
-			end
+			owner:GrabIngredient(trace.Entity)
 
 		end
 
 	end
+
+	owner:LagCompensation(false)
+
+end
+
+if SERVER then
 
 	function SWEP:DropIngredient()
 
