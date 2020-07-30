@@ -9,7 +9,7 @@ GM.Name 			= "Super Cooking Panic"
 GM.Prefix			= "scookp"
 GM.Author 			= "Xperidia"
 GM.Website 			= "steamcommunity.com/sharedfiles/filedetails/?id=2180715133"
-GM.Version 			= "v0.4.0"
+GM.Version 			= "v0.5.0"
 GM.VersionDate 		= 200730
 GM.TeamBased 		= true
 GM.AllowAutoTeam	= true
