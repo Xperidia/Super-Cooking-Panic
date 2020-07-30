@@ -224,3 +224,11 @@ function GM.PlayerMeta:DropHeldIngredient(forward)
 	return ingredient
 
 end
+
+--[[---------------------------------------------------------
+	Name: gamemode:SetupPlayerVisibility()
+	Desc: Add extra positions to the player's PVS
+-----------------------------------------------------------]]
+function GM:SetupPlayerVisibility(pPlayer, pViewEntity)
+	--AddOriginToPVS(vector_position_here)
+end
