@@ -319,6 +319,7 @@ function GM:HUDPaintStats(ply)
 end
 
 local power_up_mat = Material("supercookingpanic/hud/power-up")
+local unknown_power_up_mat = Material("supercookingpanic/powerup/unknown")
 local power_up_w, power_up_h = 256, 256
 --[[---------------------------------------------------------
 	Name: gamemode:HUDPaintPowerUP()
@@ -330,22 +331,39 @@ function GM:HUDPaintPowerUP(ply)
 
 	local w, h = self:ScreenScale(power_up_w, power_up_h)
 	local x, y = ScrW() - w, ScrH() - h
+	local font = self:GetScaledFont("text")
+	local color = color_white
 
-	surface.SetDrawColor(255, 255, 255, 255)
+	surface.SetDrawColor(color)
 	surface.SetMaterial(power_up_mat)
 	surface.DrawTexturedRect(x, y, w, h)
 
-	local mat = self.PowerUPs[ply:GetPowerUP()].icon
+	local power_up = self.PowerUPs[ply:GetPowerUP()]
+	local mat = power_up.icon
 	local p_x, p_y = self:ScreenScale(16, 18)
 	local p_w, p_h = self:ScreenScale(114, 114)
+	local is_valid_mat = not (not mat or mat:IsError())
 
-	surface.SetDrawColor(255, 255, 255, 255)
-	surface.SetMaterial(mat)
-	surface.DrawTexturedRect(ScrW() - p_x - p_w, ScrH() - p_w - p_y, p_w, p_h)
+	if is_valid_mat then
+
+		surface.SetDrawColor(color)
+		surface.SetMaterial(mat)
+		surface.DrawTexturedRect(ScrW() - p_x - p_w, ScrH() - p_w - p_y, p_w, p_h)
+
+	else
+
+		surface.SetDrawColor(self.ErrorColor)
+		surface.SetMaterial(unknown_power_up_mat)
+		surface.DrawTexturedRect(ScrW() - p_x - p_w, ScrH() - p_w - p_y, p_w, p_h)
+
+		local p_txt = self:GetPowerUPName(power_up.key)
+		local pt_x, pt_y = ScrW(), ScrH()
+
+		draw.SimpleText(p_txt, font, pt_x, pt_y, nil, TEXT_ALIGN_RIGHT, TEXT_ALIGN_BOTTOM)
+
+	end
 
 	if not self:ConVarGetBool("hide_tips") then
-
-		local font = self:GetScaledFont("text")
 
 		surface.SetFont(font)
 

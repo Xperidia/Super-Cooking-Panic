@@ -65,17 +65,20 @@ local unknown_sprite = Material("supercookingpanic/powerup/unknown")
 function ENT:Draw()
 
 	local sprite = unknown_sprite
+	local color = color_white
+	local power_up = GAMEMODE.PowerUPs[self:GetPowerUP()]
 
-	if GAMEMODE.PowerUPs[self:GetPowerUP()]
-	and GAMEMODE.PowerUPs[self:GetPowerUP()].icon then
-		sprite = GAMEMODE.PowerUPs[self:GetPowerUP()].icon
+	if power_up and power_up.icon and not power_up.icon:IsError() then
+		sprite = power_up.icon
+	elseif power_up then
+		color = GAMEMODE.ErrorColor
 	end
 
 	render.SetMaterial(sprite)
 
 	local pos = self:GetPos() + Vector(0, 0, math.sin(CurTime() + self:EntIndex()) * 4)
 
-	render.DrawSprite(pos, 32, 32)
+	render.DrawSprite(pos, 32, 32, color)
 
 end
 
