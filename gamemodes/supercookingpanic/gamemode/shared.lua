@@ -44,6 +44,7 @@ GM.pm_list = {
 }
 
 GM.ConvDistance = 160
+GM.ErrorColor = Color(255, 0, 255, 255)
 
 function GM:SharedInitialize()
 
