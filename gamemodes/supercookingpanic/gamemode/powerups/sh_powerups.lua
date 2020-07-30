@@ -7,7 +7,7 @@ AddCSLuaFile()
 
 GM.PowerUPs = {
 	{
-		key = "canibalism",
+		key = "cannibalism",
 		target = "player",
 		icon = Material("supercookingpanic/powerup/canibalism"),
 		func = function(self)
