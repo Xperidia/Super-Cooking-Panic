@@ -1,7 +1,0 @@
-"UnlitGeneric"
-{
-	"$basetexture" "supercookingpanic/hud/bonus_x10"
-	"$translucent" "1"
-	"$vertexcolor" "1"
-	"$vertexalpha" "1"
-}
