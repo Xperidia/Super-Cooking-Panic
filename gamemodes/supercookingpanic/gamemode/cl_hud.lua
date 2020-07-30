@@ -394,7 +394,7 @@ function GM:HUDPaintNumbers(str, x, y, width, height, color, draw_shadow, tilt, 
 
 		if tilt or shake then
 
-			local tilt_offset = self:ScreenScaleMin(isnumber(tilt) and tilt or 1)
+			local tilt_offset = self:ScreenScaleMin(tilt and isnumber(tilt) and tilt or 1)
 
 			if shake then
 				tilt_offset = tilt_offset * math.random(0, isnumber(skake) and shake or 1)
