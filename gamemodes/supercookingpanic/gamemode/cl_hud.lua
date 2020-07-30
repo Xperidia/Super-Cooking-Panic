@@ -120,10 +120,10 @@ function GM:HUDPaintClock()
 	local shake = nil
 
 	if time < 30 and time > 0 and state == RND_PLAYING then
-		color = self:RainbowColor(2, nil, 196)
+		color = self:RainbowColor(2, nil, 220)
 		shake = true
 	elseif time < 30 and time > 0 then
-		color = self:RainbowColor(2, nil, 196)
+		color = self:RainbowColor(2, nil, 220)
 	end
 
 	surface.SetDrawColor(color)
@@ -207,7 +207,7 @@ function GM:HUDPaintStatus()
 	if not txt then return end
 
 	local w, h = self:ScreenScale(status_w, status_h)
-	local color = self:RainbowColor(2, nil, 196)
+	local color = self:RainbowColor(2, nil, 220)
 
 	surface.SetDrawColor(color)
 	surface.SetMaterial(status_mat)
