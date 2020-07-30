@@ -84,6 +84,57 @@ function GM:Tick()
 
 	self:MusicThink()
 
+	self:SoundThink()
+
+end
+
+local end_remind_sound = Sound("supercookingpanic/effects/time_running_up.wav")
+local end_sound = Sound("supercookingpanic/effects/time_up.wav")
+--[[---------------------------------------------------------
+	Name: gamemode:SoundThink()
+	Desc: Check to play special sounds
+-----------------------------------------------------------]]
+function GM:SoundThink()
+
+	local state = self:GetRoundState()
+
+	--[[if state == RND_PLAYING and not self._played_playing_sound then
+
+		surface.PlaySound(start_sound)
+
+		self._played_playing_sound = true
+
+	elseif state ~= RND_PLAYING and self._played_playing_sound then
+
+		self._played_playing_sound = nil
+
+	end]]
+
+	if state == RND_PLAYING and self:GetRoundTime() < 30 and not self._played_remind_sound then
+
+		surface.PlaySound(end_remind_sound)
+
+		self._played_remind_sound = true
+
+	elseif state ~= RND_PLAYING and self._played_remind_sound then
+
+		self._played_remind_sound = nil
+
+	end
+
+	if state == RND_ENDING and not self._played_end_sound then
+
+		surface.PlaySound(end_sound)
+
+		self._played_end_sound = true
+
+	elseif state ~= RND_ENDING and self._played_end_sound then
+
+		self._played_end_sound = nil
+
+
+	end
+
 end
 
 --[[---------------------------------------------------------
