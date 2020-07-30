@@ -8,7 +8,6 @@ AddCSLuaFile()
 GM.PowerUPs = {
 	{
 		key = "canibalism",
-		name = "Canibalism",
 		target = "player",
 		icon = Material("supercookingpanic/powerup/canibalism"),
 		func = function(self)
@@ -35,7 +34,6 @@ GM.PowerUPs = {
 	},
 	--[[{
 		key = "fake",
-		name = "Fake ingredient",
 		target = "world",
 		icon = Material("supercookingpanic/powerup/fake"),
 		func = function(self)
@@ -44,7 +42,6 @@ GM.PowerUPs = {
 	},]]
 	{
 		key = "reroll",
-		name = "Reroll",
 		target = "none",
 		icon = Material("supercookingpanic/powerup/reroll"),
 		use_sound = "scookp_reroll_bonus_ingredient",
@@ -55,14 +52,12 @@ GM.PowerUPs = {
 	},
 	--[[{
 		key = "soapy",
-		name = "Soapy",
 		icon = Material("supercookingpanic/powerup/soapy"),
 		think = function(self)
 		end,
 	},]]
 	--[[{
 		key = "spicy",
-		name = "Spicy",
 		icon = Material("supercookingpanic/powerup/spicy"),
 		think = function(self)
 		end,
