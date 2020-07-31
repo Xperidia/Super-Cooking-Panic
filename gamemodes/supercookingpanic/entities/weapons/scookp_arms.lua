@@ -110,9 +110,13 @@ if SERVER then
 
 		if CurTime() <= usecooldown then return end
 
-		owner:DropHeldIngredient(true)
+		local ent = owner:DropHeldIngredient(true)
 
-		self:DropIngredientAnim(owner)
+		if IsValid(ent) then
+
+			self:DropIngredientAnim(owner)
+
+		end
 
 	end
 
