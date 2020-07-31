@@ -53,6 +53,8 @@ function ENT:AbsorbEnt(ent)
 
 	if not GAMEMODE:IsValidGamerMoment() then return end
 
+	if ent:IsTrap() then return end
+
 	local points = ent:GetPoints() * GAMEMODE:GetScoreMultiplier(self:GetTeam())
 
 	team.AddScore(self:GetTeam(), points)
