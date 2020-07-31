@@ -32,6 +32,18 @@ function GM:CreatePowerUP(arg, powerup_id, respawn)
 
 end
 
+concommand.Add("scookp_dev_create_power_up", function(ply, cmd, args)
+
+	if not GAMEMODE:ConVarGetBool("dev_mode") then return end
+
+	if IsValid(ply) and (ply:IsListenServerHost() or ply:IsSuperAdmin()) then
+
+		GAMEMODE:CreatePowerUP(ply, args[1])
+
+	end
+
+end, nil, "Create a Power-UP", FCVAR_CLIENTCMD_CAN_EXECUTE)
+
 function GM.PlayerMeta:UsePowerUP()
 
 	if not GAMEMODE:IsValidGamerMoment() then return end
