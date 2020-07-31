@@ -17,7 +17,11 @@ end
 
 function GM:PlayerBindPress(ply, bind, down)
 
-	if down and bind == "gmod_undo" then
+	if down and bind == "gm_showhelp" then
+
+		self:Menu()
+
+	elseif down and bind == "gmod_undo" then
 
 		RunConsoleCommand("scookp_powerup_drop")
 

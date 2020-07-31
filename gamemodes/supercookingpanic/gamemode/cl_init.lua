@@ -16,6 +16,7 @@ include("entities/cl_entities.lua")
 include("powerups/cl_powerups.lua")
 include("cl_render.lua")
 include("cl_targetid.lua")
+include("cl_menu.lua")
 include("cl_pickteam.lua")
 
 function GM:Initialize()

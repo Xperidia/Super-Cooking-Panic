@@ -10,6 +10,7 @@ AddCSLuaFile("cl_fonts.lua")
 AddCSLuaFile("cl_hud.lua")
 AddCSLuaFile("cl_render.lua")
 AddCSLuaFile("cl_targetid.lua")
+AddCSLuaFile("cl_menu.lua")
 AddCSLuaFile("cl_pickteam.lua")
 
 include("shared.lua")
