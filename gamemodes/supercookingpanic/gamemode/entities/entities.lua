@@ -129,7 +129,13 @@ end
 -----------------------------------------------------------]]
 function GM:SpawnCookingPot(tm)
 
-	local ent = ents.Create("scookp_cooking_pot")
+	local class = "scookp_cooking_pot"
+
+	local ent = ents.Create(class)
+
+	if not IsValid(ent) then
+		self:ErrorLog("Couldn't create " .. class)
+	end
 
 	ent:SetTeam(tm or 0)
 	ent:SetColor(team.GetColor(tm))
@@ -249,7 +255,14 @@ function GM.EntityMeta:GoToRagdoll(attacker)
 
 	if not self:IsNPC() and not self:IsPlayer() then return self end
 
-	local ragdoll = ents.Create("prop_ragdoll")
+	local class = "prop_ragdoll"
+
+	local ragdoll = ents.Create(class)
+
+	if not IsValid(ragdoll) then
+		self:ErrorLog("Couldn't create " .. class)
+	end
+
 	ragdoll:SetModel(self:GetModel())
 	ragdoll:SetPos(self:GetPos())
 	ragdoll:SetAngles(self:GetAngles())
