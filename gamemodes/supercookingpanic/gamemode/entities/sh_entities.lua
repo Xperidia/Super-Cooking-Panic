@@ -254,3 +254,11 @@ function GM.EntityMeta:Nick()
 	return ""
 
 end
+
+--[[---------------------------------------------------------
+	Name: Entity:IsTrap()
+	Desc: Returns true if the entity is a trap.
+-----------------------------------------------------------]]
+function GM.EntityMeta:IsTrap()
+	return self:GetClass() == "scookp_trap"
+end
