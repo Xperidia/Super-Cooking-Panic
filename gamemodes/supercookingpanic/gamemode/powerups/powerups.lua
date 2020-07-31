@@ -44,45 +44,6 @@ concommand.Add("scookp_dev_create_power_up", function(ply, cmd, args)
 
 end, nil, "Create a Power-UP", FCVAR_CLIENTCMD_CAN_EXECUTE)
 
-function GM.PlayerMeta:UsePowerUP()
-
-	if not GAMEMODE:IsValidGamerMoment() then return end
-
-	local result
-	local powerup_id = self:GetPowerUP()
-
-	if powerup_id and GAMEMODE.PowerUPs[powerup_id] then
-
-		if GAMEMODE.PowerUPs[powerup_id].func then
-
-			result = GAMEMODE.PowerUPs[powerup_id].func(self)
-
-		end
-
-		if result then
-
-			GAMEMODE:DebugLog(self:GetName() .. " has used power-up " .. powerup_id)
-
-			self:SetPowerUP(0)
-
-			self:EmitSound(GAMEMODE.PowerUPs[powerup_id].use_sound or "scookp_power_up_use")
-
-		elseif result == nil then
-
-			GAMEMODE:Log(self:GetName() .. " has tried to use power-up " .. powerup_id .. " but no result was found!")
-
-			self:SetPowerUP(0)
-
-			self:EmitSound(GAMEMODE.PowerUPs[powerup_id].use_sound or "scookp_power_up_use")
-
-		end
-
-	end
-
-	return result
-
-end
-
 function GM.PlayerMeta:PickPowerUP(powerup_id)
 
 	if not self:HasPowerUP() and self:IsValidPlayingState() then

@@ -22,13 +22,11 @@ GM.PowerUPs = {
 
 			if not trace.Entity:IsPlayer() then return false end
 
-			if trace.HitPos:Distance(trace.StartPos) < GAMEMODE.ConvDistance then
-
+			if SERVER then
 				return trace.Entity:GoToRagdoll(self)
-
 			end
 
-			return false
+			return true
 
 		end,
 	},
@@ -37,7 +35,13 @@ GM.PowerUPs = {
 		target = "world",
 		icon = Material("supercookingpanic/powerup/fake"),
 		func = function(self)
-			return GAMEMODE:CreateTrap(self)
+
+			if SERVER then
+				return GAMEMODE:CreateTrap(self)
+			end
+
+			return true
+
 		end,
 	},
 	{
@@ -46,8 +50,13 @@ GM.PowerUPs = {
 		icon = Material("supercookingpanic/powerup/reroll"),
 		use_sound = "scookp_reroll_bonus_ingredient",
 		func = function(self)
-			GAMEMODE:AutoChooseBonusIngredient()
+
+			if SERVER then
+				GAMEMODE:AutoChooseBonusIngredient()
+			end
+
 			return true
+
 		end,
 	},
 	--[[{
@@ -69,9 +78,14 @@ GM.PowerUPs = {
 		target = "none",
 		icon = Material("supercookingpanic/powerup/respawn_pot"),
 		func = function(self)
-			GAMEMODE.RemoveCookingPots()
-			GAMEMODE:SpawnCookingPots()
+
+			if SERVER then
+				GAMEMODE.RemoveCookingPots()
+				GAMEMODE:SpawnCookingPots()
+			end
+
 			return true
+
 		end,
 	},
 }
@@ -83,6 +97,45 @@ function GM.PlayerMeta:HasPowerUP()
 	end
 
 	return self:GetPowerUP() > 0
+
+end
+
+function GM.PlayerMeta:UsePowerUP()
+
+	if not GAMEMODE:IsValidGamerMoment() then return end
+
+	local result
+	local powerup_id = self:GetPowerUP()
+
+	if powerup_id and GAMEMODE.PowerUPs[powerup_id] then
+
+		if GAMEMODE.PowerUPs[powerup_id].func then
+
+			result = GAMEMODE.PowerUPs[powerup_id].func(self)
+
+		end
+
+		if SERVER and result then
+
+			GAMEMODE:DebugLog(self:GetName() .. " has used power-up " .. powerup_id)
+
+			self:SetPowerUP(0)
+
+			self:EmitSound(GAMEMODE.PowerUPs[powerup_id].use_sound or "scookp_power_up_use")
+
+		elseif SERVER and result == nil then
+
+			GAMEMODE:Log(self:GetName() .. " has tried to use power-up " .. powerup_id .. " but no result was found!")
+
+			self:SetPowerUP(0)
+
+			self:EmitSound(GAMEMODE.PowerUPs[powerup_id].use_sound or "scookp_power_up_use")
+
+		end
+
+	end
+
+	return result
 
 end
 

@@ -23,6 +23,8 @@ if CLIENT then
 	SWEP.Instructions = GAMEMODE:CheckBind("+attack") .. " to grab ingredients\n" .. GAMEMODE:CheckBind("+attack2") .. " to use power-up\n" .. GAMEMODE:CheckBind("+reload") .. " to drop ingredient"
 end
 
+local SwingSound = Sound("WeaponFrag.Throw")
+
 function SWEP:PrimaryAttack()
 
 	self:GrabIngredient()
@@ -35,9 +37,18 @@ function SWEP:SecondaryAttack()
 
 	owner:LagCompensation(true)
 
-	if SERVER then
+	local res = owner:UsePowerUP()
 
-		owner:UsePowerUP()
+	if res then
+
+		owner:SetAnimation(PLAYER_ATTACK1)
+
+		local vm = owner:GetViewModel()
+		vm:SendViewModelMatchingSequence( vm:LookupSequence("fists_right") )
+
+		self:EmitSound(SwingSound)
+
+		self:UpdateNextIdle()
 
 	end
 
@@ -70,9 +81,13 @@ function SWEP:GrabIngredient()
 
 			self:DropIngredientAnim(owner)
 
+			owner:SetAnimation(PLAYER_ATTACK1)
+
 		elseif trace.Entity:IsIngredient() and not owner:IsHoldingIngredient() and SERVER then
 
 			owner:GrabIngredient(trace.Entity)
+
+			owner:SetAnimation(PLAYER_ATTACK1)
 
 		end
 
