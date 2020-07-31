@@ -38,6 +38,7 @@ local ingredient_class = {
 	["npc_clawscanner"] = true,
 	["npc_stalker"] = true,
 	["npc_turret_floor"] = true,
+	["scookp_trap"] = true,
 }
 
 local ingredient_worth_by_class = {
