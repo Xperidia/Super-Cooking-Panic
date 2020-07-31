@@ -12,6 +12,7 @@ AddCSLuaFile("cl_render.lua")
 AddCSLuaFile("cl_targetid.lua")
 AddCSLuaFile("cl_menu.lua")
 AddCSLuaFile("cl_pickteam.lua")
+AddCSLuaFile("cl_scoreboard.lua")
 
 include("shared.lua")
 include("player/player.lua")
