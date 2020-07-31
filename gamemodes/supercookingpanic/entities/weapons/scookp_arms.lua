@@ -8,7 +8,7 @@ AddCSLuaFile()
 SWEP.Base = "weapon_fists"
 SWEP.PrintName = "#scookp_arms"
 SWEP.Author = "Xperidia"
-SWEP.Purpose = "Get ingredients"
+SWEP.Purpose = "Get ingredients, drop them and use Power-UPs"
 SWEP.Spawnable = false
 SWEP.BounceWeaponIcon = false
 SWEP.DisableDuplicator = true
@@ -20,7 +20,10 @@ SWEP.Secondary.Automatic = false
 
 if CLIENT then
 	SWEP.PrintName = language.GetPhrase("scookp_arms")
-	SWEP.Instructions = GAMEMODE:CheckBind("+attack") .. " to grab ingredients\n" .. GAMEMODE:CheckBind("+attack2") .. " to use power-up\n" .. GAMEMODE:CheckBind("+reload") .. " to drop ingredient"
+	local atac = language.GetPhrase("#Valve_Primary_Attack")
+	local atac2 = language.GetPhrase("#Valve_Secondary_Attack")
+	local relod = language.GetPhrase("#Valve_Reload_Weapon")
+	SWEP.Instructions = string.format("%s to grab an ingredient\n%s to use your Power-UP\n%s to drop your ingredient", atac, atac2, relod)
 end
 
 local SwingSound = Sound("WeaponFrag.Throw")
