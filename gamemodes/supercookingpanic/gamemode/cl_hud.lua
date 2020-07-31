@@ -654,6 +654,10 @@ function GM:CreateHUDModel(model, name_id)
 
 end
 
+--[[---------------------------------------------------------
+	Name: gamemode:DrawHUDModel()
+	Desc: Draws a 3D model on the HUD
+-----------------------------------------------------------]]
 function GM:DrawHUDModel(model, name_id, x, y, w, h)
 
 	if not util.IsValidModel(model) then
@@ -674,12 +678,19 @@ function GM:DrawHUDModel(model, name_id, x, y, w, h)
 			self:CreateHUDModel(model, name_id)
 		end
 
-		local radius = self.HUDModels[name_id]:GetModelRadius()
-		local pos = Vector(radius * 2, 0, radius)
+		local b1, b2 = self.HUDModels[name_id]:GetModelBounds()
+		local model_sizes = (b2 - b1):ToTable()
+		local max_edge = math.max(unpack(model_sizes))
+
+		local model_distance_from_cam = max_edge / math.sqrt(max_edge / 40)
+		local hypo = math.sqrt(math.pow(model_distance_from_cam, 2) + math.pow(model_sizes[3], 2))
+		local cam_angle = (math.acos(model_distance_from_cam / hypo) * 180 / math.pi) * 0.70
+
+		local pos = Vector(model_distance_from_cam, 0, b2:ToTable()[3] + 5)
 
 		self.HUDModels[name_id]:SetAngles(Angle(0, math.Remap(math.sin(CurTime()), -1, 1, -180, 180), 0))
 
-		cam.Start3D(pos, Vector(-(radius * 2), 0, -radius):Angle(), 70, x, y, w, h)
+		cam.Start3D(pos, Vector(-model_distance_from_cam, 0, -cam_angle):Angle(), 70, x, y, w, h)
 		cam.IgnoreZ(true)
 
 		render.OverrideDepthEnable(false)
