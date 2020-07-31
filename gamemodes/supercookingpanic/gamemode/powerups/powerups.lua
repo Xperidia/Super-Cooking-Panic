@@ -110,19 +110,3 @@ concommand.Add("scookp_powerup_drop", function(ply, cmd, args)
 		ply:DropPowerUP()
 	end
 end, nil, "Drop a power-up", FCVAR_CLIENTCMD_CAN_EXECUTE)
-
---[[---------------------------------------------------------
-	Name: gamemode:SpawnPowerUP( number howmuch )
-	Desc: Spawns how many Power-UPs
------------------------------------------------------------]]
-function GM:SpawnPowerUP(howmuch)
-
-	while howmuch > 0 do
-
-		self:CreatePowerUP(self:EntSelectSpawn())
-
-		howmuch = howmuch - 1
-
-	end
-
-end
