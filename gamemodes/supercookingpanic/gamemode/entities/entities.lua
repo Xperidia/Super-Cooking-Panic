@@ -240,7 +240,7 @@ function GM:AutoChooseBonusIngredient()
 	local model = self:SelectRandomIngredientModel()
 
 	if model then
-		self:SetBonusIngredientModel(sel_model)
+		self:SetBonusIngredientModel(model)
 	end
 
 	return model
