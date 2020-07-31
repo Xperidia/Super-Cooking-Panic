@@ -63,7 +63,13 @@ function SWEP:Reload()
 
 	if not SERVER then return end
 
+	local owner = self:GetOwner()
+
+	owner:LagCompensation(true)
+
 	self:DropIngredient()
+
+	owner:LagCompensation(false)
 
 end
 
