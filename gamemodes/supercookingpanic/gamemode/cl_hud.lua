@@ -252,8 +252,8 @@ function GM:HUDPaintBonus()
 	surface.SetMaterial(bonus_mat)
 	surface.DrawTexturedRect(0, 0, w, h)
 
-	local m_x, m_y = self:ScreenScale(8, 10)
-	local m_w, m_h = self:ScreenScale(130, 130)
+	local m_x, m_y = self:ScreenScale(34, 37)
+	local m_w, m_h = self:ScreenScale(75, 75)
 
 	self:DrawHUDModel(model, "bonus", m_x, m_y, m_w, m_h)
 
@@ -288,8 +288,8 @@ function GM:HUDPaintStats(ply)
 	if IsValid(ingredient) then
 
 		local model = ingredient:GetModel()
-		local m_x, m_y = self:ScreenScale(12, 18)
-		local m_w, m_h = self:ScreenScale(120, 122)
+		local m_x, m_y = self:ScreenScale(34, 37)
+		local m_w, m_h = self:ScreenScale(75, 75)
 		m_y =  ScrH() - m_h - m_y
 
 		self:DrawHUDModel(model, "hold", m_x, m_y, m_w, m_h)
