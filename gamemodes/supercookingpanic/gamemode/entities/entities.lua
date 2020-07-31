@@ -203,10 +203,10 @@ function GM:SetBonusIngredientModel(model)
 end
 
 --[[---------------------------------------------------------
-	Name: gamemode:AutoChooseBonusIngredient()
-	Desc: Transforms an ingredient into a bonus ingredient
+	Name: gamemode:SelectRandomIngredientModel()
+	Desc: Returns random ingredient model from the map
 -----------------------------------------------------------]]
-function GM:AutoChooseBonusIngredient()
+function GM:SelectRandomIngredientModel()
 
 	local sel_model
 
@@ -221,9 +221,23 @@ function GM:AutoChooseBonusIngredient()
 
 	end
 
-	self:SetBonusIngredientModel(sel_model)
-
 	return sel_model
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:AutoChooseBonusIngredient()
+	Desc: Select random ingredient model as bonus ingredient
+-----------------------------------------------------------]]
+function GM:AutoChooseBonusIngredient()
+
+	local model = self:SelectRandomIngredientModel()
+
+	if model then
+		self:SetBonusIngredientModel(sel_model)
+	end
+
+	return model
 
 end
 
