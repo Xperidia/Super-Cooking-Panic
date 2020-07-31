@@ -307,7 +307,7 @@ function GM:CreateTrap(ply)
 		self:ErrorLog("Couldn't create " .. class)
 	end
 
-	ent:SetModel(self:SelectRandomIngredientModel())
+	ent:SetModel(self:GetBonusIngredientModel() or self:SelectRandomIngredientModel())
 
 	ent:SetTeam(ply:Team())
 
