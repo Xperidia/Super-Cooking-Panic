@@ -148,6 +148,10 @@ function GM.PlayerMeta:GrabIngredient(ingredient)
 
 	if IsValid(cur_ingredient) then return end
 
+	if ingredient:IsTrap() and ingredient:Team() ~= self:Team() then
+		return ingredient:DoTheTrap()
+	end
+
 	if ingredient:IsIngredient() then
 
 		if ingredient:IsNPC() then
