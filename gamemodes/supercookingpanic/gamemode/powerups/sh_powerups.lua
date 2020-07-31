@@ -32,14 +32,14 @@ GM.PowerUPs = {
 
 		end,
 	},
-	--[[{
+	{
 		key = "fake",
 		target = "world",
 		icon = Material("supercookingpanic/powerup/fake"),
 		func = function(self)
-			return false
+			return GAMEMODE:CreateTrap(self)
 		end,
-	},]]
+	},
 	{
 		key = "reroll",
 		target = "none",
