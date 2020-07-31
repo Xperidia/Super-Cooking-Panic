@@ -118,6 +118,13 @@ if SERVER then
 
 	function SWEP:DropIngredientAnim(owner)
 
+		local id = util.NetworkStringToID("VManip_SimplePlay")
+
+		if id == 0 then
+			GAMEMODE:Log("VManip is not installed. Not sending net message.")
+			return
+		end
+
 		net.Start("VManip_SimplePlay")
 			net.WriteString("use")
 		net.Send(owner)
