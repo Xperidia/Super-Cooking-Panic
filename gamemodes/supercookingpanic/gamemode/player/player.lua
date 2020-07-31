@@ -258,5 +258,15 @@ end
 	Desc: Add extra positions to the player's PVS
 -----------------------------------------------------------]]
 function GM:SetupPlayerVisibility(pPlayer, pViewEntity)
-	--AddOriginToPVS(vector_position_here)
+
+	for _, v in pairs(ents.FindByClass("scookp_cooking_pot")) do
+
+		if pPlayer:Team() == v:Team() then
+
+			AddOriginToPVS(v:GetPos())
+
+		end
+
+	end
+
 end
