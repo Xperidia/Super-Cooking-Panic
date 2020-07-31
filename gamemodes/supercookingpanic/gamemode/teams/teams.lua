@@ -251,7 +251,7 @@ function GM:AutoTeam(ply)
 
 		self:PlayerRequestTeam(ply, select)
 
-		self:DebugLog(string.format("We choosed %s for %s", name, ply:GetName()))
+		self:DebugLog(string.format("We auto choosed team %d for %s", select, ply:GetName()))
 
 	else
 
