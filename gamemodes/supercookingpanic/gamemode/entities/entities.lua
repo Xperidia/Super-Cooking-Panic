@@ -311,12 +311,29 @@ function GM:CreateTrap(ply)
 
 	ent:SetTeam(ply:Team())
 
-	ent:SetPos(ply:GetPos())
-
 	ent:SetTheOwner(ply)
+
+	self:SetFeelGoodPos(ent, self:GetConvPlayerTrace(ply))
 
 	ent:Spawn()
 
+	ent:PhysWake()
+
 	return ent
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:SetFeelGoodPos(ent, trace)
+	Desc: Set good pos from trace
+-----------------------------------------------------------]]
+function GM:SetFeelGoodPos(ent, trace)
+
+	ent:SetPos(trace.HitPos)
+
+	local pos = trace.HitPos
+	local offset = pos - ent:NearestPoint( pos - ( trace.HitNormal * 512 ) )
+
+	ent:SetPos(pos + offset)
 
 end

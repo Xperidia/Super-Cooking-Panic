@@ -192,17 +192,17 @@ function GM.PlayerMeta:DropHeldIngredient(forward)
 		ingredient:DrawShadow(true)
 		self:SetHeldIngredient(NULL)
 
-		local Forward = self:GetAimVector()
-
 		if forward then
 
-			ingredient:SetPos(self:GetShootPos() + Forward * (32 + ingredient:GetModelRadius()))
 			if not ingredient:IsNPC() then
 				ingredient:SetAngles(self:EyeAngles())
 			end
+
+			local trace = GAMEMODE:GetConvPlayerTrace(self)
+			GAMEMODE:SetFeelGoodPos(ingredient, trace)
+
 			ingredient:PhysWake()
 			ingredient:Activate()
-			ingredient:SetVelocity( Forward * 200 )
 
 		else
 
