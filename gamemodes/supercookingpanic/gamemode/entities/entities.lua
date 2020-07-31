@@ -292,3 +292,31 @@ function GM.EntityMeta:GoToRagdoll(attacker)
 	return ragdoll
 
 end
+
+--[[---------------------------------------------------------
+	Name: gamemode:CreateTrap(ply)
+	Desc: Creates a trap
+-----------------------------------------------------------]]
+function GM:CreateTrap(ply)
+
+	local class = "scookp_trap"
+
+	local ent = ents.Create(class)
+
+	if not IsValid(ent) then
+		self:ErrorLog("Couldn't create " .. class)
+	end
+
+	ent:SetModel(self:SelectRandomIngredientModel())
+
+	ent:SetTeam(ply:Team())
+
+	ent:SetPos(ply:GetPos())
+
+	ent:SetTheOwner(ply)
+
+	ent:Spawn()
+
+	return ent
+
+end
