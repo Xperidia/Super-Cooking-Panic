@@ -127,14 +127,14 @@ function GM:Menu()
 	local menu = frame.sheet
 	menu:Dock(FILL)
 
-	local welcome = do_tab("Welcome", "icon16/house.png", menu)
+	--[[local welcome = do_tab("Welcome", "icon16/house.png", menu)
 
-	do_text("", welcome)
+	do_text("", welcome)]]
 
 
-	local guide = do_tab("Guide", "icon16/book.png", menu)
+	--[[local guide = do_tab("Guide", "icon16/book.png", menu)
 
-	do_text("", guide)
+	do_text("", guide)]]
 
 
 	self:MenuControls(menu)
