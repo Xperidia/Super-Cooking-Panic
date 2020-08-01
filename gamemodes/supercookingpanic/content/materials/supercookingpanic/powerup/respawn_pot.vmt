@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+	"$basetexture" "supercookingpanic/powerup/respawn_pot"
+	"$translucent" "1"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+}
