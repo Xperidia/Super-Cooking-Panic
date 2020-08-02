@@ -4,36 +4,28 @@
 -----------------------------------------------------------]]
 
 --[[---------------------------------------------------------
-	Name: gamemode:SetCookingPotHalo()
-	Desc: Renders an halo around every 'cooking pot' entity
-			The color matches the entity's team
-			At range of use the halo is stronger
+	Name: gamemode:CookingPotHaloListThink()
+	Desc: Make halo ready tables for GM:CookingPotHalo()
 -----------------------------------------------------------]]
-function GM:CookingPotHalo()
+function GM:CookingPotHaloListThink()
 
-	local ply = LocalPlayer()
-	local plyTeam = ply:Team()
-	local cooking_pots_close = {}
+	local plyTeam = LocalPlayer():Team()
 	local cooking_pots_halos = {}
+	local cooking_pots_halos_look = {}
 
 	for _, v in pairs( ents.FindByClass("scookp_cooking_pot") ) do
 
 		local vteam = v:Team()
-		local is_own_team = plyTeam == vteam
-		local ply_distance_from_cooking_pot = ply:GetPos():Distance(v:GetPos())
 
-		if (v == self:EntityLookedAt()
-		or ply_distance_from_cooking_pot < self.ConvDistance) --TODO: Remove this if we can get a cooking pot with GM:EntityLookedAt()
-		and is_own_team
-		then
+		if not cooking_pots_halos[vteam] then
+			cooking_pots_halos[vteam] = {}
+		end
 
-			table.insert(cooking_pots_close, v)
+		if v == self:EntityLookedAt() and plyTeam == vteam then
+
+			table.insert(cooking_pots_halos_look, v)
 
 		else
-
-			if not cooking_pots_halos[vteam] then
-				cooking_pots_halos[vteam] = {}
-			end
 
 			table.insert(cooking_pots_halos[vteam], v)
 
@@ -41,13 +33,33 @@ function GM:CookingPotHalo()
 
 	end
 
-	halo.Add(cooking_pots_close, self:GetTeamColor(ply), 8, 8, 1, true, true)
+	self._cooking_pots_halos = cooking_pots_halos
+	self._cooking_pots_halos_look = cooking_pots_halos_look
 
-	for k, v in pairs(cooking_pots_halos) do
+end
 
-		halo.Add(v, team.GetColor(k), 2, 2, 1, true, plyTeam == k)
+--[[---------------------------------------------------------
+	Name: gamemode:CookingPotHalo()
+	Desc: Renders an halo around every 'cooking pot' entity
+			The color matches the entity's team
+			At range of use the halo is stronger
+-----------------------------------------------------------]]
+function GM:CookingPotHalo()
+
+	if not self._cooking_pots_halos then return end
+
+	local ply = LocalPlayer()
+	local plyTeam = ply:Team()
+
+	for k, v in pairs(self._cooking_pots_halos) do
+
+		halo.Add(v, team.GetColor(k), 2, 2, 1, true, plyTeam == k or plyTeam == TEAM_SPECTATOR)
 
 	end
+
+	if not self._cooking_pots_halos_look then return end
+
+	halo.Add(self._cooking_pots_halos_look, team.GetColor(k), 2, 2, 1, true, true)
 
 end
 

@@ -90,6 +90,8 @@ function GM:Tick()
 
 	self:SoundThink()
 
+	self:CookingPotHaloListThink()
+
 end
 
 local end_remind_sound = Sound("supercookingpanic/effects/time_running_up.wav")
