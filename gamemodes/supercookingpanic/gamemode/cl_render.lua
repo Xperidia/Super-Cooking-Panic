@@ -13,29 +13,39 @@ function GM:CookingPotHalo()
 
 	local ply = LocalPlayer()
 	local plyTeam = ply:Team()
-	local cooking_pots = ents.FindByClass("scookp_cooking_pot")
-	local lots_of_cooking_pots = #cooking_pots > 4
+	local cooking_pots_close = {}
+	local cooking_pots_halos = {}
 
-	for _, v in pairs(cooking_pots) do
+	for _, v in pairs( ents.FindByClass("scookp_cooking_pot") ) do
 
-		local is_own_team = plyTeam == v:Team()
+		local vteam = v:Team()
+		local is_own_team = plyTeam == vteam
 		local ply_distance_from_cooking_pot = ply:GetPos():Distance(v:GetPos())
 
-		if not lots_of_cooking_pots or is_own_team then
+		if (v == self:EntityLookedAt()
+		or ply_distance_from_cooking_pot < self.ConvDistance) --TODO: Remove this if we can get a cooking pot with GM:EntityLookedAt()
+		and is_own_team
+		then
 
-			if v == self:EntityLookedAt()
-			or ply_distance_from_cooking_pot < self.ConvDistance --TODO: Remove this if we can get a cooking pot with GM:EntityLookedAt()
-			then
+			table.insert(cooking_pots_close, v)
 
-				halo.Add({v}, v:GetTeamColor(), 6, 6, 1, true, is_own_team)
+		else
 
-			else
-
-				halo.Add({v}, v:GetTeamColor(), 2, 2, 1, true, is_own_team)
-
+			if not cooking_pots_halos[vteam] then
+				cooking_pots_halos[vteam] = {}
 			end
 
+			table.insert(cooking_pots_halos[vteam], v)
+
 		end
+
+	end
+
+	halo.Add(cooking_pots_close, self:GetTeamColor(ply), 8, 8, 1, true, true)
+
+	for k, v in pairs(cooking_pots_halos) do
+
+		halo.Add(v, team.GetColor(k), 2, 2, 1, true, plyTeam == k)
 
 	end
 
