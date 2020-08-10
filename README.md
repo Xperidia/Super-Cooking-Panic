@@ -1,8 +1,8 @@
 # Super Cooking Panic (Garry's Mod Gamemode)
 
-A team based gamemode where you collect ingredients and put them in the cooking pot in order to get points.
+The gamemode where you collect ingredients (all the stuff you can grab) for your team's cooking pot and score the most points.
 
-**Please note that this gamemode is in development! Expect missing features!**
+**Please note that this gamemode is in development! Expect missing features, bugs and issues.**
 
 This gamemode was made during the [GmodStore Gamemode Competition 2020](https://www.gmodstore.com/community/threads/7507).
 
