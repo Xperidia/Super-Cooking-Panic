@@ -53,7 +53,6 @@ function GM:AddTeam(name, color)
 		color = color,
 	})
 	team.SetUp(#self.team_list, name, color)
-	team.SetSpawnPoint(#self.team_list, "info_player_start")
 	team.SetClass(#self.team_list, {"player_cook"})
 end
 
@@ -64,7 +63,6 @@ end
 function GM:CreateTeams()
 	for k, v in pairs(self.team_list) do
 		team.SetUp(k, v.name, v.color)
-		team.SetSpawnPoint(k, "info_player_start")
 		team.SetClass(k, {"player_cook"})
 	end
 	team.SetUp(TEAM_INGREDIENT, "#scookp_ingredient", Color(255, 255, 255), false)
