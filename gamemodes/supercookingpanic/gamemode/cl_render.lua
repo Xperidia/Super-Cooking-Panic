@@ -9,7 +9,11 @@
 -----------------------------------------------------------]]
 function GM:CookingPotHaloListThink()
 
-	local plyTeam = LocalPlayer():Team()
+	local ply = LocalPlayer()
+
+	if not IsValid(ply) then return end
+
+	local plyTeam = ply:Team()
 	local cooking_pots_halos = {}
 	local cooking_pots_halos_look = {}
 
