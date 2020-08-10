@@ -18,6 +18,7 @@ This gamemode was made during the [GmodStore Gamemode Competition 2020](https://
 
 # Some useful links
 * [Steam Workshop page](https://steamcommunity.com/sharedfiles/filedetails/?id=2180715133)
+* [FGD file for mappers](gamemodes/supercookingpanic/supercookingpanic.fgd)
 * [Installation on a dedicated server](https://github.com/Xperidia/Super-Cooking-Panic/wiki/Installation-on-a-Dedicated-Server-(official))
 * [Installation from Git](https://github.com/Xperidia/Super-Cooking-Panic/wiki/Installation-from-Git) (for developers)
 
