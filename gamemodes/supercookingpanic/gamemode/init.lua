@@ -29,6 +29,8 @@ function GM:Initialize()
 
 	self:SharedInitialize()
 
+	self:SetAutoLoadingScreen()
+
 end
 
 --[[---------------------------------------------------------
@@ -54,6 +56,9 @@ end
 	Desc: Called when the Lua system is about to shut down
 -----------------------------------------------------------]]
 function GM:ShutDown()
+
+	self:RemoveAutoLoadingScreen()
+
 end
 
 --[[---------------------------------------------------------

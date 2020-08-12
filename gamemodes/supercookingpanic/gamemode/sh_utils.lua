@@ -127,3 +127,34 @@ function GM:GetConvPlayerTrace(ply)
 	return util.TraceLine(trace)
 
 end
+
+local gm_ls = "https://assets.xperidia.com/garrysmod/loading.html#auto-scookp"
+
+--[[----------------------------------------------------------------------------
+	Name: GM:SetAutoLoadingScreen()
+	Desc: Set the Xperidia's loading screen if no other loading screen is set.
+			It shows more information than the current default of Garry's Mod.
+------------------------------------------------------------------------------]]
+function GM:SetAutoLoadingScreen()
+
+	local cur_ls = GetConVar("sv_loadingurl"):GetString()
+
+	if cur_ls ~= "" then return end
+
+	RunConsoleCommand("sv_loadingurl", gm_ls)
+
+end
+
+--[[---------------------------------------------------------
+	Name: GM:RemoveAutoLoadingScreen()
+	Desc: Put back the default Garry's Mod loading screen.
+-----------------------------------------------------------]]
+function GM:RemoveAutoLoadingScreen()
+
+	if GetConVar("sv_loadingurl"):GetString() == gm_ls then
+
+		RunConsoleCommand("sv_loadingurl", "")
+
+	end
+
+end
