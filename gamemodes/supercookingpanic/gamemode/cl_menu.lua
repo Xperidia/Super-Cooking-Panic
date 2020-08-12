@@ -193,7 +193,9 @@ function GM:Menu()
 	welcome_txt:InsertColorChange(16, 16, 16, 255)
 	welcome_txt:AppendText(self:GetPhrase("#scookp_menu_intro"))
 
-	if LocalPlayer():Team() == TEAM_UNASSIGNED then
+	local team = LocalPlayer():Team()
+
+	if team == TEAM_UNASSIGNED or team == TEAM_CONNECTING then
 
 		frame.joinBtn = vgui.Create("DButton", frame)
 		frame.joinBtn:SetText("#scookp_menu_join_game")
