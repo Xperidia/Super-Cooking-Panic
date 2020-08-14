@@ -1,4 +1,4 @@
-# Super Cooking Panic (Garry's Mod Gamemode)
+# ![Super Cooking Panic (Garry's Mod Gamemode)](gamemodes/supercookingpanic/logo.svg)
 
 The gamemode where you collect ingredients (all the stuff you can grab) for your team's cooking pot and score the most points.
 
