@@ -1,6 +1,10 @@
 # ![Super Cooking Panic (Garry's Mod Gamemode)](gamemodes/supercookingpanic/logo.svg)
 
-The gamemode where you collect ingredients (all the stuff you can grab) for your team's cooking pot and score the most points.
+The gamemode where you where you play as the best cook... By collecting all the props and stuffing them into your cooking pot.
+
+Super Cooking Panic (or SCookP, because for anti-breaching reasons we can't make shorter), is a team based gamemode where 2 teams of cooks fight for the best dish in all the gmod world. Fight your way by cooperating with your friends and score the highest possible by using bonus prop and multiplicator and stop the other team by changing the cooking pot location or, even, use them as prop with canibalism power up (or your friend, a friendly food is still food) !
+
+The cherry on the cake ? This gamemode works on any map ! the cooking pot appears on player spawn points so you can load any map with a ton of props and wreck your friend anywhere ! (PropHunt maps are the best for that gamemode).
 
 **Please note that this gamemode is in development! Expect missing features, bugs and issues.**
 
