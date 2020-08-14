@@ -10,6 +10,7 @@ GM.PowerUPs = {
 		key = "cannibalism",
 		target = "player",
 		icon = Material("supercookingpanic/powerup/cannibalism"),
+		use_sound = nil,
 		func = function(self)
 
 			local trace = GAMEMODE:GetConvPlayerTrace(self)
@@ -34,6 +35,7 @@ GM.PowerUPs = {
 		key = "fake",
 		target = "world",
 		icon = Material("supercookingpanic/powerup/fake"),
+		use_sound = nil,
 		func = function(self)
 
 			if SERVER then
@@ -63,6 +65,7 @@ GM.PowerUPs = {
 		key = "soapy",
 		target = "player",
 		icon = Material("supercookingpanic/powerup/soapy"),
+		use_sound = nil,
 		think = function(self)
 		end,
 	},]]
@@ -70,6 +73,7 @@ GM.PowerUPs = {
 		key = "spicy",
 		target = "none",
 		icon = Material("supercookingpanic/powerup/spicy"),
+		use_sound = nil,
 		think = function(self)
 		end,
 	},]]
@@ -77,10 +81,11 @@ GM.PowerUPs = {
 		key = "respawn_pot",
 		target = "none",
 		icon = Material("supercookingpanic/powerup/respawn_pot"),
+		use_sound = nil,
 		func = function(self)
 
 			if SERVER then
-				GAMEMODE.RemoveCookingPots()
+				GAMEMODE:RemoveCookingPots()
 				GAMEMODE:SpawnCookingPots()
 			end
 
