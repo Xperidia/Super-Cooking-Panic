@@ -7,6 +7,8 @@ include("sh_powerups.lua")
 
 AddCSLuaFile("cl_powerups.lua")
 
+util.AddNetworkString("scookp_PlayerUsedPowerUP")
+
 function GM:CreatePowerUP(arg, powerup_id, respawn)
 
 	local PowerUP = ents.Create("scookp_powerup")
@@ -83,3 +85,16 @@ concommand.Add("scookp_powerup_drop", function(ply, cmd, args)
 		ply:DropPowerUP()
 	end
 end, nil, "Drop a power-up", FCVAR_CLIENTCMD_CAN_EXECUTE)
+
+function GM:PlayerUsedPowerUP(ply, powerup_id)
+
+	local powerup = self.PowerUPs[powerup_id]
+
+	if not powerup or not powerup.notify then return end
+
+	net.Start("scookp_PlayerUsedPowerUP")
+		net.WriteEntity(ply)
+		net.WriteUInt(powerup_id, 4)
+	net.Broadcast()
+
+end

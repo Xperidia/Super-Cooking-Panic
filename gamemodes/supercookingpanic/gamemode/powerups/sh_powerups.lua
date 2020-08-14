@@ -11,6 +11,8 @@ GM.PowerUPs = {
 		target = "player",
 		icon = Material("supercookingpanic/powerup/cannibalism"),
 		use_sound = nil,
+		notify = false,
+		ent_class = "scookp_arms",
 		func = function(self)
 
 			local trace = GAMEMODE:GetConvPlayerTrace(self)
@@ -36,6 +38,8 @@ GM.PowerUPs = {
 		target = "world",
 		icon = Material("supercookingpanic/powerup/fake"),
 		use_sound = nil,
+		notify = false,
+		ent_class = "scookp_trap",
 		func = function(self)
 
 			if SERVER then
@@ -51,6 +55,8 @@ GM.PowerUPs = {
 		target = "none",
 		icon = Material("supercookingpanic/powerup/reroll"),
 		use_sound = "scookp_reroll_bonus_ingredient",
+		notify = true,
+		ent_class = nil,
 		func = function(self)
 
 			if SERVER then
@@ -66,6 +72,8 @@ GM.PowerUPs = {
 		target = "player",
 		icon = Material("supercookingpanic/powerup/soapy"),
 		use_sound = nil,
+		notify = true,
+		ent_class = nil,
 		think = function(self)
 		end,
 	},]]
@@ -74,6 +82,8 @@ GM.PowerUPs = {
 		target = "none",
 		icon = Material("supercookingpanic/powerup/spicy"),
 		use_sound = nil,
+		notify = true,
+		ent_class = nil,
 		think = function(self)
 		end,
 	},]]
@@ -82,6 +92,8 @@ GM.PowerUPs = {
 		target = "none",
 		icon = Material("supercookingpanic/powerup/respawn_pot"),
 		use_sound = nil,
+		notify = true,
+		ent_class = nil,
 		func = function(self)
 
 			if SERVER then
@@ -114,27 +126,33 @@ function GM.PlayerMeta:UsePowerUP()
 
 	if powerup_id and GAMEMODE.PowerUPs[powerup_id] then
 
-		if GAMEMODE.PowerUPs[powerup_id].func then
+		local powerup = GAMEMODE.PowerUPs[powerup_id]
 
-			result = GAMEMODE.PowerUPs[powerup_id].func(self)
+		if powerup.func then
+
+			result = powerup.func(self)
 
 		end
 
 		if SERVER and result then
 
-			GAMEMODE:DebugLog(self:GetName() .. " has used power-up " .. powerup_id)
+			GAMEMODE:DebugLog(self:GetName() .. " has used power-up " .. (powerup.key or powerup_id))
 
 			self:SetPowerUP(0)
 
-			self:EmitSound(GAMEMODE.PowerUPs[powerup_id].use_sound or "scookp_power_up_use")
+			self:EmitSound(powerup.use_sound or "scookp_power_up_use")
+
+			GAMEMODE:PlayerUsedPowerUP(self, powerup_id)
 
 		elseif SERVER and result == nil then
 
-			GAMEMODE:Log(self:GetName() .. " has tried to use power-up " .. powerup_id .. " but no result was found!")
+			GAMEMODE:Log(self:GetName() .. " has tried to use power-up " .. (powerup.key or powerup_id) .. " but no result was found!")
 
 			self:SetPowerUP(0)
 
-			self:EmitSound(GAMEMODE.PowerUPs[powerup_id].use_sound or "scookp_power_up_use")
+			self:EmitSound(powerup.use_sound or "scookp_power_up_use")
+
+			GAMEMODE:PlayerUsedPowerUP(self, powerup_id)
 
 		end
 

@@ -26,8 +26,7 @@ function GM:Initialize()
 
 	self:SetupMusics()
 
-	killicon.Add("scookp_arms", "supercookingpanic/powerup/cannibalism", color_white)
-	killicon.Add("scookp_trap", "supercookingpanic/powerup/fake", color_white)
+	self:SetupPowerUPkillicon()
 
 end
 
