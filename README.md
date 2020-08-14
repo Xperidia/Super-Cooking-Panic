@@ -9,8 +9,9 @@ This gamemode was made during the [GmodStore Gamemode Competition 2020](https://
 # Credits
 * Artworks:
 	* HUD: [Marcoleric](https://github.com/Marcoleric)
-	* Logo/Icon: [Marcoleric](https://github.com/Marcoleric)
+	* Icon: [Marcoleric](https://github.com/Marcoleric)
 	* Power-UPs: [Pho3](https://github.com/TheRainbowPhoenix)
+	* Title logo: [Pho3](https://github.com/TheRainbowPhoenix)
 * Base gamemode idea: [Marcoleric](https://github.com/Marcoleric)
 * Code: [R1nlz3r](https://github.com/R1nlz3r) and [VictorienXP](https://github.com/VictorienXP)
 * Music: [R1nlz3r](https://github.com/R1nlz3r)
