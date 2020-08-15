@@ -183,3 +183,11 @@ end
 function GM:GetPowerUPName(key)
 	return self:GetPhrase("$scookp_power_up_" .. key)
 end
+
+--[[---------------------------------------------------------
+	Name: Entity:IsPowerUP()
+	Desc: Returns true if the entity is a Power-UP.
+-----------------------------------------------------------]]
+function GM.EntityMeta:IsPowerUP()
+	return self:GetClass() == "scookp_powerup"
+end
