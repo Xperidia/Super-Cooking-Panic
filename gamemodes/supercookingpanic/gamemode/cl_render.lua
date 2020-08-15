@@ -121,29 +121,61 @@ end
 	Name: gamemode:DrawCookingPotTips()
 	Desc: Draw the tip for the cooking pot
 -----------------------------------------------------------]]
-function GM:DrawCookingPotTips()
+function GM:DrawCookingPotTips(ply)
 
-	local ply = LocalPlayer()
+	if not ply:IsHoldingIngredient() then return end
 
-	if not GAMEMODE:ConVarGetBool("hide_tips")
-	and ply:IsValidPlayingState()
-	and ply:IsHoldingIngredient()
-	and GAMEMODE:IsValidGamerMoment() then
+	local text = self:FormatLangPhrase( "$scookp_tip_cooking_pot",
+										self:CheckBind("+attack") )
 
-		local text = GAMEMODE:FormatLangPhrase( "$scookp_tip_cooking_pot",
-						GAMEMODE:CheckBind("+attack"))
+	for _, v in pairs(ents.FindByClass("scookp_cooking_pot")) do
 
-		for _, v in pairs(ents.FindByClass("scookp_cooking_pot")) do
+		if IsValid(v) and v:Team() == ply:Team() then
 
-			if IsValid(v) and v:Team() == ply:Team() then
-
-				v:DrawTip(text, Vector(0, 0, 32))
-
-			end
+			v:DrawTip(text, Vector(0, 0, 32))
 
 		end
 
 	end
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:DrawGrabTips()
+	Desc: Grab ingredient tips
+-----------------------------------------------------------]]
+function GM:DrawGrabTips(ply)
+
+	if ply:IsHoldingIngredient() then return end
+
+	local ent = self:EntityLookedAt()
+
+	if not IsValid(ent) or not ent:IsIngredient() then return end
+
+	local text = self:FormatLangPhrase("$scookp_tip_press_x_to_grab",
+										self:CheckBind("+attack") )
+
+	ent:DrawTip(text, Vector(0, 0, 32))
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:DrawTips()
+	Desc: Called to draw the tips
+-----------------------------------------------------------]]
+function GM:DrawTips()
+
+	if self:ConVarGetBool("hide_tips") then return end
+
+	if not self:IsValidGamerMoment() then return end
+
+	local ply = LocalPlayer()
+
+	if not ply:IsValidPlayingState() then return end
+
+	self:DrawCookingPotTips(ply)
+
+	--self:DrawGrabTips(ply)
 
 end
 
@@ -171,7 +203,14 @@ end
 	Desc: Called after all translucent entities are drawn
 -----------------------------------------------------------]]
 function GM:PostDrawTranslucentRenderables(bDrawingDepth, bDrawingSkybox)
+end
 
-	self:DrawCookingPotTips()
+--[[---------------------------------------------------------
+	Name: gamemode:PreDrawEffects()
+	Desc: Called just after GM:PreDrawViewModel
+-----------------------------------------------------------]]
+function GM:PreDrawEffects()
+
+	self:DrawTips()
 
 end
