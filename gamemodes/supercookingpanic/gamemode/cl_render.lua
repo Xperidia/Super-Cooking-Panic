@@ -144,18 +144,33 @@ end
 	Name: gamemode:DrawGrabTips()
 	Desc: Grab ingredient tips
 -----------------------------------------------------------]]
-function GM:DrawGrabTips(ply)
+function GM:DrawGrabTips(ply, ent)
 
 	if ply:IsHoldingIngredient() then return end
 
-	local ent = self:EntityLookedAt()
-
-	if not IsValid(ent) or not ent:IsIngredient() then return end
+	if not ent:IsIngredient() then return end
 
 	local text = self:FormatLangPhrase("$scookp_tip_press_x_to_grab",
 										self:CheckBind("+attack") )
 
 	ent:DrawTip(text, Vector(0, 0, 32))
+
+end
+
+--[[---------------------------------------------------------
+	Name: gamemode:DrawPowerUPgrabTips()
+	Desc: Draw the Power-UP grab tips
+-----------------------------------------------------------]]
+function GM:DrawPowerUPgrabTips(ply, ent)
+
+	if ply:HasPowerUP() then return end
+
+	if not ent:IsPowerUP() then return end
+
+	local text = self:FormatLangPhrase( "$scookp_tip_press_x_to_grab",
+										self:CheckBind("+use") )
+
+	ent:DrawTip(text)
 
 end
 
@@ -173,9 +188,15 @@ function GM:DrawTips()
 
 	if not ply:IsValidPlayingState() then return end
 
+	local ent = self:EntityLookedAt()
+
 	self:DrawCookingPotTips(ply)
 
-	--self:DrawGrabTips(ply)
+	if not IsValid(ent) then return end
+
+	--self:DrawGrabTips(ply, ent)
+
+	self:DrawPowerUPgrabTips(ply, ent)
 
 end
 
