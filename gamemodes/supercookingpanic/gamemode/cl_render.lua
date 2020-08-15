@@ -107,7 +107,7 @@ function GM.EntityMeta:DrawTip(str, offset)
 
 	cam.Start3D2D(pos, angle, 0.1)
 
-		local font = GAMEMODE:GetScaledFont("text")
+		local font = "scookp_3D2D"
 
 		surface.SetFont(font)
 
