@@ -28,6 +28,8 @@ function GM:Initialize()
 
 	self:SetupPowerUPkillicon()
 
+	self:CreateFonts()
+
 end
 
 --[[---------------------------------------------------------

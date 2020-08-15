@@ -113,6 +113,24 @@ function GM:CreateScaledFonts()
 
 end
 
+--[[----------------------------------------------------------------------------
+	Name: GM:CreateFonts()
+	Desc:	Creates fonts and scaled fonts.
+------------------------------------------------------------------------------]]
+function GM:CreateFonts()
+
+	self:CreateScaledFonts()
+
+	surface.CreateFont("scookp_3D2D", {
+		font = "Verdana",
+		size = 40,
+		antialias = false,
+		shadow = true,
+	})
+
+
+end
+
 function GM:OnScreenSizeChanged(oldWidth, oldHeight)
 
 	self:CreateScaledFonts()
