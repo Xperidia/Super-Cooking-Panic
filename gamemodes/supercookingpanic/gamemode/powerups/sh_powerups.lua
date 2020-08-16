@@ -91,7 +91,7 @@ GM.PowerUPs = {
 		key = "respawn_pot",
 		target = "none",
 		icon = Material("supercookingpanic/powerup/respawn_pot"),
-		use_sound = nil,
+		use_sound = false,
 		notify = true,
 		ent_class = nil,
 		func = function(self)
@@ -138,19 +138,11 @@ function GM.PlayerMeta:UsePowerUP()
 
 			GAMEMODE:DebugLog(self:GetName() .. " has used power-up " .. (powerup.key or powerup_id))
 
-			self:SetPowerUP(0)
-
-			self:EmitSound(powerup.use_sound or "scookp_power_up_use")
-
 			GAMEMODE:PlayerUsedPowerUP(self, powerup_id)
 
 		elseif SERVER and result == nil then
 
 			GAMEMODE:Log(self:GetName() .. " has tried to use power-up " .. (powerup.key or powerup_id) .. " but no result was found!")
-
-			self:SetPowerUP(0)
-
-			self:EmitSound(powerup.use_sound or "scookp_power_up_use")
 
 			GAMEMODE:PlayerUsedPowerUP(self, powerup_id)
 

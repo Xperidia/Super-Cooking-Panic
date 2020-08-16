@@ -90,6 +90,18 @@ function GM:PlayerUsedPowerUP(ply, powerup_id)
 
 	local powerup = self.PowerUPs[powerup_id]
 
+	ply:SetPowerUP(0)
+
+	if powerup.use_sound and isstring(powerup.use_sound) then
+
+		ply:EmitSound(powerup.use_sound)
+
+	elseif powerup.use_sound == nil then
+
+		ply:EmitSound("scookp_power_up_use")
+
+	end
+
 	if not powerup or not powerup.notify then return end
 
 	net.Start("scookp_PlayerUsedPowerUP")
