@@ -128,7 +128,6 @@ function GM:CreateFonts()
 		shadow = true,
 	})
 
-
 end
 
 function GM:OnScreenSizeChanged(oldWidth, oldHeight)
