@@ -29,6 +29,8 @@ function ENT:Initialize()
 
 		self:SetUseType(SIMPLE_USE)
 
+		self:EmitSound("scookp_cooking_pot_spawn")
+
 	end
 
 	if CLIENT then

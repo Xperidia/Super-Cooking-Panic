@@ -128,4 +128,11 @@ function GM:SharedInitialize()
 		sound = "supercookingpanic/effects/reroll_super_ingredient.wav"
 	})
 
+	sound.Add({
+		name = "scookp_cooking_pot_spawn",
+		channel = CHAN_AUTO,
+		level = 120,
+		sound = "supercookingpanic/effects/cooking_pot_spawn.wav"
+	})
+
 end
