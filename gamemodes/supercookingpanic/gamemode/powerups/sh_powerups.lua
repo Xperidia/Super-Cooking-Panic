@@ -109,9 +109,9 @@ GM.PowerUPs = {
 
 function GM.PlayerMeta:HasPowerUP()
 
-	if not self:IsValidPlayingState() then
-		return false
-	end
+	if not self.GetPowerUP then return false end
+
+	if not self:IsValidPlayingState() then return false end
 
 	return self:GetPowerUP() > 0
 

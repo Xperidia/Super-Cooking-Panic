@@ -181,6 +181,8 @@ end
 -----------------------------------------------------------]]
 function GM.PlayerMeta:DropHeldIngredient(forward)
 
+	if not self.GetHeldIngredient then return nil end
+
 	local ingredient = self:GetHeldIngredient()
 
 	if IsValid(ingredient) then
