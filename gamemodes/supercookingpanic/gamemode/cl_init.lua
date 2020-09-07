@@ -20,6 +20,10 @@ include("cl_menu.lua")
 include("cl_pickteam.lua")
 include("cl_scoreboard.lua")
 
+--[[---------------------------------------------------------
+	Name: gamemode:Initialize()
+	Desc: Called immediately after starting the gamemode
+-----------------------------------------------------------]]
 function GM:Initialize()
 
 	self:SharedInitialize()
