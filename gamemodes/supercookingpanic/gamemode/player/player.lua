@@ -15,7 +15,7 @@ function GM:PlayerInitialSpawn(ply, transiton)
 	if not ply:IsBot() then
 		ply:SetTeam(TEAM_UNASSIGNED)
 	else
-		ply:SetTeam(math.random(1, #self.team_list))
+		self:AutoTeam(ply)
 	end
 
 	if not game.IsDedicated() and ply:IsListenServerHost() then
