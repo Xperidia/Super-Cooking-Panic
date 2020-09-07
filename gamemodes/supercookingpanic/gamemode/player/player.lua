@@ -14,7 +14,6 @@ function GM:PlayerInitialSpawn(ply, transiton)
 
 	if not ply:IsBot() then
 		ply:SetTeam(TEAM_UNASSIGNED)
-		ply:ConCommand("scookp_cl_menu")
 	else
 		ply:SetTeam(math.random(1, #self.team_list))
 	end

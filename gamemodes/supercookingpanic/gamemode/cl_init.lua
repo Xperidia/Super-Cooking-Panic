@@ -36,6 +36,17 @@ function GM:Initialize()
 
 end
 
+--[[----------------------------------------------------------------------------
+	Name: gamemode:InitPostEntity()
+	Desc:	Called as soon as all entities have been spawned/initialized.
+			Starting from this hook LocalPlayer will return valid object.
+------------------------------------------------------------------------------]]
+function GM:InitPostEntity()
+
+	self:Menu()
+
+end
+
 --[[---------------------------------------------------------
 	Name: gamemode:Think()
 	Desc: Called every frame
