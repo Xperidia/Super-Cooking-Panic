@@ -1,4 +1,10 @@
 # ![Super Cooking Panic (Garry's Mod Gamemode)](gamemodes/supercookingpanic/logo.svg)
+[![GitHub issues](https://img.shields.io/github/issues/Xperidia/Super-Cooking-Panic)](https://github.com/Xperidia/Super-Cooking-Panic/issues)
+[![GitHub forks](https://img.shields.io/github/forks/Xperidia/Super-Cooking-Panic)](https://github.com/Xperidia/Super-Cooking-Panic/network)
+[![GitHub stars](https://img.shields.io/github/stars/Xperidia/Super-Cooking-Panic)](https://github.com/Xperidia/Super-Cooking-Panic/stargazers)
+[![GitHub activity](https://img.shields.io/github/commit-activity/m/Xperidia/Super-Cooking-Panic)](https://github.com/Xperidia/Super-Cooking-Panic/pulse)
+[![License](https://img.shields.io/github/license/Xperidia/Super-Cooking-Panic)](LICENSE)
+[![Discord](https://img.shields.io/discord/722426501836046456?logo=discord)](https://discord.com/invite/bedrnPP)
 
 The gamemode where you where you play as the best cook... By collecting all the props and stuffing them into your cooking pot.
 
@@ -8,7 +14,7 @@ The cherry on the cake? This gamemode works on any map! The cooking pot appears 
 
 **Please note that this gamemode is in development! Expect missing features, bugs and issues.**
 
-This gamemode was made during the [GmodStore Gamemode Competition 2020](https://www.gmodstore.com/community/threads/7507).
+This gamemode got first place on the [GmodStore Gamemode Competition 2020](https://www.gmodstore.com/community/threads/7507).
 
 # Credits
 * Artworks:
@@ -26,5 +32,3 @@ This gamemode was made during the [GmodStore Gamemode Competition 2020](https://
 * [FGD file for mappers](gamemodes/supercookingpanic/supercookingpanic.fgd)
 * [Installation on a dedicated server](https://github.com/Xperidia/Super-Cooking-Panic/wiki/Installation-on-a-Dedicated-Server-(official))
 * [Installation from Git](https://github.com/Xperidia/Super-Cooking-Panic/wiki/Installation-from-Git) (for developers)
-
-[![Super Cooking Panic Discord server](https://discord.com/api/guilds/722426501836046456/widget.png?style=banner3)](https://discord.com/invite/bedrnPP "Join us on Discord")
