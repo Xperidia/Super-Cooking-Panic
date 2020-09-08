@@ -4,15 +4,13 @@
 [![GitHub Release Date](https://img.shields.io/github/release-date/Xperidia/Super-Cooking-Panic?logo=github)](https://github.com/Xperidia/Super-Cooking-Panic/releases/latest)
 ![GitHub commits since latest release (by SemVer)](https://img.shields.io/github/commits-since/Xperidia/Super-Cooking-Panic/latest/dev?sort=semver&logo=github)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Xperidia/Super-Cooking-Panic?logo=github)
-[![GitHub activity](https://img.shields.io/github/commit-activity/m/Xperidia/Super-Cooking-Panic?logo=github)](https://github.com/Xperidia/Super-Cooking-Panic/pulse)
 [![GitHub contributors](https://img.shields.io/github/contributors/Xperidia/Super-Cooking-Panic?logo=github)](https://github.com/Xperidia/Super-Cooking-Panic/graphs/contributors)
 
+[![Steam Update Date](https://img.shields.io/steam/update-date/2180715133?logo=steam)](https://steamcommunity.com/sharedfiles/filedetails/?id=2180715133)
 [![Steam Views](https://img.shields.io/steam/views/2180715133?logo=steam)](https://steamcommunity.com/sharedfiles/filedetails/?id=2180715133)
 [![Steam Subscriptions](https://img.shields.io/steam/subscriptions/2180715133?logo=steam)](https://steamcommunity.com/sharedfiles/filedetails/?id=2180715133)
 [![Steam Downloads](https://img.shields.io/steam/downloads/2180715133?logo=steam)](https://steamcommunity.com/sharedfiles/filedetails/?id=2180715133)
 [![Steam Favorites](https://img.shields.io/steam/favorites/2180715133?logo=steam)](https://steamcommunity.com/sharedfiles/filedetails/?id=2180715133)
-[![Steam Release Date](https://img.shields.io/steam/release-date/2180715133?logo=steam)](https://steamcommunity.com/sharedfiles/filedetails/?id=2180715133)
-[![Steam Update Date](https://img.shields.io/steam/update-date/2180715133?logo=steam)](https://steamcommunity.com/sharedfiles/filedetails/?id=2180715133)
 [![Steam File Size](https://img.shields.io/steam/size/2180715133?logo=steam)](https://steamcommunity.com/sharedfiles/filedetails/?id=2180715133)
 
 [![Discord](https://img.shields.io/discord/722426501836046456?logo=discord)](https://discord.com/invite/bedrnPP)
