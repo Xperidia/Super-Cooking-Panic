@@ -1,0 +1,14 @@
+name: run-glualint
+on:
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]
+jobs:
+  run-glualint:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: wget https://github.com/FPtje/GLuaFixer/releases/download/1.17.2/glualint-1.17.2-linux-stripped.zip
+      - run: unzip glualint-*.zip
+      - run: ./glualint --output-format github lint .
