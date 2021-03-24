@@ -28,6 +28,7 @@
 		"CODEOWNERS",
 		"LICENSE",
 		"glualint.json",
+		".editorconfig",
 		"gamemodes/*/content/*",
 		"maps/scookp_dev.*"
 	]
