@@ -3,6 +3,7 @@
 	"base"		"base"
 	"title"		"Super Cooking Panic"
 	"maps"		"^scookp_"
+	"category"	"pvp"
 	"menusystem"	"1"
 	"workshopid"	"2180715133"
 }
