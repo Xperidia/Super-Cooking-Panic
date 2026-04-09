@@ -27,7 +27,7 @@
 		"Thumbs.db",
 		"CODEOWNERS",
 		"LICENSE",
-		"glualint.json",
+		".glualint.json",
 		".editorconfig",
 		"gamemodes/*/content/*",
 		"maps/scookp_dev.*"
