@@ -114,14 +114,6 @@ end
 -----------------------------------------------------------]]
 function GM:PlayerShouldTakeDamage(ply, attacker)
 
-	if ply.GoneToRagdoll then
-		return true
-	elseif not GetConVar("mp_friendlyfire"):GetBool()
-	and attacker:IsPlayer() and ply:Team() == attacker:Team()
-	and ply ~= attacker then
-		return false
-	end
-
 	return true
 
 end
