@@ -23,7 +23,7 @@ The cherry on the cake? This gamemode works on any map! The cooking pot appears 
 
 **Please note that this gamemode is unfinished! Expect missing features, bugs and issues.**
 
-This gamemode got first place on the [GmodStore Gamemode Competition 2020](https://www.gmodstore.com/community/threads/7507).
+This gamemode got first place on the [GmodStore Gamemode Competition 2020](https://www.gmodstore.com/community/threads/RhG4gAgtReiTiYmr_yX4gQ/page/3#post-946aa3bf-cc26-4b17-b3df-9be9c4778230).
 
 ## Credits
 
