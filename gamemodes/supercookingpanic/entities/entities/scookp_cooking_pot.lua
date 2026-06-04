@@ -31,6 +31,8 @@ function ENT:Initialize()
 
 		self:EmitSound("scookp_cooking_pot_spawn")
 
+		self.last_absorb = CurTime()
+
 	end
 
 	if CLIENT then
@@ -88,6 +90,8 @@ function ENT:AbsorbEnt(ent)
 
 	ent:Remove() --TODO: maybe do some anim
 
+	self.last_absorb = CurTime()
+
 end
 
 --[[---------------------------------------------------------
@@ -105,6 +109,10 @@ function ENT:StartTouch(ent)
 
 		self:AbsorbEnt(ent:DropHeldIngredient())
 
+	elseif ent:IsPlayer() then
+
+		self.last_absorb = CurTime()
+
 	end
 
 end
@@ -120,6 +128,10 @@ function ENT:Use(activator, caller, useType, value)
 
 		self:AbsorbEnt(activator:DropHeldIngredient())
 
+	elseif activator:IsPlayer() then
+
+		self.last_absorb = CurTime()
+
 	end
 
 end
@@ -132,6 +144,13 @@ function ENT:Draw()
 
 	self:DrawModel()
 
+end
+
+function ENT:Think()
+	if CLIENT then return end
+	if self.last_absorb + 20 < CurTime() then
+		self:RespawnPot()
+	end
 end
 
 --[[---------------------------------------------------------
@@ -152,4 +171,9 @@ function ENT:GetTeamColor()
 
 	return team.GetColor(self:GetTeam())
 
+end
+
+function ENT:RespawnPot()
+	GAMEMODE:SpawnCookingPot(self:GetTeam())
+	self:Remove()
 end
